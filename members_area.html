@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nepean Allotment Garden Association</title>
+   
+    <script>
+        /*
+
+        // define the callAPI function that takes a first name and last name as parameters
+        var addPlot = (plotNumber,plotType)=>{
+            
+            var myHeaders = new Headers(); // instantiate a headers object
+            myHeaders.append("Content-Type", "application/json"); // add content type header to object
+            var raw = JSON.stringify({"plotNumber":plotNumber,"plotType":plotType}); // using built in JSON utility package turn object to string and store in a variable
+            
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+             s
+            // make API call with parameters and use promises to get response
+            fetch("https://5r6o4ok2o1.execute-api.us-east-2.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+
+        }
+        
+
+
+
+
+         /*
+        // Defining async function
+        async function getPlots() {
+            
+           url ="https://bdjjjfz2u7.execute-api.us-east-2.amazonaws.com/dev/DynamoReadWrite?TableName=plots";
+
+           
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var TableName= "plots";
+            var raw = JSON.stringify({"TableName":TableName});
+            
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch(url)
+            .then(response => response.json())
+            .then(commits => alert(commits));
+            
+            
+            let response = await fetch(url);
+            
+
+            if (response.ok) { // if HTTP-status is 200-299
+            // get the response body (the method explained below)
+            let json = await response.json();
+            } else {
+            alert("HTTP-Error: " + response.status);
+            }
+        
+    
+              
+        }
+
+       
+        getPlots();
+        // Function to define innerHTML for HTML table
+        function show(data) {
+
+            
+            let tab =
+                `<tr>
+                <th>Plot ID</th>
+                <th>Plot Number</th>
+                <th>Plot Type</th>
+                <th>LastUpdate</th>
+                </tr>`;
+            
+            // Loop to access all rows
+            for (let r of data.list) {
+                tab += `<tr>
+            <td>${r.plotId} </td>
+            <td>${r.plotType}</td>	
+            <td>${r.LatestGreetingTime}</td>	
+        </tr>`;
+            }
+            // Setting innerHTML as tab variable
+            document.getElementById("plots").innerHTML = tab;
+        }
+        */
+
+
+
+
+    </script>
+</head>
+<body>
+
+    <h1>Welcome to the NAGA - Nepean Allotment Garden Association </h1>
+    <br>User: {logged_user_email} {admin} {sign out}
+
+    <!-- only show if user is admin-->
+    <h1>Members</h1>
+    <table width="100%" border="1" id="plots">
+        <tr>
+            <th>Member ID</th>
+            <th>Cognito ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Plots</th>
+        </tr>
+        <tr>
+            <th><br><br> </th>
+            <th> </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </table>
+
+    <br><br>
+    <h1>Create account</h1>
+    <form>
+        <label>Email address:</label>
+        <input type="text" id="emailAddress">
+        <button type="button" onclick="()">Add member</button>
+    
+    </form>
+
+    <br><br>
+    <h1>Our plots</h1>
+    <table width="100%" border="1" id="plots">
+        <tr>
+            <th>Plot ID</th>
+            <th>Plot Number</th>
+            <th>Plot Type</th>
+            <th>LastUpdate</th>
+        </tr>
+        <tr>
+            <th><br><br> </th>
+            <th> </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </table>
+
+    <br><br>
+    <h1>Add a plot</h1>
+    <form>
+        <label>Plot number:</label>
+        <input type="text" id="plotNumber">
+        
+        <label>Plot type:</label>
+        <select id="plotType" name="plotType">
+            <option value=""></option>
+            <option value="Annual">Annual</option>
+            <option value="Perennial">Perennial</option>
+            <option value="RaisedBed">Raised Bed</option>
+        </select>
+
+        <button type="button" onclick="addPlot(document.getElementById('plotNumber').value,document.getElementById('plotType').value)">Add plot</button>
+    
+    </form>
+
+
+     
+</body>
+</html>
