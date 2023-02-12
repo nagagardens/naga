@@ -3,7 +3,7 @@
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
-    var signinUrl = '/signin.html';
+    var signinUrl = '/index.html';
 
     var poolData = {
         UserPoolId: _config.cognito.userPoolId,
@@ -121,7 +121,7 @@ var WildRydes = window.WildRydes || {};
         signin(email, password,
             function signinSuccess() {
                 console.log('Successfully Logged In');
-                window.location.href = 'ride.html';
+                window.location.href = 'members.html';
             },
             function signinError(err) {
                 alert(err);
@@ -162,7 +162,7 @@ var WildRydes = window.WildRydes || {};
             function verifySuccess(result) {
                 console.log('call result: ' + result);
                 console.log('Successfully verified');
-                alert('Verification successful. You will now be redirected to the login page.');
+                alert('Verification successful. You will now be redirected to the home page and you can sign in.');
                 window.location.href = signinUrl;
             },
             function verifyError(err) {
