@@ -5,6 +5,16 @@
     <title>Nepean Allotment Garden Association</title>
    
     <script>
+
+        import { Auth } from 'aws-amplify';
+
+        async function signOut() {
+            try {
+                await Auth.signOut();
+            } catch (error) {
+                console.log('error signing out: ', error);
+            }
+        }
         /*
 
         // define the callAPI function that takes a first name and last name as parameters
@@ -108,7 +118,7 @@
 
     <h1>Welcome to the NAGA - Nepean Allotment Garden Association </h1>
     <br>You're logged in! Auth token: <textarea class="authToken"></textarea>
-    <a id="signOut" href="#">Sign out</a>
+    <button  type="button" id="signOut" onclick="signOut()">Sign out</button>
 
     <!-- only show if user is admin-->
     <h1>Members</h1>
