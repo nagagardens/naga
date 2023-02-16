@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!--Cognito JavaScript-->
+    <script src="js/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
+  </head>
+
+  <body>
+
+    <table  width="100%" style="border-spacing:20px; padding:10px; border:1px solid black">
+      <tr> 
+          <td width="300"  style="cursor:pointer;text-align:center;vertical-align: top;" onclick="window.location.href='./index.html'">
+              <img src="img/logo.png" width="120">
+              <h2> Nepean Allotment<br> Garden Association</h2>
+          </td>
+          <td></td>
+        <td width="200" style=" text-align: center">
+
+          <div id='loader'>
+            <img src="img/loader.gif" width="20">
+          </div>
+
+          <div id="sign-out" style="display:none; text-align:center">
+                    
+            <div style="display:inline-block;
+            color:#444;
+            border:1px solid #CCC;
+            background:#DDD;
+            box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+            cursor:pointer;
+            vertical-align:middle;
+            max-width: 100px;
+            padding: 5px;
+            text-align: center;" onclick="window.location.href='./profile.html'"> 
+                <img src="img/profile.png" width="50">
+                <br><span id="profile"></span>
+            </div>
+            <p><a href="#" onclick="signOut();">Sign out</a></p>
+            
+        </div>
+        
+
+        <div>
+          <div id='sign-in' style="display:none">
+          <form>
+            <h2>Sign in</h2>
+            <input type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
+            <input type="password" id="inputPassword"  placeholder="Password" name="password" required>
+            <p><button type="button" onclick="signInButton();">Sign in</button></p>
+          </form>
+      
+          <p><i>Don't have an account? <a href="https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https://example.com">Become a member</a></i></p>
+    
+          <br>
+          <div id='logged-in'>
+            <p></p>
+          </div>
+        </div>
+
+        </td>
+      </tr>
+    </table>
+    
+    <br><br>
+
+    <div id="member_console" style="width:100%; ">
+      <center>
+      <div id="plots" style="padding:10px;padding-top:0px; text-align:left; width:90%">
+        <h3>My Plots</h3>
+        <table width="100%" border="1">
+          <tr>
+            <td>Type</td>
+            <td>Plot ID</td>
+            <td>Auto-renewal</td>
+            <td>Pictures</td>
+            <td>Actions</td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+
+
+        <h4>Get a new plot</h4>
+        <form>
+        Plot type:
+        
+          <select>
+            <option>Select</option>
+            <option>Annual</option>
+            <option>Perennial</option>
+          </select>
+        
+
+
+        Plot number
+        
+          <select>
+            <option>Any</option>
+            <option>A01</option>
+            <option>A02</option>
+            <option></option>
+            <option></option>
+            <option></option>
+          </select>
+        
+        <button type="button" onclick="signInButton();">Add to the waiting list</button>
+      </form>
+
+      <h4>Waiting list</h4>
+      <table width="100%" border="1">
+        <tr>
+          <td>Type</td>
+          <td>Plot ID</td>
+          <td>Waiting since</td>
+          <td>Place in line</td>
+        </tr>
+        <tr>
+          <td><p>Perennial</p></td>
+          <td>Any</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      </div>
+      </center>
+    </div>
+
+    <div id="admin_console" style="width:100%; ">
+      <br><br><hr width:70%>
+      <h3>Admin </h3>
+      <center>
+        
+      <div id="plots" style="padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
+        <h3>Plots</h3>
+        <table width="100%" border="1">
+          <tr>
+            <td>Plot ID</td>
+            <td>Type</td>
+            <td>Occupant</td>
+            <td>Auto-renewal</td>
+            <td>Comments</td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+
+        <h4>Add a plot</h4>
+        <input type="text" id="inputPlotId"  placeholder="Plot ID" required>
+        <input type="text" id="inputType"  placeholder="Plot ID" required>
+        <button type="button" onclick="signInButton();">Add plot</button>
+
+      </div>
+
+      <br><br>
+
+      <div style="padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
+        <h3>Members</h3>
+        <table width="100%" border="1">
+          <tr>
+            <td>Email Address</td>
+            <td>Name</td>
+            <td>Address</td>
+            <td>Actions</td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+
+     <br><br>
+    
+      <div style="padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
+        <h3>Waiting List</h3>
+        <form>
+          <select>
+            <option>All</option>
+            <option>Annual</option>
+            <option>Perennial</option>
+          </select>
+        </form>
+        <p></p>
+        <table width="100%" border="1">
+          <tr>
+            <td>#</td>
+            <td>Email address</td>
+            <td>Type</td>
+            <td>Plot ID</td>
+            <td>Waiting since</td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><p></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+
+      </div>
+      
+      </center>
+
+    </div>
+
+
+  </body>
+  
+  <script>
+    window.onload = function(){
+      const temp_var = getUserAttributes();
+    }
+  </script>
+
+
+
+</html>
