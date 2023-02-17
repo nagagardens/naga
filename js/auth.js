@@ -20,7 +20,7 @@ function register() {
 
   var authenticationData = {
     Username : email,
-    Password : document.getElementById("inputPassword").value,
+    Password : password,
   };
 
   var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
@@ -45,6 +45,9 @@ function register() {
           console.log(err);
           return;
         }
+        
+        add_to_dynamodb(email,first_name);
+        
         window.location.href='./profile.html';
     
       });
@@ -56,6 +59,23 @@ function register() {
   });
     
 }
+
+function add_to_dynamodb (email,first_name){
+  fetch(' https://wqh6v44q2m.execute-api.us-east-1.amazonaws.com/prod', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "email": "gofernando83@gmail.com","first_name":"lfer7" })
+})
+.then(response => response.json())
+.then(response => console.log(JSON.stringify(response)))
+}
+
+
+
+
 function signInButton() {
       
   var data = { 
@@ -114,7 +134,7 @@ async function showUserInfo(email_address) {
   const api_data = await(api_response).json();
   console.log(api_data);
 
-  document.getElementById('member_name').innerHTML =  JSON.parse(api_data['body'])['name'];
+  document.getElementById('member_name').innerHTML =  JSON.parse(api_data['body'])['first_name'];
   document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
   document.getElementById('sign-out').style.display = "block";
   document.getElementById('loader').style.display = "none";
