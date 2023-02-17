@@ -21,12 +21,7 @@
   
           <div>
             <div id='sign-in' style="display:none">
-            <form>
-              <h2>Sign in</h2>
-              <input type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
-              <input type="password" id="inputPassword"  placeholder="Password" name="password" required>
-              <p><button type="button" onclick="signInButton();">Sign in</button></p>
-            </form>
+            
         
             <p><i>Don't have an account? <a href="https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https://example.com">Become a member</a></i></p>
       
@@ -61,15 +56,19 @@
         <br>
         <br>Email:
         <div id='loader' style="display:none"><img src="img/loader.gif" width="20"></div>
-        <p><span id="member_email"></span>&nbsp;&nbsp;&nbsp;/ <span style="font-size:15px"><a href="#" onclick="signOut();">Sign out</a></span><br>
+        <p><span id="member_email"></span>&nbsp;&nbsp;&nbsp;/ <span style="font-size:12px"><a href="#" onclick="signOut();">Sign out</a></span><br>
+        <br> Password:
+        <br><input  id="inputPassword" type="password"  style="padding:10px; margin-top:5px; width:200px">
         <br>
-        <br><button type="button" style="width:180px; padding:10px; margin-top:5px;"  onclick="register(document.getElementById('member_email').innerHTML,document.getElementById('first_name').value,document.getElementById('last_name').value,document.getElementById('street_address').value,document.getElementById('city').value,document.getElementById('province').value,document.getElementById('phone_number').value);">Submit</button>
+        <br><button type="button" style="width:180px; padding:10px; margin-top:5px;"  onclick="register();">Register</button>
         
     </div>
     </center>
 
     <script>
+        
         window.onload = function(){
+            
           const temp_var = getUserAttributes();
         }
       </script>

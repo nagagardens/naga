@@ -1,9 +1,61 @@
 
-function register(email,first_name,last_name,street_address,city,province,phone_number) {
-  alert(email);
+function register() {
+
+  email = document.getElementById('member_email').innerHTML;
+  password = document.getElementById('inputPassword').value;
+  first_name = document.getElementById('first_name').value;
+  last_name = document.getElementById('last_name').value;
+  street_address = document.getElementById('street_address').value;
+  city = document.getElementById('city').value;
+  province = document.getElementById('province').value;
+  phone_number= document.getElementById('phone_number').value
+  
+  var data = { 
+    UserPoolId : _config.cognito.userPoolId,
+    ClientId : _config.cognito.clientId
+  };
+
+  var userPool = new AmazonCognitoIdentity.CognitoUserPool(data);
+  var cognitoUser = userPool.getCurrentUser();
+
+  var authenticationData = {
+    Username : email,
+    Password : document.getElementById("inputPassword").value,
+  };
+
+  var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+  var userPool = new AmazonCognitoIdentity.CognitoUserPool(data);
+  
+  var userData = {
+    Username : email,
+    Pool : userPool,
+  };
+  
+  var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+  
+  cognitoUser.authenticateUser(authenticationDetails, {
+    
+    onSuccess: function (result) {
+
+      var accessToken = result.getAccessToken().getJwtToken();
+      console.log(result);	
+      
+      cognitoUser.getUserAttributes(function(err, result) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        window.location.href='./profile.html';
+    
+      });
+
+    },
+      onFailure: function(err) {
+        alert(err.message || JSON.stringify(err));
+    },
+  });
     
 }
-
 function signInButton() {
       
   var data = { 
