@@ -1,5 +1,8 @@
-// JavaScript File
 
+function register(email,first_name,last_name,street_address,city,province,phone_number) {
+  alert(email);
+    
+}
 
 function signInButton() {
       
