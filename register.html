@@ -1,28 +1,65 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Become a member</title>
-</head>
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Become a member</title>
+        <meta charset="utf-8">
+        <script src="js/auth.js"></script>
 
+    </head>
 <body>
+
+    <table  width="100%" style="border-spacing:20px; padding:10px;">
+        <tr> 
+            <td style="cursor:pointer;text-align:center;vertical-align: top;" onclick="window.location.href='./index.html'">
+                <img src="img/logo.png" width="120">
+                <h2> Nepean Allotment<br> Garden Association</h2>
+            </td>
+        </tr>
+    </table>
+    
+    <center><div style="width:500px;  text-align:left">
     <h3>Thank you for verifying your email</h3>
-    Please submit the following information to complete your registration
-
+    <b>Please enter the following information to complete your registration:</b>
+    <br>
     <br>Name(s):
-    <br><input type="text" width="100">
+    <br><input id="first_name" type="text" Placeholder="First Name" style="padding:10px; scroll-margin-top:5px;width:80px"> 
+    <input id="last_name" type="text"  Placeholder="Last Name" style="padding:10px; margin-top:5px;width:80px"> 
     <br>    
+    <input  id="email" type="text" style="display:none"></span>
+    <br> Address:
+    <br><input id="street_address" type="text" Placeholder="Street Address"  style="padding:10px; margin-top:5px; width:200px">
+    <br><input id="city" type="text" style="padding:10px; margin-top:5px;width:110px" placeholder="City" value="Ottawa">
+    <select style="padding:10px; margin-top:5px;width:80px">
+        <option value="AB">AB</option>
+        <option value="BC">BC</option>
+        <option value="MB">MB</option>
+        <option value="NB">NB</option>
+        <option value="NL">NL</option>
+        <option value="NS">NS</option>
+        <option value="ON" selected>ON</option>
+        <option value="PE">PE</option>
+        <option value="QC">QC</option>
+        <option value="SK">SK</option>
+        <option value="NT">NT</option>
+        <option value="NU">NU</option>
+        <option value="YT">YT</option>
+    </select>	
+    <br><input id="province" type="text" style="width:150px; padding:10px; margin-top:5px;" Placeholder="Postal Code">
+    <br>
+    <br> Phone Number:
+    <br><input  id="phone_number" type="text" Placeholder="000-000-0000"  style="padding:10px; margin-top:5px; width:200px">
+    <br>
+    <br><button type="button" style="width:180px; padding:10px; margin-top:5px;"  onclick="register(document.getElementById('email').value,document.getElementById('first_name').value,document.getElementById('last_name').value,document.getElementById('street_address').value,document.getElementById('city').value,document.getElementById('province').value,document.getElementById('phone_number').value);">Submit</button>
+    
+    </div>
+    </center>
 
-    <br>Street Address:
-    <br><input type="text" width="100">
-    <br>
 
-    <br>City:
-    <br><input type="text" width="100" Placeholder="Ottawa">, <input type="text" width="100" placeholder="ON">
-    <br>
-    <br>Postal code:
-    <input type="text" width="100">
-    <br>
-    <br><button type="button" onclick="register();">Submit</button>
+    <script>
+        const urlParams = new URL(window.location.toLocaleString()).searchParams;
+        const email = urlParams.get('email');
+        document.getElementById("email").value=email;
+        
+    </script>
 </body>
 </html>
