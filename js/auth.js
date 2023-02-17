@@ -54,7 +54,7 @@ function signInButton() {
 }
 
 
-async function getUser(email_address) {
+async function showUserInfo(email_address) {
   
   // gets user from DynamoDB using email address  
   const api_url = 'https://thv3sn3j63.execute-api.us-east-1.amazonaws.com/prod/get_naga_user_by_email?user_email=' + encodeURIComponent(email_address);
@@ -62,15 +62,15 @@ async function getUser(email_address) {
   const api_data = await(api_response).json();
   console.log(api_data);
 
-  var name = JSON.parse(api_data['body'])['name'];
-  
-  document.getElementById('profile').innerHTML =  name;
+  document.getElementById('member_name').innerHTML =  JSON.parse(api_data['body'])['name'];
+  document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
   document.getElementById('sign-out').style.display = "block";
   document.getElementById('loader').style.display = "none";
 
   }
 
 function getUserAttributes() {
+  
   var data = {
     UserPoolId : _config.cognito.userPoolId,
     ClientId : _config.cognito.clientId
@@ -85,15 +85,16 @@ function getUserAttributes() {
         return;
       }
       //console.log('session validity: ' + session.isValid());
-
+      
       cognitoUser.getUserAttributes(function(err, result) {
         if (err) {
           console.log(err);
           return;
         }
         // user email address
+        
         console.log(result[2].getValue());
-        getUser(result[2].getValue())
+        showUserInfo(result[2].getValue())
       });
 
     });
