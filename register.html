@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <script src="js/amazon-cognito-identity.min.js"></script>
         <script src="js/config.js"></script>
-        <script type="text/javascript" src="js/auth.js"></script>
+        <script src="js/register.js"></script>
 
     </head>
 <body>
@@ -35,7 +35,7 @@
         </tr>
       </table>
     
-    <center><div style="width:500px;  text-align:left">
+    <center><div id="registration1" style="width:500px;  text-align:left">
         <h3>Thank you for verifying your email</h3>
         <b>Please enter the following information to complete your registration:</b>
         <br>
@@ -63,6 +63,12 @@
         <br><button type="button" style="width:180px; padding:10px; margin-top:5px;"  onclick="register();">Register</button>
         
     </div>
+
+    <div id="registration2" style="display:none; width:500px;  text-align:left">
+        <h3>Welcome aboard!</h3>
+        You registration is complete. You now have access to your <a href="./profile.html">profile page</a>, where you can see your garden plots, join a waiting list, and more!
+        <br><br><button onclick="window.location.href='./profile.html'">Go to My Profile page</button>
+    </div>
     </center>
 
     <script>
@@ -71,6 +77,7 @@
             
           const temp_var = getUserAttributes();
         }
-      </script>
+        
+       </script>
 </body>
 </html>
