@@ -45,18 +45,21 @@
     
                     <form>
                         <h3>Sign in to your account</h3>
-                        <input type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
-                        <input type="password" id="inputPassword"  placeholder="Password" name="password" required>
+                        <input style="padding:5px; margin: 5px;" type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
+                        <input style="padding:5px; margin: 5px;" type="password" id="inputPassword"  placeholder="Password" name="password" required>
+                       <br> <a style="font-size: 12px" href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password?</a>
                        <p> <button type="button" onclick="signInButton();">Sign in</button></p>
                     </form>
-        
-                    <p><i>Don't have an account? </i><a href="https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html">Become a member</a></p>
-                    <div id='logged-in'>
+                    <br><b>Don't have an account?</b><br><a href="https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html">Become a member</a></p>
+                        </span>
+                    
                 </div>
       
               </td>
             </tr>
         </table>
+
+        <center><p><p><br><br><br><br><br><h1>HOME PAGE</h1></center>
 
        
         <script>

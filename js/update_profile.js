@@ -7,9 +7,10 @@ function update_profile()
     street_address = document.getElementById('input_street_address').value;
     city = document.getElementById('input_city').value;
     province = document.getElementById('input_province').value;
+    postal_code = document.getElementById('input_postal_code').value;
     phone_number= document.getElementById('input_phone_number').value;
     
-    fetch(' https://wqh6v44q2m.execute-api.us-east-1.amazonaws.com/prod', {
+    fetch('https://wqh6v44q2m.execute-api.us-east-1.amazonaws.com/prod', {
     method: 'POST',
     headers: {
         'Accept': 'application/json',
@@ -22,6 +23,7 @@ function update_profile()
         "street_address":street_address,
         "city":city,
         "province":province,
+        "postal_code":postal_code,
         "phone_number":phone_number
     })
     })
