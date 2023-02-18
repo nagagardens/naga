@@ -65,6 +65,9 @@ async function showUserInfo(email_address) {
   if(JSON.parse(api_data['body'])['first_name'] != null) { document.getElementById('member_name').innerHTML =  JSON.parse(api_data['body'])['first_name']; }
   
   
+  document.getElementById('sign-out').style.display = "block";
+  document.getElementById('loader').style.display = "none";
+  
   if(JSON.parse(api_data['body'])['first_name'] != null) { document.getElementById('input_first_name').value  =  JSON.parse(api_data['body'])['first_name'];}
   if(JSON.parse(api_data['body'])['last_name'] != null) { document.getElementById('input_last_name').value =  JSON.parse(api_data['body'])['last_name'];}
   if(JSON.parse(api_data['body'])['street_address'] != null) { document.getElementById('input_street_address').value =  JSON.parse(api_data['body'])['street_address'];}
@@ -72,8 +75,6 @@ async function showUserInfo(email_address) {
   if(JSON.parse(api_data['body'])['province'] != null) { document.getElementById('input_province').value =  JSON.parse(api_data['body'])['province'];}
   if(JSON.parse(api_data['body'])['phone_number'] != null) { document.getElementById('input_phone_number').value =  JSON.parse(api_data['body'])['phone_number']; }
     
-  document.getElementById('sign-out').style.display = "block";
-  document.getElementById('loader').style.display = "none";
 
   }
 
