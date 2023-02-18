@@ -47,8 +47,9 @@ function get_plots()
 {
     const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
     
-    document.getElementById('admin_plots_table').innerHTML="<tr><td><b>Plot Id</b></td><td><b>Plot Type</b></td><td><b>Occupant</b><td><b>Actions</b></td></td></tr><tr id='plot_list'></tr></table>";
+    document.getElementById('admin_plots_table').innerHTML="<tr><td width=100><b>Plot Id</b></td><td width=200><b>Plot Type</b></td><td><b>Occupant</b></td></tr><tr id='plot_list'></tr></table>";
     var plot_list = document.getElementById('plot_list');
+    
     fetch(api_url, {
         method: 'GET',
         headers: {
@@ -60,13 +61,15 @@ function get_plots()
     .then(response => { response['body']['Items'].forEach(element => {
         
         plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
-        plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "");
-        occupant_form = "<div class='autocomplete'><input id='occupant_" + plotId + "' type='text' name='occupant_" + plotId + "' placeholder='Email address'></div> <Button>Assign</button>";
+        if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
+        if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
+
+        occupant_form = "<div class='autocomplete'><input style='width:400px;' id='occupant_" + plotId + "' type='text' name='occupant_" + plotId + "' placeholder='enter member email address' value='"+occupant+"'></div> <Button onclick='assign_plot(\"" + plotId + "\",document.getElementById(\"occupant_"+ plotId + "\").value)'>Assign</button>";
         
         plot_list.insertAdjacentHTML('beforebegin', `<tr>
             <td>${plotId}</td>
             <td>${plot_type}</td>
-            <td width=300>${occupant_form}</td>
+            <td width=480>${occupant_form}</td>
         </tr>`)
 
         autocomplete(document.getElementById("occupant_"+ plotId), members_email);
@@ -74,7 +77,25 @@ function get_plots()
 
 }
 
+function assign_plot(plotId, email){
+    
+    fetch('https://q1hk67hzpe.execute-api.us-east-1.amazonaws.com/prod/', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ 
+        "plotId": plotId,
+        "occupant":email
+    })
+    })
+    .then(response => response.json())
+    .then(response => { console.log(JSON.stringify(response));getUserAttributes();})
+      
 
+    
+}
 
 function add_plot()
   {
