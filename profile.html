@@ -6,6 +6,7 @@
     <script src="js/amazon-cognito-identity.min.js"></script>
     <script src="js/config.js"></script>
     <script type="text/javascript" src="js/auth.js"></script>
+    <script type="text/javascript" src="js/update_profile.js"></script>
   </head>
 
   <body>
@@ -69,7 +70,37 @@
 
     <div id="member_console" style="width:100%; ">
       <center>
-      <div id="plots" style="padding:10px;padding-top:0px; text-align:left; width:90%">
+
+
+
+
+      
+        <div id="profile" style="padding:10px;padding-top:0px; text-align:left; width:90%; border:1px solid black">
+        <h3>My Profile</h3>
+        Name:
+        <br><input id="input_first_name" type="text" Placeholder="First Name" style="padding:10px; scroll-margin-top:5px;width:90px"> 
+        <input id="input_last_name" type="text"  Placeholder="Last Name" style="padding:10px; margin-top:5px;width:90px"> 
+        <br>    
+        <input  id="input_email" type="text" style="display:none"></span>
+        <br> Address:
+        <br><input id="input_street_address" type="text" Placeholder="Street Address"  style="padding:10px; margin-top:5px; width:200px">
+        <br><input id="input_city" type="text" style="padding:10px; margin-top:5px;width:110px" placeholder="City" value="Ottawa">
+        <select id="input_province" style="padding:10px; margin-top:5px;width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
+        <br><input id="input_postal_code" type="text" style="width:150px; padding:10px; margin-top:5px;" Placeholder="Postal Code">
+        <br>
+        <br> Phone Number:
+        <br><input  id="input_phone_number" type="text" Placeholder="000-000-0000"  style="padding:10px; margin-top:5px; width:200px">
+        <br>
+        <br><button type="button" style="width:180px; padding:10px; margin-top:5px;"  onclick="update_profile();">Submit</button>
+        </div>
+
+
+
+
+
+
+        <br><br>
+        <div id="plots" style="padding:10px;padding-top:0px; text-align:left; width:90%; border:1px solid black">
         <h3>My Plots</h3>
         <table width="100%" border="1">
           <tr>
@@ -101,8 +132,7 @@
             <td></td>
           </tr>
         </table>
-
-
+      
         <h4>Get a new plot</h4>
         <form>
         Plot type:
@@ -145,6 +175,7 @@
         </tr>
       </table>
       </div>
+    </div>
       </center>
     </div>
 
@@ -279,6 +310,7 @@
   
   <script>
     window.onload = function(){
+      
       const temp_var = getUserAttributes();
     }
   </script>
