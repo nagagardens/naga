@@ -6,6 +6,8 @@
     <script src="js/amazon-cognito-identity.min.js"></script>
     <script src="js/config.js"></script>
     <script type="text/javascript" src="js/auth.js"></script>
+    <link rel="stylesheet" href="js/autocomplete.css">
+    <script type="text/javascript" src="js/autocomplete.js"></script>
     <script type="text/javascript" src="js/update_profile.js"></script>
     
     
@@ -13,6 +15,12 @@
 
   <body>
    
+    
+    <script>
+      var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
+      
+      
+      </script>
     <br>
     <table  width="100%" style="border-spacing:20px; padding:10px; border:1px solid black">
       <tr> 
@@ -195,41 +203,23 @@
         <h3>Admin User </h3>  
       <div id="plots" style="padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
         <h3>Admin: All Plots</h3>
-        <table width="100%" border="1">
+        <table width="100%" border="1" id="admin_plots_table" >
           <tr>
-            <td>Plot ID</td>
-            <td>Type</td>
-            <td>Occupant</td>
-            <td>Auto-renewal</td>
-            <td>Comments</td>
+            <td><b>Plot Id</b></td>
+            <td><b>Plot Type</b></td>
           </tr>
-          <tr>
-            <td><p></p></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><p></p></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><p></p></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          <tr id="plot_list"></tr>
         </table>
 
         <h4>Add a plot</h4>
-        <input type="text" id="inputPlotId"  placeholder="Plot ID" required>
-        <input type="text" id="inputType"  placeholder="Plot ID" required>
-        <button type="button" onclick="signInButton();">Add plot</button>
+        <input type="text" id="input_plotId"  placeholder="Plot ID" required>
+        <select id="input_plot_type">
+          <option></option>
+          <option>Annual</option>
+          <option>Perennial</option>
+          <option>Raised bed</option>
+        </select>
+        <button type="button" onclick="add_plot();">Add plot</button>
 
       </div>
 
@@ -244,7 +234,7 @@
             <td><b>Address</b></td>
             <td><b>Phone Number</b></td>
           </tr>
-          <tr id="root"></tr>
+          <tr id="member_list"></tr>
         </table>
       </div>
 
@@ -257,6 +247,7 @@
             <option>All</option>
             <option>Annual</option>
             <option>Perennial</option>
+            <option>Raised bed</option>
           </select>
         </form>
         <p></p>
@@ -304,6 +295,8 @@
   
     window.onload = function(){
       get_naga_members();
+      get_plots();
+      
       const temp_var = getUserAttributes();
       
     }
