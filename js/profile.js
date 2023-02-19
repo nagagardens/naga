@@ -46,7 +46,7 @@ function get_my_plots(){
   })
   .then(response => response.json())
   .then(response => { response['body']['Items'].forEach(element => {
-      
+     // alert(JSON.stringify(element));
       plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
       if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
       if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
@@ -62,3 +62,14 @@ function get_my_plots(){
 
   });})
 }
+
+function add_to_waiting_list(){
+    alert(uuidv4());
+}
+
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+  
