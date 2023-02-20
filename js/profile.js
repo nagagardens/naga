@@ -1,7 +1,7 @@
 
 
 function getUserAttributes() {
-  
+
   var data = {
     UserPoolId : _config.cognito.userPoolId,
     ClientId : _config.cognito.clientId
@@ -33,6 +33,7 @@ function getUserAttributes() {
     });
   } else {
     console.log("User is signed-out");
+    window.location.href='./index.html';
   }
 }
 
