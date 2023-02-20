@@ -105,7 +105,7 @@ function get_my_plots(email){
   
   const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
   
-  document.getElementById('my_plots_table').innerHTML="<tr><th width=100>Plot Id</th><th width=200>Plot Type</th><th>Status</th><th>Renewal date</th></tr><tr id='my_plots_list'></tr></table>";
+  document.getElementById('my_plots_table').innerHTML="<tr><th width=120>Plot Id</th><th width=120>Plot Type</th><th width=120>Status</th><th width=200>Renewal date</th><th>Actions</th></tr><tr id='my_plots_list'></tr></table>";
   
   var my_plots_list = document.getElementById('my_plots_list');
 
@@ -129,6 +129,7 @@ function get_my_plots(email){
       <td>${plot_type}</td>
       <td>Paid</td>
       <td>Feb 28, 2024</td>
+      <td> <input type=button value='Exchange'> <input type=button value='Remove'></td>
   </tr>`)
 
       }
@@ -140,8 +141,8 @@ function get_my_plots(email){
 function add_to_waiting_list(){
     
   email = document.getElementById('member_email').innerHTML;
-  plot_type = document.getElementById('input_plot_type').value;
-  plot_number = document.getElementById('input_plot_number').value;
+  plot_type = document.getElementById('request_plot_type').value;
+  plot_number = document.getElementById('request_plot_number').value;
   
   fetch('https://ln7qb82w92.execute-api.us-east-1.amazonaws.com/prod', {
   method: 'POST',

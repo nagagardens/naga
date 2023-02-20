@@ -1,6 +1,9 @@
 var members_email =[""];
 
 function get_naga_members(){
+
+    document.getElementById('admin_members_table').innerHTML="<tr><th>Email</th><th>Name</th><th>Address</th><th>Phone Number</th><th>Actions</th></tr><tr id='member_list'></tr></table>";
+
     const api_url = 'https://g1t81zygbh.execute-api.us-east-1.amazonaws.com/prod/get_naga_members';
     var member_list = document.getElementById('member_list');
     
@@ -27,12 +30,14 @@ function get_naga_members(){
             phone_number=JSON.stringify(element['phone_number']['S']).replace(/["']/g, "");
             full_name=first_name + " " + last_name;
             full_address=street_address + "<br>" + city + ", " + province + "<br>" + postal_code;
+            actions="<input type=button value='Remove'>";
             
             member_list.insertAdjacentHTML('beforebegin', `<tr>
                 <td>${email}</td>
                 <td>${full_name}</td>
                 <td>${full_address}</td>
                 <td>${phone_number}</td>
+                <td>${actions}</td>
             </tr>`); 
 
         });
@@ -47,7 +52,7 @@ function get_plots()
 {
     const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
     
-    document.getElementById('admin_plots_table').innerHTML="<tr><th width=100><b>Plot Id</b></th><th width=200><b>Plot Type</b></th><th><b>Occupant</b></th><th></th></tr><tr id='plot_list'></tr></table>";
+    document.getElementById('admin_plots_table').innerHTML="<tr><th>Plot Id</th><th>Plot Type</th><th>Occupant</th><th>Actions</th></tr><tr id='plot_list'></tr></table>";
     var plot_list = document.getElementById('plot_list');
     
     fetch(api_url, {
@@ -154,7 +159,7 @@ function get_waiting_list()
 {
     const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     
-    document.getElementById('admin_waiting_list_table').innerHTML="<tr><th width=100><b>Email</b></th><th width=200><b>Plot Type</b></th><th><b>Plot Number</b></th><th><b>Date joined</b></th></tr><tr id='waiting_list'></tr></table>";
+    document.getElementById('admin_waiting_list_table').innerHTML="<tr><th>Email</th><th>Plot Type</th><th>Plot Number</th><th>Date joined</th><th>Actions</th></tr><tr id='waiting_list'></tr></table>";
     var waiting_list = document.getElementById('waiting_list');
     
     fetch(api_url, {
@@ -172,12 +177,14 @@ function get_waiting_list()
         if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
         if(element['plot_number']) { plot_number=JSON.stringify(element['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
         if(element['date_added']) { date_added=JSON.stringify(element['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
-        
+        actions="<input type='button' value='Remove'>";
+
         waiting_list.insertAdjacentHTML('beforebegin', `<tr>
             <td>${email}</td>
             <td>${plot_type}</td>
-            <td width=480>${plot_number}</td>
-            <td width=480>${date_added}</td>
+            <td width=>${plot_number}</td>
+            <td width=>${date_added}</td>
+            <td width=>${actions}</td>
         </tr>`)
 
     });})

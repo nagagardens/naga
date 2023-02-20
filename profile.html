@@ -63,11 +63,11 @@
   <br><br>
 
   <!-- Member console -->
-  <table id="member_console" style="width:90%; margin-left: auto; margin-top: auto;" > <center>
-    <tr><td width="400" valign="top">
+  <table id="member_console" style="width:100%; margin-left: auto; margin-top: auto;" > <center>
+    <tr><td width="300" valign="top">
 
     <!-- My Profile -->
-    <div  style=" padding:10px;padding-top:0px; text-align:left; ">
+    <div  style=" padding:10px;padding-top:0px;border: margin:10px; text-align:left; ">
       <h3>My profile</h3>
       Name:
       <br><input id="input_first_name" type="text" Placeholder="First Name" style="padding:10px; scroll-margin-top:5px;width:130px">
@@ -90,28 +90,16 @@
   </td><td valign="top">
 
     <!--My Plots -->
-    <div  style=" padding:10px;padding-top:0px; text-align:left;">
+    <div  style=" padding:10px;padding-top:0px;  margin:10px;text-align:left;">
       <h3>My garden plots</h3>
-      <table class="list" border="1" id="my_plots_table">
-        <tr>
-          <td width="300"><b>Plot name</b></td>
-          <td width="200"><b>Type</b></td>
-          
-        </tr>
-        <tr id="my_plots_list"></tr>
-      </table>
+      <table class="list" border="1" width=100% id="my_plots_table"></table>
       <br><br>
       <h3>Request a new plot</h3>
       Annual and perennial plots can take up to 3 years or more to get assigned. Raised beds are often available within a year or even mid-season. 
       You can have multiple plots, but you can only request one plot at the time. You will be informed by email when a plot has been assigned to you.
-      <br>
-      <br>Plot type:
-      <select id="input_plot_type"><option>Any</option><option>Annual</option><option>Perennial</option>><option>Raised bed</option></select>
-      Plot number:
-      <select id="input_plot_number"><option>Any</option><option>A01</option></select>
-      <br>
-      <br>
-      <br><input type="button" onclick="add_to_waiting_list();" value="Add me to the waiting list">
+      <br><br><select id="request_plot_type"><option>Plot type</option><option>Any</option><option>Annual</option><option>Perennial</option>><option>Raised bed</option></select>
+      <select id="request_plot_number"><option>Plot Number</option><option>Any</option><option>A01</option></select>
+      <input type="button" onclick="add_to_waiting_list();" value="Submit">
   
     </div>
   </td></tr>
@@ -128,15 +116,45 @@
     <!--All Members -->
     <div style="background-color:white;padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
       <h3>All Members</h3>
-      <table border="1" class="list" >
-        <tr>
-          <th width="300"><b>Email</b></th>
-          <th width="200"><b>Name</b></th>
-          <th width="200"><b>Address</b></th>
-          <th width="200"><b>Phone Number</b></th>
-        </tr>
-        <tr id="member_list"></tr>
-      </table>
+      <table id="admin_members_table" class="list" ></table>
+      <br>
+      <h4>Add a member</h4>
+      
+        <table class="list">
+          <tr>
+            <td valign="top">
+              Email:   
+              <br><input id="admin_input_email" type="text" style="width:250px">
+            </td>
+            <td valign="top">
+               Name:
+              <br><input id="admin_input_first_name" type="text" Placeholder="First Name">
+              <br><input id="admin_input_last_name" type="text"  Placeholder="Last Name"> 
+             </td>
+            <td valign="top">
+              Address:
+              <br><input id="admin_input_street_address" type="text" Placeholder="Street Address" >
+              <br><input id="admin_input_city" type="text" placeholder="City" value="Ottawa">
+              <select id="admin_input_province" style="width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
+              <br><input id="admin_input_postal_code" type="text" Placeholder="Postal Code">
+              
+            </td valign="top">
+
+            <td valign="top">
+              Phone Number:
+              <br><input  id="admin_input_phone_number" type="text" Placeholder="000-000-0000" >
+              <br>
+            </td>
+
+            <td valign="top">
+              <input type="button"  onclick="add_member();" value="Submit"></center>
+            </td>
+          </tr>
+        </table>
+      <br>
+    
+      
+      <br>
     </div>
 
     
@@ -145,9 +163,10 @@
     <!--All Plots -->
     <div style="background-color:white; padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
       <h3>All Plots</h3>
-      <table border="1" id="admin_plots_table" class="list" ></table>
+      <table id="admin_plots_table" class="list"></table>
 
       <h4>Add a plot</h4>
+
       <input type="text" id="input_plotId"  placeholder="Plot ID" required>
       <select id="input_plot_type">
         <option>Plot type</option>
@@ -162,7 +181,7 @@
     <br><br>
 
     <!--Waiting List -->
-    <div style="background-color:white;padding:20px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
+    <div style="background-color:white;padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
       <h3> Waiting List</h3>
       <form>
         <select>
@@ -173,7 +192,26 @@
         </select>
       </form>
       <p></p>
-      <table border="1" id="admin_waiting_list_table" class="list" ></table>
+      <table id="admin_waiting_list_table" class="list" ></table>
+
+      <h4>Add to waiting list</h4>
+
+      <input type="text" id="admin_input_waiting_list_email"  placeholder="email" required>
+      
+      <select id="admin_input_waiting_list_plot_type">
+        <option>Plot type</option>
+        <option>Annual</option>
+        <option>Perennial</option>
+        <option>Raised bed</option>
+      </select>
+      <select id="admin_input_waiting_list_plot_number">
+        <option>Plot Number</option>
+        <option>A01</option>
+        <option>P01</option>
+        <option>R01</option>
+      </select>
+      <input type="button" onclick="add_plot();" value="Add plot">
+
 
     </div>
     <br><br><br><br>
