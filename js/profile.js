@@ -105,7 +105,7 @@ function get_my_plots(email){
   
   const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
   
-  document.getElementById('my_plots_table').innerHTML="<tr><td width=100><b>Plot Id</b></td><td width=200><b>Plot Type</b></td><td><b>Status</b><td><b>Renewal</b></td></td></tr><tr id='my_plots_list'></tr></table>";
+  document.getElementById('my_plots_table').innerHTML="<tr><th width=100>Plot Id</th><th width=200>Plot Type</th><th>Status</th><th>Renewal date</th></tr><tr id='my_plots_list'></tr></table>";
   
   var my_plots_list = document.getElementById('my_plots_list');
 
@@ -138,12 +138,24 @@ function get_my_plots(email){
 }
 
 function add_to_waiting_list(){
-    alert(uuidv4());
-}
-
-function uuidv4() {
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    );
-  }
+    
+  email = document.getElementById('member_email').innerHTML;
+  plot_type = document.getElementById('input_plot_type').value;
+  plot_number = document.getElementById('input_plot_number').value;
   
+  fetch('https://ln7qb82w92.execute-api.us-east-1.amazonaws.com/prod', {
+  method: 'POST',
+  headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ 
+      "email": email,
+      "plot_type":plot_type,
+      "plot_number":plot_number
+  })
+  })
+  .then(response => response.json())
+  .then(response => { console.log(JSON.stringify(response));get_my_plots(email);})
+    
+}

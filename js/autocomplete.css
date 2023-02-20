@@ -1,6 +1,7 @@
 * { box-sizing: border-box; }
 body {
-  font: 16px Arial;
+  font: 16px Arial, Helvetica, sans-serif;
+
 }
 .autocomplete {
   /*the container must be positioned relative:*/
@@ -15,7 +16,7 @@ select {
   padding:10px; scroll-margin-top:5px;width:130pxl
 }
 input[type=button] {
-  background-color: DodgerBlue;
+  background-color: #04AA6D;
   color: #fff;
   border:0px;
   cursor:pointer;
@@ -46,3 +47,24 @@ input[type=button] {
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+.list {
+  padding: 30px;
+  border-collapse: collapse;
+}
+
+.list td, .list th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.list tr:nth-child(even){background-color: #f2f2f2;}
+
+.list tr:hover {background-color: #ddd;}
+
+.list th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #07814E;
+  color: white;

@@ -15,7 +15,7 @@
 <body>
   
   <!--Header -->
-  <table  width="100%" style="border-spacing:20px; padding:10px; border:1px solid black">
+  <table  width="80%" style="border-spacing:20px; padding:10px; border:0; margin-left: auto; margin-right: auto">
     <tr> 
         <td width="300"  style="cursor:pointer;text-align:center;vertical-align: top;" onclick="window.location.href='./index.html'">
             <img src="img/logo.png" width="120">
@@ -63,7 +63,7 @@
   <br><br>
 
   <!-- Member console -->
-  <table id="member_console" style="width:100%; " > <center>
+  <table id="member_console" style="width:90%; margin-left: auto; margin-top: auto;" > <center>
     <tr><td width="400" valign="top">
 
     <!-- My Profile -->
@@ -92,7 +92,7 @@
     <!--My Plots -->
     <div  style=" padding:10px;padding-top:0px; text-align:left;">
       <h3>My garden plots</h3>
-      <table border="1" id="my_plots_table">
+      <table class="list" border="1" id="my_plots_table">
         <tr>
           <td width="300"><b>Plot name</b></td>
           <td width="200"><b>Type</b></td>
@@ -102,13 +102,13 @@
       </table>
       <br><br>
       <h3>Request a new plot</h3>
-      Please note: Annual and perennial plots can take up to 3 years or more to get assigned. Raised beds are often available within a year or even mid-season. 
-      You can lease multiple plots, however you can only request one plot at the time. You will be informed by email when a plot has been assigned to you.
+      Annual and perennial plots can take up to 3 years or more to get assigned. Raised beds are often available within a year or even mid-season. 
+      You can have multiple plots, but you can only request one plot at the time. You will be informed by email when a plot has been assigned to you.
       <br>
       <br>Plot type:
-      <select><option>Select</option><option>Annual</option><option>Perennial</option></select>
+      <select id="input_plot_type"><option>Any</option><option>Annual</option><option>Perennial</option>><option>Raised bed</option></select>
       Plot number:
-      <select><option>Any</option><option>A01</option></select>
+      <select id="input_plot_number"><option>Any</option><option>A01</option></select>
       <br>
       <br>
       <br><input type="button" onclick="add_to_waiting_list();" value="Add me to the waiting list">
@@ -128,12 +128,12 @@
     <!--All Members -->
     <div style="background-color:white;padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
       <h3>All Members</h3>
-      <table border="1" >
+      <table border="1" class="list" >
         <tr>
-          <td width="300"><b>Email</b></td>
-          <td width="200"><b>Name</b></td>
-          <td width="200"><b>Address</b></td>
-          <td width="100"><b>Phone Number</b></td>
+          <th width="300"><b>Email</b></th>
+          <th width="200"><b>Name</b></th>
+          <th width="200"><b>Address</b></th>
+          <th width="200"><b>Phone Number</b></th>
         </tr>
         <tr id="member_list"></tr>
       </table>
@@ -145,8 +145,7 @@
     <!--All Plots -->
     <div style="background-color:white; padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
       <h3>All Plots</h3>
-      <table border="1" id="admin_plots_table" >
-      </table>
+      <table border="1" id="admin_plots_table" class="list" ></table>
 
       <h4>Add a plot</h4>
       <input type="text" id="input_plotId"  placeholder="Plot ID" required>
@@ -174,15 +173,7 @@
         </select>
       </form>
       <p></p>
-      <table>
-        <tr>
-          <td>#</td>
-          <td>Email address</td>
-          <td>Type</td>
-          <td>Plot ID</td>
-          <td>Waiting since</td>
-        </tr>
-      </table>
+      <table border="1" id="admin_waiting_list_table" class="list" ></table>
 
     </div>
     <br><br><br><br>
@@ -197,6 +188,7 @@
     getUserAttributes();
     get_naga_members();
     get_plots();
+    get_waiting_list()
   }
 </script>
 <script type="text/javascript" src="js/admin.js"></script>

@@ -47,7 +47,7 @@ function get_plots()
 {
     const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
     
-    document.getElementById('admin_plots_table').innerHTML="<tr><td width=100><b>Plot Id</b></td><td width=200><b>Plot Type</b></td><td><b>Occupant</b></td></tr><tr id='plot_list'></tr></table>";
+    document.getElementById('admin_plots_table').innerHTML="<tr><th width=100><b>Plot Id</b></th><th width=200><b>Plot Type</b></th><th><b>Occupant</b></th><th></th></tr><tr id='plot_list'></tr></table>";
     var plot_list = document.getElementById('plot_list');
     
     fetch(api_url, {
@@ -79,7 +79,7 @@ function get_plots()
             <td>${plotId}</td>
             <td>${plot_type}</td>
             <td width=480>${occupant_form}</td>
-            <td><input type='button' onclick='open_assign_window("${plotId}")' value='Assign'>
+            <td valign=top><input type='button' onclick='open_assign_window("${plotId}")' value='Assign'>
         </tr>`)
 
         autocomplete(document.getElementById("occupant_"+ plotId), members_email);
@@ -144,3 +144,42 @@ function close_assign_window(plot_id){
     document.getElementById("plot_assign_top_" + plot_id).style.display="block";
     document.getElementById("plot_assign_bottom_" + plot_id).style.display="none";
   }
+
+
+
+
+
+
+function get_waiting_list()
+{
+    const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
+    
+    document.getElementById('admin_waiting_list_table').innerHTML="<tr><th width=100><b>Email</b></th><th width=200><b>Plot Type</b></th><th><b>Plot Number</b></th><th><b>Date joined</b></th></tr><tr id='waiting_list'></tr></table>";
+    var waiting_list = document.getElementById('waiting_list');
+    
+    fetch(api_url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(response => { response['body']['Items'].forEach(element => {
+        
+        item_id=JSON.stringify(element['item_id']['S']).replace(/["']/g, "");
+        if(element['email']) { email=JSON.stringify(element['email']['S']).replace(/["']/g, "") } else {email="";}
+        if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
+        if(element['plot_number']) { plot_number=JSON.stringify(element['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
+        if(element['date_added']) { date_added=JSON.stringify(element['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
+        
+        waiting_list.insertAdjacentHTML('beforebegin', `<tr>
+            <td>${email}</td>
+            <td>${plot_type}</td>
+            <td width=480>${plot_number}</td>
+            <td width=480>${date_added}</td>
+        </tr>`)
+
+    });})
+
+}
