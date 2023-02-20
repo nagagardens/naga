@@ -138,6 +138,44 @@ function get_my_plots(email){
   });})
 }
 
+
+function get_my_waiting_list(email){
+  
+  const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
+  
+  document.getElementById('my_waiting_list_table').innerHTML="<tr><th>Plot type</th><th>Plot number</th><th>Date joined</th><th>Status</th><th>Actions</th></tr><tr id='my_waiting_list'></tr></table>";
+  
+  var my_plots_list = document.getElementById('my_plots_list');
+
+  fetch(api_url, {
+      method: 'GET',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      }
+  })
+  .then(response => response.json())
+  .then(response => { response['body']['Items'].forEach(element => {
+     // alert(JSON.stringify(element));
+      plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
+      if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
+      if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
+      if(occupant == email){
+
+      my_plots_list.insertAdjacentHTML('beforebegin', `<tr>
+      <td>${plotId}</td>
+      <td>${plot_type}</td>
+      <td>Paid</td>
+      <td>Feb 28, 2024</td>
+      <td> <input type=button value='Exchange'> <input type=button value='Remove'></td>
+  </tr>`)
+
+      }
+      
+
+  });})
+}
+
 function add_to_waiting_list(){
     
   email = document.getElementById('member_email').innerHTML;
