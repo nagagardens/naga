@@ -2,7 +2,7 @@ var members_email =[""];
 
 function get_naga_members(){
 
-    document.getElementById('admin_members_table').innerHTML="<tr><th>Email</th><th>Name</th><th>Address</th><th>Phone Number</th><th>Actions</th></tr><tr id='member_list'></tr></table>";
+    document.getElementById('admin_members_table').innerHTML="<tr><th>Email</th><th>Name</th><th>Address</th><th>Phone Number</th><th width=120>Actions</th></tr><tr id='member_list'></tr></table>";
 
     const api_url = 'https://g1t81zygbh.execute-api.us-east-1.amazonaws.com/prod/get_naga_members';
     var member_list = document.getElementById('member_list');
@@ -52,7 +52,7 @@ function get_plots()
 {
     const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
     
-    document.getElementById('admin_plots_table').innerHTML="<tr><th>Plot Id</th><th>Plot Type</th><th>Occupant</th><th>Actions</th></tr><tr id='plot_list'></tr></table>";
+    document.getElementById('admin_plots_table').innerHTML="<tr><th>Plot Id</th><th>Plot Type</th><th>Occupant</th><th width=120>Actions</th></tr><tr id='plot_list'></tr></table>";
     var plot_list = document.getElementById('plot_list');
     
     fetch(api_url, {
@@ -159,7 +159,7 @@ function get_waiting_list()
 {
     const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     
-    document.getElementById('admin_waiting_list_table').innerHTML="<tr><th>Email</th><th>Plot Type</th><th>Plot Number</th><th>Date joined</th><th>Actions</th></tr><tr id='waiting_list'></tr></table>";
+    document.getElementById('admin_waiting_list_table').innerHTML="<tr><th>Email</th><th>Plot Type</th><th>Plot Number</th><th>Date joined</th><th width=120>Actions</th></tr><tr id='waiting_list'></tr></table>";
     var waiting_list = document.getElementById('waiting_list');
     
     fetch(api_url, {

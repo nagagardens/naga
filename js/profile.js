@@ -27,6 +27,7 @@ function getUserAttributes() {
         console.log(email);
         showUserInfo(email);
         get_my_plots(email);
+        get_my_waiting_list(email);
 
       });
 
@@ -48,8 +49,6 @@ async function showUserInfo(email) {
   console.log(api_data);
   document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
 
-  if(JSON.parse(api_data['body'])['first_name'] != null) { document.getElementById('member_name').innerHTML =  JSON.parse(api_data['body'])['first_name']; }
-  
   
   document.getElementById('sign-out').style.display = "block";
   document.getElementById('loader').style.display = "none";
@@ -105,7 +104,7 @@ function get_my_plots(email){
   
   const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
   
-  document.getElementById('my_plots_table').innerHTML="<tr><th width=120>Plot Id</th><th width=120>Plot Type</th><th width=120>Status</th><th width=200>Renewal date</th><th>Actions</th></tr><tr id='my_plots_list'></tr></table>";
+  document.getElementById('my_plots_table').innerHTML="<tr><th width=120>Plot Id</th><th width=120>Plot Type</th><th width=120>Status</th><th width=200>Renewal date</th><th width=120>Actions</th></tr><tr id='my_plots_list'></tr></table>";
   
   var my_plots_list = document.getElementById('my_plots_list');
 
@@ -122,14 +121,17 @@ function get_my_plots(email){
       plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
       if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
       if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
+      actions="<input type=button value='Release' onclick='release_plot(\""+ plotId +"\")'>";
+
       if(occupant == email){
 
+      
       my_plots_list.insertAdjacentHTML('beforebegin', `<tr>
       <td>${plotId}</td>
       <td>${plot_type}</td>
       <td>Paid</td>
       <td>Feb 28, 2024</td>
-      <td> <input type=button value='Exchange'> <input type=button value='Remove'></td>
+      <td>${actions}</td>
   </tr>`)
 
       }
@@ -141,11 +143,12 @@ function get_my_plots(email){
 
 function get_my_waiting_list(email){
   
-  const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
   
-  document.getElementById('my_waiting_list_table').innerHTML="<tr><th>Plot type</th><th>Plot number</th><th>Date joined</th><th>Status</th><th>Actions</th></tr><tr id='my_waiting_list'></tr></table>";
+  const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod/';
   
-  var my_plots_list = document.getElementById('my_plots_list');
+  document.getElementById('my_waiting_list_table').innerHTML="<tr><th>Plot type</th><th>Plot number</th><th>Date joined</th><th>Status</th><th width=120>Actions</th></tr><tr id='my_waiting_list'></tr></table>";
+  
+  var my_waiting_list = document.getElementById('my_waiting_list');
 
   fetch(api_url, {
       method: 'GET',
@@ -156,17 +159,20 @@ function get_my_waiting_list(email){
   })
   .then(response => response.json())
   .then(response => { response['body']['Items'].forEach(element => {
-     // alert(JSON.stringify(element));
-      plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
-      if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
-      if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
-      if(occupant == email){
-
-      my_plots_list.insertAdjacentHTML('beforebegin', `<tr>
-      <td>${plotId}</td>
+     console.log(JSON.stringify(element));
+     if(element['email']) { plot_email=JSON.stringify(element['email']['S']).replace(/["']/g, "") } else {plot_email="";}
+    if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
+    if(element['plot_number']) { plot_number=JSON.stringify(element['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
+    if(element['date_added']) { date_added=JSON.stringify(element['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
+      
+      if(plot_email == email){
+        document.getElementById("request_plot_container").style.display="none";
+        document.getElementById("my_waiting_list_container").style.display="block";
+        my_waiting_list.insertAdjacentHTML('beforebegin', `<tr>
       <td>${plot_type}</td>
-      <td>Paid</td>
-      <td>Feb 28, 2024</td>
+      <td>${plot_number}</td>
+      <td>${date_added}</td>
+      <td>You are #34 in line</td>
       <td> <input type=button value='Exchange'> <input type=button value='Remove'></td>
   </tr>`)
 
@@ -195,6 +201,75 @@ function add_to_waiting_list(){
   })
   })
   .then(response => response.json())
-  .then(response => { console.log(JSON.stringify(response));get_my_plots(email);})
+  .then(response => { console.log(JSON.stringify(response));get_my_waiting_list(email);})
     
+}
+
+
+function signOut() {
+
+  document.getElementById('loader').style.display = "block";
+  document.getElementById('sign-out').style.display = "none"
+  
+  const data = { 
+      UserPoolId : _config.cognito.userPoolId,
+    ClientId : _config.cognito.clientId
+  };
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(data);
+  const cognitoUser = userPool.getCurrentUser();
+  
+    if (cognitoUser != null) {
+      cognitoUser.getSession(function(err, session) {
+      if (err) {
+          alert(err);
+        return;
+      }
+      console.log('session validity: ' + session.isValid());
+      
+            // sign out
+            cognitoUser.signOut();
+            console.log("Sign out successful");
+            
+      });
+    } else {
+        console.log("Already signed-out")
+    }
+    window.location.href='./index.html';
+    
+}
+
+
+function release_plot(plotId){
+  email = document.getElementById('member_email').innerHTML;
+    fetch('https://q1hk67hzpe.execute-api.us-east-1.amazonaws.com/prod/', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ 
+        "plotId": plotId,
+        "occupant":""
+    })
+    })
+    .then(response => response.json())
+    .then(response => { console.log(JSON.stringify(response));get_my_plots(email); get_plots();})
+    
+
+    
+
+}
+
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
 }

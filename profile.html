@@ -15,47 +15,14 @@
 <body>
   
   <!--Header -->
-  <table  width="80%" style="border-spacing:20px; padding:10px; border:0; margin-left: auto; margin-right: auto">
+  <table style="width:600px; border-spacing:20px; padding:10px; margin-left: auto; margin-right: auto">
     <tr> 
-        <td width="300"  style="cursor:pointer;text-align:center;vertical-align: top;" onclick="window.location.href='./index.html'">
-            <img src="img/logo.png" width="120">
-            <h3> Nepean Allotment<br> Garden Association</h>
+        <td style="cursor:pointer;" onclick="window.location.href='./index.html'">
+            <img src="img/logo.png" width="150">
         </td>
 
-        <td></td>
-
-        <td width="200" style=" text-align: center">
-
-          <div id='loader'><img src="img/loader.gif" width="20"></div>
-          
-
-          <!-- if user is signed in -->
-          <div id="sign-out" style="display:none; text-align:center">
-                  
-            <div style="display:inline-block;color:#444;border:1px solid #CCC;background:#DDD;box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);cursor:pointer;vertical-align:middle;max-width: 100px;padding: 5px;text-align: center;" onclick="window.location.href='./profile.html'"> 
-                <img src="img/profile.png" width="50">
-                <br><span id="member_name"></span>
-            </div>
-
-            <p><span id="member_email"></span><br>
-            <a href="#" onclick="signOut();">Sign out</a></p>
-          
-          </div>
-      
-
-          <!--if user is signed out  -->
-          <div id='sign-in' style="display:none">
-            <form>
-              <h2>Sign in</h2>
-              <input type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
-              <input type="password" id="inputPassword"  placeholder="Password" name="password" required>
-              <p><button type="button" onclick="signInButton();">Sign in</button></p>
-            </form>
-        
-            <p><i>Don't have an account? <a href="https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https://example.com">Become a member</a></i></p>
-
-          </div>
-
+        <td valign="bottom">
+          <h1> Nepean Allotment<br> Garden Association</h1>
         </td>
       </tr>
   </table>
@@ -63,41 +30,55 @@
   <br><br>
 
   <!-- Member console -->
-  <table id="member_console" style="width:100%; margin-left: auto; margin-top: auto;" > <center>
+  <table id="member_console" style="width:90%; margin-left: auto; margin-right: auto;" > 
     <tr><td width="300" valign="top">
 
     <!-- My Profile -->
-    <div  style=" padding:10px;padding-top:0px;border: margin:10px; text-align:left; ">
+    <div  style="width:350px; padding:10px;padding-top:0px;border-right:1px solid lightgrey; margin:10px; text-align:left; ">
       <h3>My profile</h3>
-      Name:
-      <br><input id="input_first_name" type="text" Placeholder="First Name" style="padding:10px; scroll-margin-top:5px;width:130px">
-      <input id="input_last_name" type="text"  Placeholder="Last Name" style="padding:10px; margin-top:5px;width:130px"> 
-      <br>    
-      <input  id="input_email" type="text" style="display:none"></span>
-      <br> Address:
+      <table style="width:100%;"><tr>
+        <td >
+          <!-- if user is signed in -->
+          <div id='loader'><img src="img/loader.gif" width="20"></div>
+          <div id="sign-out" style="display:none; text-align:center">
+            <div style="cursor:pointer; margin:5px;" onclick="window.location.href='./profile.html'"> 
+                <img src="img/profile.png" width="60">
+            </div>
+          </div>
+        </td>
+        <td>
+          <br><input id="input_first_name" type="text" Placeholder="First Name" style="padding:10px; scroll-margin-top:5px;width:90%">
+          <input id="input_last_name" type="text"  Placeholder="Last Name" style="padding:10px; margin-top:5px;width:90%"> 
+        </td>
+      </tr></table>
+      <br><b>Email:</b> 
+      <br><span id="member_email"></span>
+      <br><input  id="input_email" type="text" style="display:none"></span>
+      <br> <b>Mailing address:</b>
       <br><input id="input_street_address" type="text" Placeholder="Street Address"  style="padding:10px; margin-top:5px; width:260px">
       <br><input id="input_city" type="text" style="padding:10px; margin-top:5px;width:170px" placeholder="City" value="Ottawa">
       <select id="input_province" style="padding:10px; margin-top:5px;width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
       <br><input id="input_postal_code" type="text" style="width:170px; padding:10px; margin-top:5px;" Placeholder="Postal Code">
       <br>
-      <br> Phone Number:
+      <br> <b>Phone Number:</b>
       <br><input  id="input_phone_number" type="text" Placeholder="000-000-0000"  style="padding:10px; margin-top:5px; width:260px">
       <br>
-      <br><input type="button" style="width:180px; "  onclick="update_profile();" value="Update"></center>
+      <br><input type="button" onclick="update_profile();" value="Update"> <input type="button" onclick="signOut();" value="Sign out">
+    
       <br>
     </div>
 
   </td><td valign="top">
 
     <!--My Plots -->
-    <div  style=" padding:10px;padding-top:0px;  margin:10px;text-align:left;">
+    <div style="padding:10px;padding-top:0px;  margin:10px;">
       <h3>My garden plots</h3>
       <table class="list" border="1" width=100% id="my_plots_table"></table>
       <br><br>
     </div>
 
       <!--Request new plot -->
-    <div>
+    <div id="request_plot_container" style="padding:10px;padding-top:0px;  margin:10px;">
     <h3>Request a new plot</h3>
       Annual and perennial plots can take up to 3 years or more to get assigned. Raised beds are often available within a year or even mid-season. 
       You can have multiple plots, but you can only request one plot at the time. You will be informed by email when a plot has been assigned to you.
@@ -107,80 +88,67 @@
     </div>
 
     <!--My Waiting list -->
-    <div  >
+    <div id="my_waiting_list_container" style="padding:10px;padding-top:0px;  margin:10px; display:none">
       <h3>Waiting list</h3>
-      <table class="list" border="1" width=100% id="my_waiting_list"></table>
+      <table class="list"  width=100% id="my_waiting_list_table"></table>
       
     </div>
 
 
 
   </td></tr>
-</table></center>
+</table>
 
   <br><br><hr width:70%>
 
-
+  <br><br><h3>Admin </h3>Only users with administrator access can see this section
+  <br><br>
   <!--Admin Console -->
-  <div id="admin_console" style="float:none;width:100%; background-color: lightgray;"><center>
-    <br><br><h3>Admin </h3>Only users with administrator access can see this section
-    <br><br>
+  <div id="admin_console" style="float:none;width:100%; background-color: lightgray;">
+   
+
+    <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'members_container')" id="defaultTab">Members</button>
+      <button class="tablinks" onclick="openCity(event, 'plots_container')">Plots</button>
+      <button class="tablinks" onclick="openCity(event, 'waiting_list_container')">Waiting List</button>
+    </div>
+    
 
     <!--All Members -->
-    <div style="background-color:white;padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
-      <h3>All Members</h3>
-      <table id="admin_members_table" class="list" ></table>
-      <br>
-      <h4>Add a member</h4>
+    <div  id='members_container' class="tabcontent">
       
-        <table class="list">
+      <div id="add_member_container">
+        <br><b>Add a member</b><br><br>
+        <table>
           <tr>
             <td valign="top">
-              Email:   
-              <br><input id="admin_input_email" type="text" style="width:250px">
-            </td>
-            <td valign="top">
-               Name:
-              <br><input id="admin_input_first_name" type="text" Placeholder="First Name">
+              <input id="admin_input_first_name" type="text" Placeholder="First Name">
               <br><input id="admin_input_last_name" type="text"  Placeholder="Last Name"> 
+            </td><td>
+              <input id="admin_input_email" type="text" placeholder="Email address">
+              <br><input  id="admin_input_phone_number" type="text" Placeholder="Phone number" >
              </td>
             <td valign="top">
-              Address:
-              <br><input id="admin_input_street_address" type="text" Placeholder="Street Address" style="width:220px" >
-              <br><input id="admin_input_city" type="text" placeholder="City" value="Ottawa">
+              <input id="admin_input_street_address" type="text" Placeholder="Street Address" style="width:200px" >
+              <br><input id="admin_input_city" type="text" placeholder="City" value="Ottawa" style="width:100px" >
               <select id="admin_input_province" style="width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
-              <br><input id="admin_input_postal_code" type="text" Placeholder="Postal Code">
-              
-            </td valign="top">
-
-            <td valign="top">
-              Phone Number:
-              <br><input  id="admin_input_phone_number" type="text" Placeholder="000-000-0000" >
-              <br>
+              </td><td>
+              <input id="admin_input_postal_code" type="text" Placeholder="Postal Code" style="width:100px" >
+              <br><input type="button"  onclick="add_member();" value="Submit">              
             </td>
 
-            <td valign="top">
-              <input type="button"  onclick="add_member();" value="Submit"></center>
-            </td>
           </tr>
         </table>
-      <br>
-    
-      
-      <br>
+      </div>
+        <br><br>
+        <table id="admin_members_table" class="list" ></table>
     </div>
 
-    
-    <br><br>
 
     <!--All Plots -->
-    <div style="background-color:white; padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
-      <h3>All Plots</h3>
-      <table id="admin_plots_table" class="list"></table>
-
-      <h4>Add a plot</h4>
-
-      <input type="text" id="input_plotId"  placeholder="Plot ID" required>
+    <div id="plots_container"  class="tabcontent">
+      <br><b>Add a plot</b><br>
+      <br><input type="text" id="input_plotId"  placeholder="Plot ID" required>
       <select id="input_plot_type">
         <option>Plot type</option>
         <option>Annual</option>
@@ -188,29 +156,14 @@
         <option>Raised bed</option>
       </select>
       <input type="button" onclick="add_plot();" value="Add plot">
+      <br><br><table id="admin_plots_table" class="list"></table>
 
     </div>
 
-    <br><br>
-
     <!--Waiting List -->
-    <div style="background-color:white;padding:10px;padding-top:0px; text-align:left; border:1px solid black; width:90%">
-      <h3> Waiting List</h3>
-      <form>
-        <select>
-          <option>All</option>
-          <option>Annual</option>
-          <option>Perennial</option>
-          <option>Raised bed</option>
-        </select>
-      </form>
-      <p></p>
-      <table id="admin_waiting_list_table" class="list" ></table>
-
-      <h4>Add to waiting list</h4>
-
-      <input type="text" id="admin_input_waiting_list_email"  placeholder="email" required>
-      
+    <div id="waiting_list_container" class="tabcontent">
+      <br><b>Add to waiting list</b><br>
+      <br><input type="text" id="admin_input_waiting_list_email"  placeholder="Email address" required>
       <select id="admin_input_waiting_list_plot_type">
         <option>Plot type</option>
         <option>Annual</option>
@@ -224,10 +177,12 @@
         <option>R01</option>
       </select>
       <input type="button" onclick="add_plot();" value="Add plot">
+      <br><br><table id="admin_waiting_list_table" class="list" ></table>
 
+    
 
     </div>
-    <br><br><br><br>
+    
 
   </div>
 
@@ -240,6 +195,7 @@
     get_naga_members();
     get_plots();
     get_waiting_list()
+    document.getElementById("defaultTab").click();
   }
 </script>
 <script type="text/javascript" src="js/admin.js"></script>
