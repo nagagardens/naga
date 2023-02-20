@@ -66,6 +66,7 @@
   <!-- Member console -->
   <table id="member_console" style="width:100%; " > <center>
     <tr><td width="400" valign="top">
+
     <!-- My Profile -->
     <div  style=" padding:10px;padding-top:0px; text-align:left; ">
       <h3>My profile</h3>
@@ -83,7 +84,7 @@
       <br> Phone Number:
       <br><input  id="input_phone_number" type="text" Placeholder="000-000-0000"  style="padding:10px; margin-top:5px; width:260px">
       <br>
-      <br><button type="button" style="width:180px; padding:10px; margin-top:5px;"  onclick="update_profile();">Update</button></center>
+      <br><input type="button" style="width:180px; "  onclick="update_profile();" value="Update"></center>
       <br>
     </div>
 
@@ -92,7 +93,7 @@
     <!--My Plots -->
     <div  style=" padding:10px;padding-top:0px; text-align:left;">
       <h3>My garden plots</h3>
-      <table border="1" \>
+      <table border="1" id="my_plots_table">
         <tr>
           <td width="300"><b>Plot name</b></td>
           <td width="200"><b>Type</b></td>
@@ -101,13 +102,16 @@
         <tr id="my_plots_list"></tr>
       </table>
       <br><br>
-      <h4>Request a new plot</h4>
-      Plot type:
+      <h3>Request a new plot</h3>
+      Please note it can take up to 3 years or more to get a plot. You will be informed by email when a plot becomes available.
+      <br>
+      <br>Plot type:
       <select><option>Select</option><option>Annual</option><option>Perennial</option></select>
-      
-      <br><br>Plot number:
+      Plot number:
       <select><option>Any</option><option>A01</option></select>
-      <br><br><button type="button" onclick="add_to_waiting_list();">Add me to the waiting list!</button>
+      <br>
+      <br>
+      <br><input type="button" onclick="add_to_waiting_list();" value="Add me to the waiting list">
   
     </div>
   </td></tr>
@@ -147,12 +151,12 @@
       <h4>Add a plot</h4>
       <input type="text" id="input_plotId"  placeholder="Plot ID" required>
       <select id="input_plot_type">
-        <option></option>
+        <option>Plot type</option>
         <option>Annual</option>
         <option>Perennial</option>
         <option>Raised bed</option>
       </select>
-      <button type="button" onclick="add_plot();">Add plot</button>
+      <input type="button" onclick="add_plot();" value="Add plot">
 
     </div>
 
@@ -189,10 +193,10 @@
 
 <script>
   window.onload = function(){
-    get_my_plots();
+    
+    getUserAttributes();
     get_naga_members();
     get_plots();
-    const temp_var = getUserAttributes();
   }
 </script>
 <script type="text/javascript" src="js/admin.js"></script>

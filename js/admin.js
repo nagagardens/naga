@@ -63,13 +63,23 @@ function get_plots()
         plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
         if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
         if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
-
-        occupant_form = "<div class='autocomplete'><input style='width:400px;' id='occupant_" + plotId + "' type='text' name='occupant_" + plotId + "' placeholder='enter member email address' value='"+occupant+"'></div> <Button onclick='assign_plot(\"" + plotId + "\",document.getElementById(\"occupant_"+ plotId + "\").value)'>Assign</button>";
         
+        // Assign plot workflow
+        occupant_form = (
+            "<div  id='plot_assign_top_"
+            + plotId + "'>"+occupant+ " </div><div id='plot_assign_bottom_"
+        + plotId + "' style='display:none'><br>Select from waiting list:<br><select></select><br><br>Email address:<div class='autocomplete'><input style='width:400px; display: inline-block;' id='occupant_"
+        + plotId + "' type='text' name='occupant_" + plotId + "' placeholder='Enter email address' value='"
+        +occupant+ "'></div><br><br> <input type='button'  onclick='close_assign_window(\""
+        + plotId + "\")' value='Cancel'> <input type='button'  onclick='assign_plot(\""
+        + plotId + "\",document.getElementById(\"occupant_"
+        + plotId + "\").value);' value='Submit'><br><br></div>")
+
         plot_list.insertAdjacentHTML('beforebegin', `<tr>
             <td>${plotId}</td>
             <td>${plot_type}</td>
             <td width=480>${occupant_form}</td>
+            <td><input type='button' onclick='open_assign_window("${plotId}")' value='Assign'>
         </tr>`)
 
         autocomplete(document.getElementById("occupant_"+ plotId), members_email);
@@ -78,6 +88,7 @@ function get_plots()
 }
 
 function assign_plot(plotId, email){
+    
     
     fetch('https://q1hk67hzpe.execute-api.us-east-1.amazonaws.com/prod/', {
     method: 'POST',
@@ -91,8 +102,8 @@ function assign_plot(plotId, email){
     })
     })
     .then(response => response.json())
-    .then(response => { console.log(JSON.stringify(response));getUserAttributes();})
-      
+    .then(response => { console.log(JSON.stringify(response));get_plots();})
+    
 
     
 }
@@ -118,4 +129,18 @@ function add_plot()
     .then(response => { console.log(JSON.stringify(response));get_plots();})
     
     
+  }
+
+
+
+
+  function open_assign_window(plot_id){
+    document.getElementById("plot_assign_top_" + plot_id).style.display="none";
+    document.getElementById("plot_assign_bottom_" + plot_id).style.display="block";
+  }
+
+
+function close_assign_window(plot_id){
+    document.getElementById("plot_assign_top_" + plot_id).style.display="block";
+    document.getElementById("plot_assign_bottom_" + plot_id).style.display="none";
   }

@@ -8,6 +8,18 @@ body {
   display: inline-block;
   
 }
+input {
+  padding:10px; scroll-margin-top:5px;width:130pxl
+}
+select {
+  padding:10px; scroll-margin-top:5px;width:130pxl
+}
+input[type=button] {
+  background-color: DodgerBlue;
+  color: #fff;
+  border:0px;
+  cursor:pointer;
+}
 .autocomplete-items {
   position: absolute;
   border: 1px solid #d4d4d4;

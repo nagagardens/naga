@@ -53,70 +53,6 @@ function signInButton() {
 }
 
 
-async function showUserInfo(email_address) {
-  
-  // gets user from DynamoDB using email address  
-  const api_url = 'https://thv3sn3j63.execute-api.us-east-1.amazonaws.com/prod/get_naga_user_by_email?user_email=' + encodeURIComponent(email_address);
-  const api_response = await fetch(api_url);
-  const api_data = await(api_response).json();
-  console.log(api_data);
-  document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
-
-  if(JSON.parse(api_data['body'])['first_name'] != null) { document.getElementById('member_name').innerHTML =  JSON.parse(api_data['body'])['first_name']; }
-  
-  
-  document.getElementById('sign-out').style.display = "block";
-  document.getElementById('loader').style.display = "none";
-  
-  if(JSON.parse(api_data['body'])['first_name'] != null) { document.getElementById('input_first_name').value  =  JSON.parse(api_data['body'])['first_name'];}
-  if(JSON.parse(api_data['body'])['last_name'] != null) { document.getElementById('input_last_name').value =  JSON.parse(api_data['body'])['last_name'];}
-  if(JSON.parse(api_data['body'])['street_address'] != null) { document.getElementById('input_street_address').value =  JSON.parse(api_data['body'])['street_address'];}
-  if(JSON.parse(api_data['body'])['city'] != null) { document.getElementById('input_city').value =  JSON.parse(api_data['body'])['city'];}
-  if(JSON.parse(api_data['body'])['province'] != null) { document.getElementById('input_province').value =  JSON.parse(api_data['body'])['province'];}
-  if(JSON.parse(api_data['body'])['postal_code'] != null) { document.getElementById('input_postal_code').value =  JSON.parse(api_data['body'])['postal_code'];}
-  if(JSON.parse(api_data['body'])['phone_number'] != null) { document.getElementById('input_phone_number').value =  JSON.parse(api_data['body'])['phone_number']; }
-    
-
-  }
-
-function getUserAttributes() {
-  
-  var data = {
-    UserPoolId : _config.cognito.userPoolId,
-    ClientId : _config.cognito.clientId
-  };
-  var userPool = new AmazonCognitoIdentity.CognitoUserPool(data);
-  var cognitoUser = userPool.getCurrentUser();
-
-  if (cognitoUser != null) {
-    cognitoUser.getSession(function(err, session) {
-      if (err) {
-        alert(err);
-        return;
-      }
-      //console.log('session validity: ' + session.isValid());
-      
-      cognitoUser.getUserAttributes(function(err, result) {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        // user email address
-        
-        console.log(result[2].getValue());
-        showUserInfo(result[2].getValue())
-      });
-
-    });
-  } else {
-    console.log("Already signed-out")
-    document.getElementById('sign-out').style.display = "none";
-    document.getElementById('loader').style.display = "none";
-    document.getElementById('sign-in').style.display="block";
-  }
-}
-
-
 
 function signOut() {
 
@@ -149,6 +85,7 @@ function signOut() {
     window.location.href='./index.html';
     
 }
+
 
 window.onload = function(){
   const temp_var = getUserAttributes();
