@@ -84,7 +84,11 @@ function get_plots()
             <td>${plotId}</td>
             <td>${plot_type}</td>
             <td width=480>${occupant_form}</td>
-            <td valign=top><input type='button' onclick='open_assign_window("${plotId}")' value='Assign'>
+            <td valign=top>
+                <input type='button' onclick='open_assign_window("${plotId}")' value='Assign'>
+                <input type='button' onclick='remove_plot("${plotId}")' value='Remove'>
+            </td>
+
         </tr>`)
 
         autocomplete(document.getElementById("occupant_"+ plotId), members_email);
@@ -136,7 +140,23 @@ function add_plot()
     
   }
 
-
+function remove_plot(plot_id){
+    email = document.getElementById('member_email').innerHTML;
+    const api_url = ' https://un7umkeqkc.execute-api.us-east-1.amazonaws.com/prod/remove_plot?plotId='+plot_id;
+    
+  
+    fetch(api_url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(response => {console.log(JSON.stringify(response)); get_plots();})
+  
+    
+}
 
 
   function open_assign_window(plot_id){
