@@ -148,6 +148,8 @@ function get_my_plots(email){
 function get_my_waiting_list(email){
   document.getElementById('my_waiting_list_table').innerHTML="<tr><th>Plot type</th><th>Plot number</th><th>Date joined</th><th>Status</th><th width=120>Actions</th></tr><tr id='my_waiting_list'></tr></table>";
   var my_waiting_list = document.getElementById('my_waiting_list');
+  var no_waiting_list = true;
+  
   
   const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod/';
   fetch(api_url, {
@@ -168,8 +170,7 @@ function get_my_waiting_list(email){
     actions="<input type=button value='Remove' onclick='delete_from_waiting_list(\""+ JSON.stringify(element['item_id']['S']).replace(/["']/g, "") +"\")'>";
 
       if(plot_email == email){
-        document.getElementById("request_plot_container").style.display="none";
-        document.getElementById("my_waiting_list_container").style.display="block";
+        no_waiting_list=false;
         my_waiting_list.insertAdjacentHTML('beforebegin', `<tr>
       <td>${plot_type}</td>
       <td>${plot_number}</td>
@@ -181,7 +182,11 @@ function get_my_waiting_list(email){
       }
       
 
-  });})
+      });
+    if (no_waiting_list) {document.getElementById("request_plot_container").style.display="block";
+    document.getElementById("my_waiting_list_container").style.display="none";}else {document.getElementById("request_plot_container").style.display="none";
+    document.getElementById("my_waiting_list_container").style.display="block";}
+    })
 }
 
 function add_to_waiting_list(){
@@ -277,8 +282,8 @@ function openCity(evt, cityName) {
 }
 
 function delete_from_waiting_list(item_id){
-  
-  const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
+  email = document.getElementById('member_email').innerHTML;
+  const api_url = ' https://671mzjuba1.execute-api.us-east-1.amazonaws.com/prod/delete_from_waiting_list?item_id='+item_id;
   
 
   fetch(api_url, {
@@ -289,28 +294,7 @@ function delete_from_waiting_list(item_id){
       }
   })
   .then(response => response.json())
-  .then(response => { response['body']['Items'].forEach(element => {
-     // alert(JSON.stringify(element));
-      plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
-      if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
-      if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
-      actions="<input type=button value='Release' onclick='release_plot(\""+ plotId +"\")'>";
-
-      if(occupant == email){
-
-      
-      my_plots_list.insertAdjacentHTML('beforebegin', `<tr>
-      <td>${plotId}</td>
-      <td>${plot_type}</td>
-      <td>Paid</td>
-      <td>Feb 28, 2024</td>
-      <td>${actions}</td>
-  </tr>`)
-
-      }
-      
-
-  });})
+  .then(response => {console.log(JSON.stringify(response)); get_my_waiting_list(email);})
 
   
 }

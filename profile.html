@@ -81,10 +81,19 @@
 
         <!--Request new plot -->
       <div id="request_plot_container" style="padding:10px;padding-top:0px;  margin:10px;">
-      <h3>Request a new plot</h3>
-        Annual and perennial plots can take up to 3 years or more to get assigned. Raised beds are often available within a year or even mid-season. 
-        You can have multiple plots, but you can only request one plot at the time. You will be informed by email when a plot has been assigned to you.
-        <br><br><select id="request_plot_type"><option>Plot type</option><option>Any</option><option>Annual</option><option>Perennial</option>><option>Raised bed</option></select>
+        <h3>Request a new plot</h3>
+        Raised beds are often available within a year or even mid-season.
+        Annuals take an average of 2+ years.
+        Perennials are only available to existing members, and they take an average of 3+ years.
+        Preference is given to existing members on all plots.
+        Members can have multiple plots, but they can only be on the waiting list for one plot at the time. 
+        <br>
+        <br><select id="request_plot_type">
+          <option>Plot type</option>
+          <option>Any</option>
+          <option>Raised bed</option>
+          <option>Annual</option>
+          <option>Perennial</option></select>
         <select id="request_plot_number"><option>Plot Number</option><option>Any</option><option>A01</option></select>
         <input type="button" onclick="add_to_waiting_list();" value="Submit">
       </div>
