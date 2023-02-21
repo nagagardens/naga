@@ -208,7 +208,7 @@ function add_to_waiting_list(){
   })
   })
   .then(response => response.json())
-  .then(response => { console.log(JSON.stringify(response));get_my_waiting_list(email);})
+  .then(response => { console.log(JSON.stringify(response));get_my_waiting_list(email);get_waiting_list();})
     
 }
 
@@ -294,7 +294,16 @@ function delete_from_waiting_list(item_id){
       }
   })
   .then(response => response.json())
-  .then(response => {console.log(JSON.stringify(response)); get_my_waiting_list(email);})
+  .then(response => {console.log(JSON.stringify(response)); get_my_waiting_list(email);get_waiting_list();})
 
   
+}
+
+function enable_perennial(value){
+  if(value==1)
+  {
+    document.getElementById('request_plot_number').style.display="inline-block";
+  } else { 
+    document.getElementById('request_plot_number').style.display="none";
+  }
 }
