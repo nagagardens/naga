@@ -22,20 +22,18 @@
 
 <!-- Member console -->
 <table id="member_console" style="border-spacing:20px; width:90%;padding:10px; margin:10px;  margin-left: auto; margin-right: auto;" ><tr>
-    <td valign="top">
+    <td valign="top" width="300">
        
       <!-- My Profile -->
-      <div>
-        <div id='loader'> <img src="img/loader.gif" width="20"></div>
-        
-        <div id="sign-out" style="display:none; text-align:center">
-            
-            <div style=" cursor:pointer; padding: 5px; text-align: center;" onclick="window.location.href='./profile.html'"> 
-                <img src="img/profile.png" width="50">
-                <br><span id="member_name"></span>
-            </div>
-            <br>You are logged in as <span id="member_email"></span>
-            <br><input type="button" onclick="window.location.href='./profile.html'" value ="Go to profile">  <input type=button onclick="signOut();" value="Sign out">
+      <div style="width:100%; ">
+        <center><div id='loader'> <img src="img/loader.gif" width="20"></div></center>
+        <div id="sign-out" style="display:none;">
+          <h3>You are logged in</h3>
+          <img src="img/profile.png" style="width:50px; cursor:pointer;" onclick="window.location.href='./profile.html'">
+          <br><span id="member_name"></span>
+          <br><i><span id="member_email"  style="font-size: 10pt;"></span></i>
+          <br>
+          <br><input type="button" onclick="window.location.href='./profile.html'" value ="Go to profile">  <input type=button onclick="signOut();"  style="background-color:tomato" value="Sign out">
             
         </div>
         
@@ -45,7 +43,7 @@
               <h3>Sign in to your account</h3>
               <input style="padding:5px; margin: 5px;" type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
               <input style="padding:5px; margin: 5px;" type="password" id="inputPassword"  placeholder="Password" name="password" required>
-              <br> <a style="font-size: 12px" href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password?</a>
+              <br><a style="font-size: 12px" href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password</a>
               <p> <input type="button" onclick="signInButton();" value="Sign in"></p>
           </form>
           <br><b>Don't have an account?</b>
@@ -87,15 +85,16 @@
       The Nepean Community Gardens were created in 1991 and they are one of the largest community gardening sites in Ottawa. 
       We have over 200 plots and around 150 gardeners. 
       The plots are available for rent from May through October. 
-      <br><br>We have three types of plots available:
+      <br>
+      <br>We have three types of plots available:
       <ul>
-        <li><b>Annual</b> plots are 20 ft by 30 ft, and are rototilled each spring.  </li>
-        <li><b>Perennial</b> plots are 20 by 15 ft and are entirely maintained by the gardener renting them. You can plant annuals in these plots as well.</li>
-        <li><b>Raised Beds</b> are 4 by 12 ft and are also mantained by the renter.</li>
+        <li><b>Annual plots</b> are 20 ft by 30 ft, and are rototilled each spring.  </li>
+        <li><b>Perennial plots</b> are 20 by 15 ft and are entirely maintained by the gardener renting them. You can plant annuals in these plots as well.</li>
+        <li><b>Raised beds</b> are 4 by 12 ft and are also mantained by the renter.</li>
       </ul> 
 
       If you'd like to rent one of our plots, you can <a href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">create an account</a> and join our waiting list.
-      Join early! It can take an average of more than two (2) years for annuals, and more than three (3) years for perennials. Raised beds are often available within a year or even mid-season. 
+      Join early! It can take an average of more than two years for annuals, and more than three years for perennials. Raised beds are often available within a year or even mid-season. 
       
       <br><br>
       <h3>Upcoming events</h3>

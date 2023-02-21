@@ -63,7 +63,7 @@
         <br> <b>Phone Number:</b>
         <br><input  id="input_phone_number" type="text" Placeholder="000-000-0000"  style="padding:10px; margin-top:5px; width:260px">
         <br>
-        <br><input type="button" onclick="update_profile();" value="Update"> <input type="button" onclick="signOut();" value="Sign out">
+        <br><input type="button" onclick="update_profile();" value="Update"> <input type="button" onclick="signOut();" value="Sign out" style="background-color:tomato">
       
         <br>
       </div>
@@ -74,7 +74,8 @@
       <!--My Plots -->
       <div style="padding:10px;padding-top:0px;  margin:10px;">
         <h3>My garden plots</h3>
-        <table class="list" border="1" width=100% id="my_plots_table"></table>
+        <table class="list" id="my_plots_table"></table>
+        
         <br><br>
       </div>
 
@@ -97,12 +98,12 @@
     </td>
   </tr></table>
 
-  <br><br><hr width:70%>
+  
 
   <br><br><h3>Admin </h3>Only users with administrator access can see this section
   <br><br>
   <!--Admin Console -->
-  <div id="admin_console" style="float:none;width:100%; background-color: lightgray;">
+  <div id="admin_console" style="float:none; width:100%; margin:20px; background-color: lightgray;">
    
 
     <div class="tab">

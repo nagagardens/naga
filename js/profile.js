@@ -107,6 +107,7 @@ function get_my_plots(email){
   document.getElementById('my_plots_table').innerHTML="<tr><th>Plot Id</th><th>Plot Type</th><th>Status</th><th >Renewal date</th><th width=120>Actions</th></tr><tr id='my_plots_list'></tr></table>";
   
   var my_plots_list = document.getElementById('my_plots_list');
+  var no_plots=true;
 
   fetch(api_url, {
       method: 'GET',
@@ -116,7 +117,9 @@ function get_my_plots(email){
       }
   })
   .then(response => response.json())
-  .then(response => { response['body']['Items'].forEach(element => {
+  .then(response => { 
+    
+    response['body']['Items'].forEach(element => {
      // alert(JSON.stringify(element));
       plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
       if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
@@ -125,19 +128,20 @@ function get_my_plots(email){
 
       if(occupant == email){
 
-      
-      my_plots_list.insertAdjacentHTML('beforebegin', `<tr>
-      <td>${plotId}</td>
-      <td>${plot_type}</td>
-      <td>Paid</td>
-      <td>Feb 28, 2024</td>
-      <td>${actions}</td>
-  </tr>`)
+        no_plots=false; 
+        my_plots_list.insertAdjacentHTML('beforebegin', `<tr>
+          <td>${plotId}</td>
+          <td>${plot_type}</td>
+          <td>Paid</td>
+          <td>Feb 28, 2024</td>
+          <td>${actions}</td>
+        </tr>`)
 
-      }
-      
+      };
+    });
+    if(no_plots) { document.getElementById("my_plots_table").innerHTML="You have no plots assigned to you at the moment."}
+  })
 
-  });})
 }
 
 
