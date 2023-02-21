@@ -6,60 +6,123 @@
         <script src="js/amazon-cognito-identity.min.js"></script>
         <script src="js/config.js"></script>
         <script type="text/javascript" src="js/auth.js"></script>
+        <link rel="stylesheet" href="js/autocomplete.css">
         
     </head>
 
     <body>
-
-        <table  width="100%" style="border-spacing:20px; padding:10px; border:1px solid black">
+  
+        <!--Header -->
+        <table style="width:600px; border-spacing:20px; padding:10px; margin-left: auto; margin-right: auto">
             <tr> 
-                <td width="300"  style="cursor:pointer;text-align:center;vertical-align: top;" onclick="window.location.href='./index.html'">
-                    <img src="img/logo.png" width="120">
-                    <h2> Nepean Allotment<br> Garden Association</h2>
-                </td>
-                <td></td>
-              <td width="200" style=" text-align: center">
-
-                <div id='loader'> <img src="img/loader.gif" width="20"></div>
-                
-                <div id="sign-out" style="display:none; text-align:center">
-                    
-                    <div style="display:inline-block;
-                    color:#444;
-                    border:1px solid #CCC;
-                    background:#DDD;
-                    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
-                    cursor:pointer;
-                    vertical-align:middle;
-                    max-width: 100px;
-                    padding: 5px;
-                    text-align: center;" onclick="window.location.href='./profile.html'"> 
-                        <img src="img/profile.png" width="50">
-                        <br><span id="member_name"></span>
-                    </div>
-                    <p><br><span id="member_email"></span><br><a href="#" onclick="signOut();">Sign out</a></p>
-                    
-                </div>
-                
-                <div id='sign-in' style="display:none">
-    
-                    <form>
-                        <h3>Sign in to your account</h3>
-                        <input style="padding:5px; margin: 5px;" type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
-                        <input style="padding:5px; margin: 5px;" type="password" id="inputPassword"  placeholder="Password" name="password" required>
-                       <br> <a style="font-size: 12px" href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password?</a>
-                       <p> <button type="button" onclick="signInButton();">Sign in</button></p>
-                    </form>
-                    <br><b>Don't have an account?</b><br><a href="https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html">Become a member</a></p>
-                        </span>
-                    
-                </div>
-      
-              </td>
+                <td style="cursor:pointer;" onclick="window.location.href='./index.html'"><img src="img/logo.png" width="150"></td>
+                <td valign="bottom"><h1> Nepean Allotment<br> Garden Association</h1></td>
             </tr>
         </table>
 
-        <center><p><p><br><br><br><br><br><h1>HOME PAGE</h1></center>
+<!-- Member console -->
+<table id="member_console" style="border-spacing:20px; width:90%;padding:10px; margin:10px;  margin-left: auto; margin-right: auto;" ><tr>
+    <td valign="top">
+       
+      <!-- My Profile -->
+      <div>
+        <div id='loader'> <img src="img/loader.gif" width="20"></div>
+        
+        <div id="sign-out" style="display:none; text-align:center">
+            
+            <div style=" cursor:pointer; padding: 5px; text-align: center;" onclick="window.location.href='./profile.html'"> 
+                <img src="img/profile.png" width="50">
+                <br><span id="member_name"></span>
+            </div>
+            <br>You are logged in as <span id="member_email"></span>
+            <br><input type="button" onclick="window.location.href='./profile.html'" value ="Go to profile">  <input type=button onclick="signOut();" value="Sign out">
+            
+        </div>
+        
+        <div id='sign-in' style="display:none">
+
+          <form>
+              <h3>Sign in to your account</h3>
+              <input style="padding:5px; margin: 5px;" type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
+              <input style="padding:5px; margin: 5px;" type="password" id="inputPassword"  placeholder="Password" name="password" required>
+              <br> <a style="font-size: 12px" href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password?</a>
+              <p> <input type="button" onclick="signInButton();" value="Sign in"></p>
+          </form>
+          <br><b>Don't have an account?</b>
+          <br>
+          <br><input type="button" style="width:150px" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'" value ="Become a member"> 
+          
+            
+        </div>
+        
+        <br>
+      </div>
+
+      <!--Volunteers -->
+      <div>
+        <h3> Volunteers</h3>
+        Volunteers are needed for various tasks, including:
+        <ul>
+          <li>Spring/Fall cleanup </li>
+          <li> Plot patrol</li>
+          <li>Filling potholes </li>
+          <li> Food bank deliveries </li>
+          
+        </ul>
+        <br>
+        <b>Everyone is welcome to volunteer!</b> 
+        <br>
+        <br>Community involvement hours for students are available.
+        Please email us if you are interested in joining our volunteer crew.
+      </div>
+
+    </td>
+    
+    <td valign="top" style="border-left:1px solid lightgrey;">
+    </td>
+    <td>
+
+      <!--Events -->
+      <h3>Welcome!</h3>
+      The Nepean Community Gardens were created in 1991 and they are one of the largest community gardening sites in Ottawa. 
+      We have over 200 plots and around 150 gardeners. 
+      The plots are available for rent from May through October. 
+      <br><br>We have three types of plots available:
+      <ul>
+        <li><b>Annual</b> plots are 20 ft by 30 ft, and are rototilled each spring.  </li>
+        <li><b>Perennial</b> plots are 20 by 15 ft and are entirely maintained by the gardener renting them. You can plant annuals in these plots as well.</li>
+        <li><b>Raised Beds</b> are 4 by 12 ft and are also mantained by the renter.</li>
+      </ul> 
+
+      If you'd like to rent one of our plots, you can <a href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">create an account</a> and join our waiting list.
+      Join early! It can take an average of more than two (2) years for annuals, and more than three (3) years for perennials. Raised beds are often available within a year or even mid-season. 
+      
+      <br><br>
+      <h3>Upcoming events</h3>
+      <h4>APRIL 23      Annual General Meeting</h4>
+      Join us for our Annual General Meeting (AGM) and seed exchange at the Tanglewood Community Centre on 30 Woodfield Drive. If you would like to add any items to the agenda, please send us an email.
+      
+      <h4>APRIL 29    Spring cleanup</h4>
+      As with every year, we’ll kick off the season with a cleaning party. Tasks include pruning trees, staking plots, painting tools, picking up garbage and rocks. Snacks and cleaning supplies will be provided.
+      
+      <h4>MAY 3 / 7    Orientation sessions</h4>
+      We will be holding two orientation sessions this Spring: Wednesday, May 3rd at 6:00 PM and Sunday, May 7th at 1:00 PM. Whether you are a new gardener or are looking for a refresher, join us for a tour of the grounds, best practices and Q&A. We will meet at the tool shed.
+      
+      <h4>JUNE 17    Garden party</h4>
+      The garden is an ideal place for people in the community, young and old, to gather, chat, and get to know one another, building ties to make a strong and healthy community. Join our Garden Party on Saturday June 17th at 3:00 PM for music, games, crafts, and snacks. We will also have a seedling exchange table. Come get to know your fellow NAGA gardeners! 
+      
+      <h4>Compost and Straw</h4>
+      We are planning to have compost delivered from the City of Ottawa again this year. We are also having bales of straw delivered to the garden for $8 each ($8.25 if paying with plastic). Dates and times will be emailed and posted on the bulletin board at the garden. 
+
+
+Food Bank
+NAGA has been collecting food for the Debra Dynes house for the past several years. Debra Dynes family house is a multiservice community resource that over 100 people access per day. If you'd like to learn more, visit their website at debradynes.ncf.ca.
+
+Consider 'growing a row' to donate in this year's garden plot! Starting mid-season, there will be a spot in the shed to leave your donations.
+
+    </td>
+  </tr></table>
+        
 
        
         <script>

@@ -30,74 +30,72 @@
   <br><br>
 
   <!-- Member console -->
-  <table id="member_console" style="width:90%; margin-left: auto; margin-right: auto;" > 
-    <tr><td width="300" valign="top">
-
-    <!-- My Profile -->
-    <div  style="width:350px; padding:10px;padding-top:0px;border-right:1px solid lightgrey; margin:10px; text-align:left; ">
-      <h3>My profile</h3>
-      <table style="width:100%;"><tr>
-        <td >
-          <!-- if user is signed in -->
-          <div id='loader'><img src="img/loader.gif" width="20"></div>
-          <div id="sign-out" style="display:none; text-align:center">
-            <div style="cursor:pointer; margin:5px;" onclick="window.location.href='./profile.html'"> 
-                <img src="img/profile.png" width="60">
-            </div>
-          </div>
-        </td>
-        <td>
-          <br><input id="input_first_name" type="text" Placeholder="First Name" style="padding:10px; scroll-margin-top:5px;width:90%">
-          <input id="input_last_name" type="text"  Placeholder="Last Name" style="padding:10px; margin-top:5px;width:90%"> 
-        </td>
-      </tr></table>
-      <br><b>Email:</b> 
-      <br><span id="member_email"></span>
-      <br><input  id="input_email" type="text" style="display:none"></span>
-      <br> <b>Mailing address:</b>
-      <br><input id="input_street_address" type="text" Placeholder="Street Address"  style="padding:10px; margin-top:5px; width:260px">
-      <br><input id="input_city" type="text" style="padding:10px; margin-top:5px;width:170px" placeholder="City" value="Ottawa">
-      <select id="input_province" style="padding:10px; margin-top:5px;width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
-      <br><input id="input_postal_code" type="text" style="width:170px; padding:10px; margin-top:5px;" Placeholder="Postal Code">
-      <br>
-      <br> <b>Phone Number:</b>
-      <br><input  id="input_phone_number" type="text" Placeholder="000-000-0000"  style="padding:10px; margin-top:5px; width:260px">
-      <br>
-      <br><input type="button" onclick="update_profile();" value="Update"> <input type="button" onclick="signOut();" value="Sign out">
-    
-      <br>
-    </div>
-
-  </td><td valign="top">
-
-    <!--My Plots -->
-    <div style="padding:10px;padding-top:0px;  margin:10px;">
-      <h3>My garden plots</h3>
-      <table class="list" border="1" width=100% id="my_plots_table"></table>
-      <br><br>
-    </div>
-
-      <!--Request new plot -->
-    <div id="request_plot_container" style="padding:10px;padding-top:0px;  margin:10px;">
-    <h3>Request a new plot</h3>
-      Annual and perennial plots can take up to 3 years or more to get assigned. Raised beds are often available within a year or even mid-season. 
-      You can have multiple plots, but you can only request one plot at the time. You will be informed by email when a plot has been assigned to you.
-      <br><br><select id="request_plot_type"><option>Plot type</option><option>Any</option><option>Annual</option><option>Perennial</option>><option>Raised bed</option></select>
-      <select id="request_plot_number"><option>Plot Number</option><option>Any</option><option>A01</option></select>
-      <input type="button" onclick="add_to_waiting_list();" value="Submit">
-    </div>
-
-    <!--My Waiting list -->
-    <div id="my_waiting_list_container" style="padding:10px;padding-top:0px;  margin:10px; display:none">
-      <h3>Waiting list</h3>
-      <table class="list"  width=100% id="my_waiting_list_table"></table>
+  <table id="member_console" style="width:90%; margin-left: auto; margin-right: auto;" ><tr>
+    <td width="300" valign="top">
       
-    </div>
+      <!-- My Profile -->
+      <div  style="width:350px; padding:10px;padding-top:0px;border-right:1px solid lightgrey; margin:10px; text-align:left; ">
+        <h3>My profile</h3>
+        <table style="width:100%;"><tr>
+          <td >
+            <!-- if user is signed in -->
+            <div id='loader'><img src="img/loader.gif" width="20"></div>
+            <div id="sign-out" style="display:none; text-align:center">
+              <div style="cursor:pointer; margin:5px;" onclick="window.location.href='./profile.html'"> 
+                  <img src="img/profile.png" width="60">
+              </div>
+            </div>
+          </td>
+          <td>
+            <br><input id="input_first_name" type="text" Placeholder="First Name" style="padding:10px; scroll-margin-top:5px;width:90%">
+            <input id="input_last_name" type="text"  Placeholder="Last Name" style="padding:10px; margin-top:5px;width:90%"> 
+          </td>
+        </tr></table>
+        <br><b>Email:</b> 
+        <br><span id="member_email"></span>
+        <br><input  id="input_email" type="text" style="display:none"></span>
+        <br> <b>Mailing address:</b>
+        <br><input id="input_street_address" type="text" Placeholder="Street Address"  style="padding:10px; margin-top:5px; width:260px">
+        <br><input id="input_city" type="text" style="padding:10px; margin-top:5px;width:170px" placeholder="City" value="Ottawa">
+        <select id="input_province" style="padding:10px; margin-top:5px;width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
+        <br><input id="input_postal_code" type="text" style="width:170px; padding:10px; margin-top:5px;" Placeholder="Postal Code">
+        <br>
+        <br> <b>Phone Number:</b>
+        <br><input  id="input_phone_number" type="text" Placeholder="000-000-0000"  style="padding:10px; margin-top:5px; width:260px">
+        <br>
+        <br><input type="button" onclick="update_profile();" value="Update"> <input type="button" onclick="signOut();" value="Sign out">
+      
+        <br>
+      </div>
+    </td>
+    
+    <td valign="top">
 
+      <!--My Plots -->
+      <div style="padding:10px;padding-top:0px;  margin:10px;">
+        <h3>My garden plots</h3>
+        <table class="list" border="1" width=100% id="my_plots_table"></table>
+        <br><br>
+      </div>
 
+        <!--Request new plot -->
+      <div id="request_plot_container" style="padding:10px;padding-top:0px;  margin:10px;">
+      <h3>Request a new plot</h3>
+        Annual and perennial plots can take up to 3 years or more to get assigned. Raised beds are often available within a year or even mid-season. 
+        You can have multiple plots, but you can only request one plot at the time. You will be informed by email when a plot has been assigned to you.
+        <br><br><select id="request_plot_type"><option>Plot type</option><option>Any</option><option>Annual</option><option>Perennial</option>><option>Raised bed</option></select>
+        <select id="request_plot_number"><option>Plot Number</option><option>Any</option><option>A01</option></select>
+        <input type="button" onclick="add_to_waiting_list();" value="Submit">
+      </div>
 
-  </td></tr>
-</table>
+      <!--My Waiting list -->
+      <div id="my_waiting_list_container" style="padding:10px;padding-top:0px;  margin:10px; display:none">
+        <h3>Waiting list</h3>
+        <table class="list"  width=100% id="my_waiting_list_table"></table>
+        
+      </div>
+    </td>
+  </tr></table>
 
   <br><br><hr width:70%>
 

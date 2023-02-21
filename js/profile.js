@@ -104,7 +104,7 @@ function get_my_plots(email){
   
   const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
   
-  document.getElementById('my_plots_table').innerHTML="<tr><th width=120>Plot Id</th><th width=120>Plot Type</th><th width=120>Status</th><th width=200>Renewal date</th><th width=120>Actions</th></tr><tr id='my_plots_list'></tr></table>";
+  document.getElementById('my_plots_table').innerHTML="<tr><th>Plot Id</th><th>Plot Type</th><th>Status</th><th >Renewal date</th><th width=120>Actions</th></tr><tr id='my_plots_list'></tr></table>";
   
   var my_plots_list = document.getElementById('my_plots_list');
 
@@ -142,14 +142,10 @@ function get_my_plots(email){
 
 
 function get_my_waiting_list(email){
-  
+  document.getElementById('my_waiting_list_table').innerHTML="<tr><th>Plot type</th><th>Plot number</th><th>Date joined</th><th>Status</th><th width=120>Actions</th></tr><tr id='my_waiting_list'></tr></table>";
+  var my_waiting_list = document.getElementById('my_waiting_list');
   
   const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod/';
-  
-  document.getElementById('my_waiting_list_table').innerHTML="<tr><th>Plot type</th><th>Plot number</th><th>Date joined</th><th>Status</th><th width=120>Actions</th></tr><tr id='my_waiting_list'></tr></table>";
-  
-  var my_waiting_list = document.getElementById('my_waiting_list');
-
   fetch(api_url, {
       method: 'GET',
       headers: {
@@ -164,7 +160,9 @@ function get_my_waiting_list(email){
     if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
     if(element['plot_number']) { plot_number=JSON.stringify(element['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
     if(element['date_added']) { date_added=JSON.stringify(element['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
-      
+    
+    actions="<input type=button value='Remove' onclick='delete_from_waiting_list(\""+ JSON.stringify(element['item_id']['S']).replace(/["']/g, "") +"\")'>";
+
       if(plot_email == email){
         document.getElementById("request_plot_container").style.display="none";
         document.getElementById("my_waiting_list_container").style.display="block";
@@ -173,7 +171,7 @@ function get_my_waiting_list(email){
       <td>${plot_number}</td>
       <td>${date_added}</td>
       <td>You are #34 in line</td>
-      <td> <input type=button value='Exchange'> <input type=button value='Remove'></td>
+      <td>${actions}</td>
   </tr>`)
 
       }
@@ -272,4 +270,43 @@ function openCity(evt, cityName) {
   }
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
+}
+
+function delete_from_waiting_list(item_id){
+  
+  const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
+  
+
+  fetch(api_url, {
+      method: 'GET',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      }
+  })
+  .then(response => response.json())
+  .then(response => { response['body']['Items'].forEach(element => {
+     // alert(JSON.stringify(element));
+      plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
+      if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
+      if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
+      actions="<input type=button value='Release' onclick='release_plot(\""+ plotId +"\")'>";
+
+      if(occupant == email){
+
+      
+      my_plots_list.insertAdjacentHTML('beforebegin', `<tr>
+      <td>${plotId}</td>
+      <td>${plot_type}</td>
+      <td>Paid</td>
+      <td>Feb 28, 2024</td>
+      <td>${actions}</td>
+  </tr>`)
+
+      }
+      
+
+  });})
+
+  
 }

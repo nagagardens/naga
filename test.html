@@ -2,37 +2,112 @@
 <html>
   <head>
     <title>Dynamic Tables in HTML</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@1.0.0/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="css/gallery.css">
+    
     <!--Just for styles-->
   </head>
   <body>
-    <div class="container"><br>
-      <h3>
-        Users in database
-      </h3>
-      <br>
-      <table>
-        <thead><tr><td><b>First name</b></td><td><b>Last Name</b></td></tr></thead>
-        <tr id="root"></tr>
-      </table>
+    <div class="gallery">
+      <div class="gallery__item">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/1" />
+        </div>
+      </div>
+      <div class="gallery__item">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/2" />
+        </div>
+      </div>
+      <div class="gallery__item">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/3" />
+        </div>
+      </div>
+      <div class="gallery__item gallery__item--v-2">
+        <div class="embed embed--1-2">
+          <img src="https://source.unsplash.com/collection/582659/4" />
+        </div>
+      </div>
+      <div class="gallery__item">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/5" />
+        </div>
+      </div>
+      <div class="gallery__item gallery__item--h-2">
+        <div class="embed embed--2-1">
+          <img src="https://source.unsplash.com/collection/582659/6" />
+        </div>
+      </div>
+      <div class="gallery__item gallery__item--v-2">
+        <div class="embed embed--1-2">
+          <img src="https://source.unsplash.com/collection/582659/7" />
+        </div>
+      </div>
+      <div class="gallery__item gallery__item--h-2">
+        <div class="embed embed--2-1">
+          <img src="https://source.unsplash.com/collection/582659/8" />
+        </div>
+      </div>
+      <div class="gallery__item gallery__item--v-2">
+        <div class="embed embed--1-2">
+          <img src="https://source.unsplash.com/collection/582659/9" />
+        </div>
+      </div>
+      <div class="gallery__item gallery__item--h-2 gallery__item--v-2">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/10" />
+        </div>
+      </div>
+      <div class="gallery__item">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/11" />
+        </div>
+      </div>
+      <div class="gallery__item gallery__item--h-2 gallery__item--v-2">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/12" />
+        </div>
+      </div>
+      <div class="gallery__item">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/13" />
+        </div>
+      </div>
+      <div class="gallery__item gallery__item--h-2 gallery__item--v-3">
+        <div class="embed embed--2-3">
+          <img src="https://source.unsplash.com/collection/582659/14" />
+        </div>
+      </div>
+      <div class="gallery__item gallery__item--h-2 gallery__item--v-2">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/15" />
+        </div>
+      </div>
+      <div class="gallery__item gallery__item--v-2">
+        <div class="embed embed--1-2">
+          <img src="https://source.unsplash.com/collection/582659/16" />
+        </div>
+      </div>
+      <div class="gallery__item">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/17" />
+        </div>
+      </div>
+      <div class="gallery__item">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/18" />
+        </div>
+      </div>
+      <div class="gallery__item">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/19" />
+        </div>
+      </div>
+      <div class="gallery__item">
+        <div class="embed">
+          <img src="https://source.unsplash.com/collection/582659/20" />
+        </div>
+      </div>
     </div>
-    <br>
-    <script>
-      var data = [
-        {"id": 1, "firstName": "John", "lastName": "Doe" },
-        { "id": 2, "firstName": "Jane", "lastName": "Doe" },
-        { "id": 3, "firstName": "Bill", "lastName": "Doe" }, 
-        { "id": 4, "firstName": "Abraham", "lastName": "Lincoln" },
-        { "id": 5, "firstName": "Bill", "lastName": "Gates" }, 
-        { "id": 6, "firstName": "Steve", "lastName": "Jobs" },
-        { "id": 7, "firstName": "Bill", "lastName": "Clinton" },
-        { "id": 8, "firstName": "Joe", "lastName": "Biden" },
-        { "id": 9, "firstName": "Kamala", "lastName": "Harris" },
-        { "id": 10, "firstName": "Queen", "lastName": "Elizabeth" },
-        { "id": 11, "firstName": "Bob", "lastName": "Doe" }
-      ];
-      var root = document.getElementById('root');
-      data.forEach(element => root.insertAdjacentHTML('beforebegin', `<tr><td>${element.firstName}</td><td>${element.lastName}</td></tr>`));
-    </script>
   </body>
 </html>
