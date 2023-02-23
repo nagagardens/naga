@@ -74,11 +74,11 @@ function get_plots()
         occupant_form = (
             "<div  id='plot_assign_top_"
             + plot_id + "'>"+occupant+ " </div><div id='plot_assign_bottom_"
-        + plot_id + "' style='display:none'>Enter email address:<div class='autocomplete'><input style='width:400px; display: inline-block;' id='occupant_"
-        + plot_id + "' type='text' name='occupant_" + plot_id + "' value='"
-        +occupant+ "'></div><br><br>Or select from waiting list:<br><select onchange='select_from_waiting_list(\""
+        + plot_id + "' style='display:none'>Select from waiting list:<br><select onchange='select_from_waiting_list(\""
         + plot_id + "\")' id='select_from_waiting_list_"
-        + plot_id + "'><option></option></select><br><br> <input type='checkbox' id='checkbox_delete_from_waiting_list_"
+        + plot_id + "'><option></option></select><br><br>Email address:<div class='autocomplete'><input style='width:400px; display: inline-block;' id='occupant_"
+        + plot_id + "' type='text' name='occupant_" + plot_id + "' value='"
+        +occupant+ "'></div><br><br> <input type='checkbox' id='checkbox_delete_from_waiting_list_"
         +plot_id + "' checked> Remove member from waiting list <br><br><input type='button'  onclick='assign_plot(\""
         + plot_id + "\",document.getElementById(\"occupant_"
         + plot_id + "\").value);' value='Submit'>  <input type='button'  onclick='close_assign_window(\""
@@ -223,8 +223,9 @@ function close_assign_window(plot_id){
 
 
 function select_from_waiting_list(plot_id){
-    
-    document.getElementById("occupant_"+plot_id).value=document.getElementById("select_from_waiting_list_"+plot_id).value
+    value=document.getElementById("select_from_waiting_list_"+plot_id).value;
+    document.getElementById("occupant_"+plot_id).value=value;
+  
 }
 
 
