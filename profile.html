@@ -125,9 +125,9 @@
    
 
     <div class="tab">
-      <button class="tablinks" onclick="openCity(event, 'members_container')" id="defaultTab">Members</button>
-      <button class="tablinks" onclick="openCity(event, 'plots_container')">Plots</button>
-      <button class="tablinks" onclick="openCity(event, 'waiting_list_container')">Waiting List</button>
+      <button class="tablinks" onclick="openCity(event, 'members_container');get_naga_members();" id="defaultTab">Members</button>
+      <button class="tablinks" onclick="openCity(event, 'plots_container');get_plots();">Plots</button>
+      <button class="tablinks" onclick="openCity(event, 'waiting_list_container');get_waiting_list()">Waiting List</button>
     </div>
     
 
@@ -209,9 +209,6 @@
   window.onload = function(){
     
     getUserAttributes();
-    get_naga_members();
-    get_plots();
-    get_waiting_list()
     document.getElementById("defaultTab").click();
   }
 </script>

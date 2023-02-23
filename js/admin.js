@@ -1,5 +1,5 @@
-var members_email =[""];
-var waiting_list_emails =[""];
+var members_email =[];
+
 
 function get_naga_members(){
 
@@ -74,7 +74,7 @@ function get_plots()
         occupant_form = (
             "<div  id='plot_assign_top_"
             + plot_id + "'>"+occupant+ " </div><div id='plot_assign_bottom_"
-        + plot_id + "' style='display:none'><b>Assign plot</b><br><br>Enter email address:<div class='autocomplete'><input style='width:400px; display: inline-block;' id='occupant_"
+        + plot_id + "' style='display:none'>Enter email address:<div class='autocomplete'><input style='width:400px; display: inline-block;' id='occupant_"
         + plot_id + "' type='text' name='occupant_" + plot_id + "' value='"
         +occupant+ "'></div><br><br>Or select from waiting list:<br><select onchange='select_from_waiting_list(\""
         + plot_id + "\")' id='select_from_waiting_list_"
@@ -176,18 +176,41 @@ function remove_plot(plot_id){
 
 
   function open_assign_window(plot_id){
-    
-    var select = document.getElementById("select_from_waiting_list_"+plot_id);
-    for(var i = 0; i < waiting_list_emails.length; i++) {
-        var opt = waiting_list_emails[i];
+
+
+
+    const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
+    fetch(api_url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(response => { response['body']['Items'].forEach(element => {
+        var select = document.getElementById("select_from_waiting_list_"+plot_id);
+        
         var el = document.createElement("option");
-        el.textContent = opt;
-        el.value = opt;
+        el.textContent = JSON.stringify(element['email']['S']).replace(/["']/g, "");
+        el.value = JSON.stringify(element['email']['S']).replace(/["']/g, "");
         select.appendChild(el);
-    }
+        
+        
+
+    });
+
+   
     document.getElementById("plot_assign_top_" + plot_id).style.display="none";
     document.getElementById("plot_assign_bottom_" + plot_id).style.display="block";
 
+    
+    })
+
+    
+
+
+    
 
   }
 
@@ -207,11 +230,11 @@ function select_from_waiting_list(plot_id){
 
 function get_waiting_list()
 {
-    const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     
     document.getElementById('admin_waiting_list_table').innerHTML="<tr><th>Email</th><th>Plot Type</th><th>Plot Number</th><th>Date joined</th><th width=120>Actions</th></tr><tr id='waiting_list'></tr></table>";
     var waiting_list = document.getElementById('waiting_list');
-    
+
+    const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     fetch(api_url, {
         method: 'GET',
         headers: {
@@ -224,7 +247,6 @@ function get_waiting_list()
         
         
         if(element['email']) { email=JSON.stringify(element['email']['S']).replace(/["']/g, "") } else {email="";}
-        waiting_list_emails.unshift(email);
         if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
         if(element['plot_number']) { plot_number=JSON.stringify(element['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
         if(element['date_added']) { date_added=JSON.stringify(element['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
@@ -238,6 +260,10 @@ function get_waiting_list()
             <td width=>${actions}</td>
         </tr>`)
 
-    });})
+    });
+    
+    })
+
+    
 
 }
