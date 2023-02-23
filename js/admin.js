@@ -192,12 +192,12 @@ function get_waiting_list()
     .then(response => response.json())
     .then(response => { response['body']['Items'].forEach(element => {
         
-        item_id=JSON.stringify(element['item_id']['S']).replace(/["']/g, "");
+        
         if(element['email']) { email=JSON.stringify(element['email']['S']).replace(/["']/g, "") } else {email="";}
         if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
         if(element['plot_number']) { plot_number=JSON.stringify(element['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
         if(element['date_added']) { date_added=JSON.stringify(element['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
-        actions="<input type='button' onclick='delete_from_waiting_list(\""+JSON.stringify(element['item_id']['S']).replace(/["']/g, "")+"\")' value='Remove'>";
+        actions="<input type='button' onclick='delete_from_waiting_list(\""+JSON.stringify(element['email']['S']).replace(/["']/g, "")+"\")' value='Remove'>";
 
         waiting_list.insertAdjacentHTML('beforebegin', `<tr>
             <td>${email}</td>

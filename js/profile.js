@@ -167,7 +167,7 @@ function get_my_waiting_list(email){
     if(element['plot_number']) { plot_number=JSON.stringify(element['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
     if(element['date_added']) { date_added=JSON.stringify(element['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
     
-    actions="<input type=button value='Remove' onclick='delete_from_waiting_list(\""+ JSON.stringify(element['item_id']['S']).replace(/["']/g, "") +"\")'>";
+    actions="<input type=button value='Remove' onclick='delete_from_waiting_list(\""+ JSON.stringify(element['email']['S']).replace(/["']/g, "") +"\")'>";
 
       if(plot_email == email){
         no_waiting_list=false;
@@ -281,11 +281,10 @@ function openCity(evt, cityName) {
   evt.currentTarget.className += " active";
 }
 
-function delete_from_waiting_list(item_id){
-  email = document.getElementById('member_email').innerHTML;
-  const api_url = ' https://671mzjuba1.execute-api.us-east-1.amazonaws.com/prod/delete_from_waiting_list?item_id='+item_id;
+function delete_from_waiting_list(email){
   
-
+  const api_url = 'https://naqr1xdbd7.execute-api.us-east-1.amazonaws.com/prod/delete_from_waiting_list?email='+encodeURIComponent(email);
+  
   fetch(api_url, {
       method: 'GET',
       headers: {
