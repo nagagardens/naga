@@ -169,7 +169,6 @@ function get_my_waiting_list(email){
     
     actions="<input type=button value='Remove' onclick='delete_from_waiting_list(\""+ JSON.stringify(element['email']['S']).replace(/["']/g, "") +"\")'>";
 
-      if(plot_email == email){
         no_waiting_list=false;
         my_waiting_list.insertAdjacentHTML('beforebegin', `<tr>
       <td>${plot_type}</td>
@@ -179,7 +178,7 @@ function get_my_waiting_list(email){
       <td>${actions}</td>
   </tr>`)
 
-      }
+      
       
 
       });
