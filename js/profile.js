@@ -146,12 +146,10 @@ function get_my_plots(email){
 
 
 function get_my_waiting_list(email){
-  document.getElementById('my_waiting_list_table').innerHTML="<tr><th>Plot type</th><th>Plot number</th><th>Date joined</th><th>Status</th><th width=120>Actions</th></tr><tr id='my_waiting_list'></tr></table>";
-  var my_waiting_list = document.getElementById('my_waiting_list');
+  
   var no_waiting_list = true;
   
-  
-  const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod/';
+  const api_url = 'https://70tip4ggnj.execute-api.us-east-1.amazonaws.com/prod/get_my_waiting_list?email=' + encodeURIComponent(email);
   fetch(api_url, {
       method: 'GET',
       headers: {
@@ -160,28 +158,35 @@ function get_my_waiting_list(email){
       }
   })
   .then(response => response.json())
-  .then(response => { response['body']['Items'].forEach(element => {
-     console.log(JSON.stringify(element));
-     if(element['email']) { plot_email=JSON.stringify(element['email']['S']).replace(/["']/g, "") } else {plot_email="";}
-    if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
-    if(element['plot_number']) { plot_number=JSON.stringify(element['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
-    if(element['date_added']) { date_added=JSON.stringify(element['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
-    
-    actions="<input type=button value='Remove' onclick='delete_from_waiting_list(\""+ JSON.stringify(element['email']['S']).replace(/["']/g, "") +"\")'>";
+  .then(response => { 
+      
+      if(response['Item']){
+        if(response['Item']['plot_type']) { plot_type=JSON.stringify(response['Item']['plot_type']).replace(/["']/g, "") } else {plot_type="";}
+        if(response['Item']['plot_number']) { plot_number=JSON.stringify(response['Item']['plot_number']).replace(/["']/g, "") } else {plot_number="";}
+        if(response['Item']['date_added']) { date_added=JSON.stringify(response['Item']['date_added']).replace(/["']/g, "") } else {date_added="";}
+        actions="<input type=button value='Remove' onclick='delete_from_waiting_list(\""+response['Item']['email']+"\")'>";
+        no_waiting_list=false; 
 
-        no_waiting_list=false;
-        my_waiting_list.insertAdjacentHTML('beforebegin', `<tr>
-      <td>${plot_type}</td>
-      <td>${plot_number}</td>
-      <td>${date_added}</td>
-      <td>You are #34 in line</td>
-      <td>${actions}</td>
-  </tr>`)
+        document.getElementById('my_waiting_list_table').innerHTML=`
+          <tr>
+            <th>Plot type</th>
+            <th>Plot number</th>
+            <th>Date joined</th>
+            <th>Status</th>
+            <th width=120>Actions</th>
+          </tr>
+          <tr>
+            <td>`+plot_type+`</td>
+            <td>`+plot_number+`</td>
+            <td>`+date_added+`</td>
+            <td>You are #34 in line</td>
+            <td>`+actions+`</td>
+          <tr>
+        </table>`;
 
+      }
       
       
-
-      });
     if (no_waiting_list) {document.getElementById("request_plot_container").style.display="block";
     document.getElementById("my_waiting_list_container").style.display="none";}else {document.getElementById("request_plot_container").style.display="none";
     document.getElementById("my_waiting_list_container").style.display="block";}
