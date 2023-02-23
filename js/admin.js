@@ -66,41 +66,41 @@ function get_plots()
     .then(response => response.json())
     .then(response => { response['body']['Items'].forEach(element => {
         
-        plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
+        plot_id=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
         if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
         if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
         
         // Assign plot workflow
         occupant_form = (
             "<div  id='plot_assign_top_"
-            + plotId + "'>"+occupant+ " </div><div id='plot_assign_bottom_"
-        + plotId + "' style='display:none'><b>Assign plot</b><br><br>Enter email address:<div class='autocomplete'><input style='width:400px; display: inline-block;' id='occupant_"
-        + plotId + "' type='text' name='occupant_" + plotId + "' value='"
+            + plot_id + "'>"+occupant+ " </div><div id='plot_assign_bottom_"
+        + plot_id + "' style='display:none'><b>Assign plot</b><br><br>Enter email address:<div class='autocomplete'><input style='width:400px; display: inline-block;' id='occupant_"
+        + plot_id + "' type='text' name='occupant_" + plot_id + "' value='"
         +occupant+ "'></div><br><br>Or select from waiting list:<br><select onchange='select_from_waiting_list(\""
-        + plotId + "\")' id='select_from_waiting_list_"
-        + plotId + "'><option></option></select><br><br> <input type='checkbox' id='checkbox_delete_from_waiting_list_"
-        +occupant + "' checked> Remove member from waiting list <br><br><input type='button'  onclick='assign_plot(\""
-        + plotId + "\",document.getElementById(\"occupant_"
-        + plotId + "\").value);' value='Submit'>  <input type='button'  onclick='close_assign_window(\""
-        + plotId + "\")' value='Cancel 'style='background-color:tomato'><br><br></div>")
+        + plot_id + "\")' id='select_from_waiting_list_"
+        + plot_id + "'><option></option></select><br><br> <input type='checkbox' id='checkbox_delete_from_waiting_list_"
+        +plot_id + "' checked> Remove member from waiting list <br><br><input type='button'  onclick='assign_plot(\""
+        + plot_id + "\",document.getElementById(\"occupant_"
+        + plot_id + "\").value);' value='Submit'>  <input type='button'  onclick='close_assign_window(\""
+        + plot_id + "\")' value='Cancel 'style='background-color:tomato'><br><br></div>")
 
         plot_list.insertAdjacentHTML('beforebegin', `<tr>
-            <td>${plotId}</td>
+            <td>${plot_id}</td>
             <td>${plot_type}</td>
             <td width=480>${occupant_form}</td>
             <td valign=top>
-                <input type='button' onclick='open_assign_window("${plotId}")' value='Assign'>
-                <input type='button' onclick='remove_plot("${plotId}")' value='Remove'>
+                <input type='button' onclick='open_assign_window("${plot_id}")' value='Assign'>
+                <input type='button' onclick='remove_plot("${plot_id}")' value='Remove'>
             </td>
 
         </tr>`)
 
-        autocomplete(document.getElementById("occupant_"+ plotId), members_email);
+        autocomplete(document.getElementById("occupant_"+ plot_id), members_email);
     });})
 
 }
 
-function assign_plot(plotId, email){
+function assign_plot(plot_id, email){
     
     
     fetch('https://q1hk67hzpe.execute-api.us-east-1.amazonaws.com/prod/', {
@@ -110,14 +110,19 @@ function assign_plot(plotId, email){
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({ 
-        "plotId": plotId,
+        "plotId": plot_id,
         "occupant":email
     })
     })
     .then(response => response.json())
     .then(response => { 
+        
         console.log(JSON.stringify(response));
-      
+        
+        if(document.getElementById('checkbox_delete_from_waiting_list_'+plot_id).checked) { 
+            delete_from_waiting_list(email);
+        };
+        
         get_plots();
         
         
