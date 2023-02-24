@@ -167,7 +167,7 @@ function add_plot()
     
   }
 
-function remove_plot(plot_id){
+function remove_plot(plot_id){if(confirm("Are you sure you want to remove this plot? This cannot be undone.")==true){
     email = document.getElementById('member_email').innerHTML;
     const api_url = ' https://un7umkeqkc.execute-api.us-east-1.amazonaws.com/prod/remove_plot?plotId='+plot_id;
     
@@ -182,7 +182,7 @@ function remove_plot(plot_id){
     .then(response => response.json())
     .then(response => {console.log(JSON.stringify(response)); get_plots();})
   
-    
+}
 }
 
 
@@ -317,8 +317,7 @@ function add_member(){
 }
 
 
-function remove_member(email){
-    
+function remove_member(email){if(confirm("Are you sure you want to remove this user? This cannot be undone. Their waiting list entries wll also be deleted")==true){
     const api_url = 'https://ddgo7c2d6l.execute-api.us-east-1.amazonaws.com/prod/remove_member?email='+ encodeURIComponent(email);
     
   
@@ -337,4 +336,4 @@ function remove_member(email){
     })
   
     
-}
+}}
