@@ -53,7 +53,7 @@ function get_naga_members(){
             </tr>`); 
 
         });
-        //alert(members_email);
+      
     })
 
 
@@ -89,8 +89,7 @@ function get_plots()
         + plot_id + "\")' id='select_from_waiting_list_"
         + plot_id + "'><option></option></select><br><br>Email address:<div class='autocomplete'><input style='width:400px; display: inline-block;' id='occupant_"
         + plot_id + "' type='text' name='occupant_" + plot_id + "' value='"
-        +occupant+ "'></div><br><br> <input type='checkbox' id='checkbox_delete_from_waiting_list_"
-        +plot_id + "' checked> Remove member from waiting list <br><br><input type='button'  onclick='assign_plot(\""
+        +occupant+ "'></div><br><br><input type='button'  onclick='assign_plot(\""
         + plot_id + "\",document.getElementById(\"occupant_"
         + plot_id + "\").value);' value='Submit'>  <input type='button'  onclick='close_assign_window(\""
         + plot_id + "\")' value='Cancel 'style='background-color:tomato'><br><br></div>")
@@ -129,11 +128,7 @@ function assign_plot(plot_id, email){
     .then(response => { 
         
         console.log(JSON.stringify(response));
-        
-        if(document.getElementById('checkbox_delete_from_waiting_list_'+plot_id).checked) { 
-            delete_from_waiting_list(email);
-        };
-        
+        delete_from_waiting_list(email);
         get_plots();
         
         

@@ -95,7 +95,7 @@ function update_profile(){
   })
   })
   .then(response => response.json())
-  .then(response => { console.log(JSON.stringify(response)); alert('Profile information updated'); getUserAttributes();})
+  .then(response => { console.log(JSON.stringify(response)); getUserAttributes();})
     
 }
 
@@ -217,7 +217,7 @@ function add_to_waiting_list(){
 }
 
 
-function signOut() {if(confirm("Are you sure you want to sign out?")==true){
+function signOut() {
 
   document.getElementById('loader').style.display = "block";
   document.getElementById('sign-out').style.display = "none"
@@ -247,7 +247,7 @@ function signOut() {if(confirm("Are you sure you want to sign out?")==true){
     }
     window.location.href='./index.html';
     
-}}
+}
 
 
 function release_plot(plotId){if(confirm("Are you sure you want to give up this plot? You will have to join the waiting list to get it back!")==true){
@@ -285,7 +285,7 @@ function openCity(evt, cityName) {
   evt.currentTarget.className += " active";
 }
 
-function delete_from_waiting_list(email){if(confirm("Are you sure you want to remove this entry from the waiting list? ")==true){
+function delete_from_waiting_list(email){if(confirm("This will remove "+email+" from the waiting list. Are you sure?")==true){
   
   const api_url = 'https://naqr1xdbd7.execute-api.us-east-1.amazonaws.com/prod/delete_from_waiting_list?email='+encodeURIComponent(email);
   
@@ -298,7 +298,7 @@ function delete_from_waiting_list(email){if(confirm("Are you sure you want to re
   })
   .then(response => response.json())
   .then(response => {console.log(JSON.stringify(response)); get_my_waiting_list(email);get_waiting_list();})
-}s
+}
   
 }
 
