@@ -3,7 +3,14 @@ var members_email =[];
 
 function get_naga_members(){
 
-    document.getElementById('admin_members_table').innerHTML="<tr><th>Email</th><th>Name</th><th>Address</th><th>Phone Number</th><th width=120>Actions</th></tr><tr id='member_list'></tr></table>";
+    document.getElementById('admin_members_table').innerHTML=`
+    <tr><th>Email</th>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Phone Number</th>
+    <th>Admin</th>
+    <th width=120>Actions</th>
+    </tr><tr id='member_list'></tr></table>`;
 
     const api_url = 'https://g1t81zygbh.execute-api.us-east-1.amazonaws.com/prod/get_naga_members';
     var member_list = document.getElementById('member_list');
@@ -19,6 +26,8 @@ function get_naga_members(){
     .then(response => response.json())
     .then(response => {
         
+        console.log(JSON.stringify(response));
+        
         response['body']['Items'].forEach(element => {
             email=JSON.stringify(element['email']['S']).replace(/["']/g, "");
             members_email.unshift(email);
@@ -29,15 +38,17 @@ function get_naga_members(){
             province=JSON.stringify(element['province']['S']).replace(/["']/g, "");
             postal_code=JSON.stringify(element['postal_code']['S']).replace(/["']/g, "");
             phone_number=JSON.stringify(element['phone_number']['S']).replace(/["']/g, "");
+            if(JSON.stringify(element['admin'])) { admin=JSON.stringify(element['admin']['BOOL']); } else {admin=false;} 
             full_name=first_name + " " + last_name;
             full_address=street_address + "<br>" + city + ", " + province + "<br>" + postal_code;
-            actions="<input type=button value='Remove'>";
+            actions="<input type=button onclick='remove_member(\""+email+"\")' value='Remove'>";
             
             member_list.insertAdjacentHTML('beforebegin', `<tr>
                 <td>${email}</td>
                 <td>${full_name}</td>
                 <td>${full_address}</td>
                 <td>${phone_number}</td>
+                <td>${admin} </td>
                 <td>${actions}</td>
             </tr>`); 
 
@@ -267,4 +278,63 @@ function get_waiting_list()
 
     
 
+}
+
+function add_member(){
+    
+    email=document.getElementById('admin_input_email').value;
+    first_name=document.getElementById('admin_input_first_name').value;
+    last_name=document.getElementById('admin_input_last_name').value;
+    street_address=document.getElementById('admin_input_street_address').value;
+    city=document.getElementById('admin_input_city').value;
+    province=document.getElementById('admin_input_province').value;
+    postal_code=document.getElementById('admin_input_postal_code').value;
+    phone_number=document.getElementById('admin_input_phone_number').value;
+    admin=document.getElementById('admin_input_admin_checkbox').checked;
+    
+    fetch('https://baf4kiept7.execute-api.us-east-1.amazonaws.com/prod', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ 
+        "email": email,
+        "first_name":first_name,
+        "last_name":last_name,
+        "street_address":street_address,
+        "city":city,
+        "province":province,
+        "postal_code":postal_code,
+        "phone_number":phone_number,
+        "admin":admin
+    })
+    })
+    .then(response => response.json())
+    .then(response => { console.log(JSON.stringify(response));get_naga_members();})
+    
+    
+}
+
+
+function remove_member(email){
+    
+    const api_url = 'https://ddgo7c2d6l.execute-api.us-east-1.amazonaws.com/prod/remove_member?email='+ encodeURIComponent(email);
+    
+  
+    fetch(api_url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+        console.log(JSON.stringify(response)); 
+        delete_from_waiting_list(email);
+        get_naga_members();
+    })
+  
+    
 }
