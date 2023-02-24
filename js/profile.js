@@ -77,7 +77,7 @@ function update_profile(){
   phone_number= document.getElementById('input_phone_number').value;
   
   
-  fetch('https://wqh6v44q2m.execute-api.us-east-1.amazonaws.com/prod', {
+  fetch('https://ixih1qmuzb.execute-api.us-east-1.amazonaws.com/prod', {
   method: 'POST',
   headers: {
       'Accept': 'application/json',
