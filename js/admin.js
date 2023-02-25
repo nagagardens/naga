@@ -38,7 +38,7 @@ function get_naga_members(){
             province=JSON.stringify(element['province']['S']).replace(/["']/g, "");
             postal_code=JSON.stringify(element['postal_code']['S']).replace(/["']/g, "");
             phone_number=JSON.stringify(element['phone_number']['S']).replace(/["']/g, "");
-            if(JSON.stringify(element['admin'])) { admin=JSON.stringify(element['admin']['BOOL']); } else {admin=false;} 
+            if(JSON.stringify(element['admin'])) { admin=JSON.stringify(element['admin']['BOOL']); } else {admin="";} 
             full_name=first_name + " " + last_name;
             full_address=street_address + "<br>" + city + ", " + province + "<br>" + postal_code;
             actions="<input type=button onclick='remove_member(\""+email+"\")' value='Remove'>";
@@ -312,7 +312,7 @@ function add_member(){
 }
 
 
-function remove_member(email){if(confirm("Are you sure you want to remove this user? This cannot be undone. Their waiting list entries wll also be deleted")==true){
+function remove_member(email){if(confirm("Are you sure you want to remove this user? This cannot be undone.")==true){
     const api_url = 'https://ddgo7c2d6l.execute-api.us-east-1.amazonaws.com/prod/remove_member?email='+ encodeURIComponent(email);
     
   

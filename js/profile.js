@@ -285,7 +285,7 @@ function openCity(evt, cityName) {
   evt.currentTarget.className += " active";
 }
 
-function delete_from_waiting_list(email){if(confirm("This will remove "+email+" from the waiting list. Are you sure?")==true){
+function delete_from_waiting_list(email){if(confirm("Do you want to  remove "+email+" from the waiting list?")==true){
   
   const api_url = 'https://naqr1xdbd7.execute-api.us-east-1.amazonaws.com/prod/delete_from_waiting_list?email='+encodeURIComponent(email);
   
