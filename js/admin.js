@@ -62,11 +62,10 @@ function get_naga_members(){
 
 function get_plots()
 {
-    const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
-    
     document.getElementById('admin_plots_table').innerHTML="<tr><th>Plot Id</th><th>Plot Type</th><th>Occupant</th><th width=120>Actions</th></tr><tr id='plot_list'></tr></table>";
     var plot_list = document.getElementById('plot_list');
     
+    const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
     fetch(api_url, {
         method: 'GET',
         headers: {
@@ -238,7 +237,7 @@ function select_from_waiting_list(plot_id){
 function get_waiting_list()
 {
     
-    document.getElementById('admin_waiting_list_table').innerHTML="<tr><th>Email</th><th>Plot Type</th><th>Plot Number</th><th>Date joined</th><th width=120>Actions</th></tr><tr id='waiting_list'></tr></table>";
+    
     var waiting_list = document.getElementById('waiting_list');
 
     const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
@@ -250,24 +249,52 @@ function get_waiting_list()
         }
     })
     .then(response => response.json())
-    .then(response => { response['body']['Items'].forEach(element => {
+    .then(response => {  
         
-        
-        if(element['email']) { email=JSON.stringify(element['email']['S']).replace(/["']/g, "") } else {email="";}
-        if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
-        if(element['plot_number']) { plot_number=JSON.stringify(element['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
-        if(element['date_added']) { date_added=JSON.stringify(element['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
-        actions="<input type='button' onclick='delete_from_waiting_list(\""+JSON.stringify(element['email']['S']).replace(/["']/g, "")+"\")' value='Remove'>";
+        plot_groups=JSON.parse(response);;
+        plot_groups.forEach(plot_group => {
 
-        waiting_list.insertAdjacentHTML('beforebegin', `<tr>
-            <td>${email}</td>
-            <td>${plot_type}</td>
-            <td width=>${plot_number}</td>
-            <td width=>${date_added}</td>
-            <td width=>${actions}</td>
-        </tr>`)
+            waiting_list.insertAdjacentHTML('beforebegin', `
+                <h3>${plot_group['Title']}</h3>
+                <table class="list">
+                    <tr id="plot_group_${plot_groups.indexOf(plot_group)}">
+                    <td>Position</td>
+                    <td>Email</td>
+                    <td>Plot type</td>
+                    <td width=>Plot Number</td>
+                    <td width=>Current Occupant</td>
+                    <td width=>Date joined</td>
+                    <td width=>Actions</td>
+                    </tr>
+                </table><br><br>
+            `)
 
-    });
+            plot_group['Body'].forEach(plot => {
+
+                
+                if(plot['email']) { email=JSON.stringify(plot['email']['S']).replace(/["']/g, "") } else {email="";}
+                if(plot['plot_type']) { plot_type=JSON.stringify(plot['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
+                if(plot['plot_number']) { plot_number=JSON.stringify(plot['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
+                if(plot['has_plots']) { has_plots=JSON.stringify(plot['has_plots']['BOOL']) } else {has_plots="";}
+                if(plot['date_added']) { date_added=JSON.stringify(plot['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
+                actions="<input type='button' onclick='delete_from_waiting_list(\""+JSON.stringify(plot['email']['S']).replace(/["']/g, "")+"\")' value='Remove'>";
+
+                document.getElementById("plot_group_"+plot_groups.indexOf(plot_group)).insertAdjacentHTML('afterend', `<tr>
+                    <td>${plot_group['Body'].indexOf(plot)+1}</td>
+                    <td>${email}</td>
+                    <td>${plot_type}</td>
+                    <td width=>${plot_number}</td>
+                    <td width=>${has_plots}</td>
+                    <td width=>${date_added}</td>
+                    <td width=>${actions}</td>
+                </tr>`)
+                
+                
+            });
+            
+            
+
+        });
     
     })
 

@@ -86,16 +86,14 @@
         Annuals take an average of 2+ years.
         Perennials are only available to existing members, and they take an average of 3+ years.
         Preference is given to existing members on all plots.
-        Members can have multiple plots, but they can only be on the waiting list for one plot at the time. 
+        
         <br>
         <br><select id="request_plot_type">
-          <option>Plot type</option>
-          <option>Any</option>
           <option>Raised bed</option>
           <option>Annual</option>
-          <option>Perennial</option></select>
+          <option id='perennial_option' disabled>Perennial</option></select>
 
-          <select onchange="enable_perennial(this.value)"><option>Plot number</option><option>First available</option><option value="1">I have a plot in mind</option></select>
+          <select onchange="request_plot_number(this.value)"><option>First available</option><option value="1">I have a plot in mind</option></select>
 
 
         <input type="text" id="request_plot_number" style="display:none" placeholder="Which plot(s)?">
@@ -125,9 +123,9 @@
    
 
     <div class="tab">
-      <button class="tablinks" onclick="openCity(event, 'members_container');get_naga_members();" id="defaultTab">Members</button>
+      <button class="tablinks" onclick="openCity(event, 'members_container');get_naga_members();">Members</button>
       <button class="tablinks" onclick="openCity(event, 'plots_container');get_plots();">Plots</button>
-      <button class="tablinks" onclick="openCity(event, 'waiting_list_container');get_waiting_list()">Waiting List</button>
+      <button class="tablinks" onclick="openCity(event, 'waiting_list_container');get_waiting_list()" id="defaultTab">Waiting List</button>
     </div>
     
 
@@ -196,7 +194,7 @@
         <option>R01</option>
       </select>
       <input type="button" onclick="add_plot();" value="Add plot">
-      <br><br><table id="admin_waiting_list_table" class="list" ></table>
+      <br><br><div id="waiting_list" ></div>
 
     
 

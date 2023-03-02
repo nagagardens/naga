@@ -139,7 +139,9 @@ function get_my_plots(email){
 
       };
     });
+
     if(no_plots) { document.getElementById("my_plots_table").innerHTML="You have no plots assigned to you at the moment."}
+    else { document.getElementById('perennial_option').disabled=false}
   })
 
 }
@@ -288,7 +290,7 @@ function openCity(evt, cityName) {
   evt.currentTarget.className += " active";
 }
 
-function delete_from_waiting_list(email){if(confirm("Do you want to  remove "+email+" from the waiting list?")==true){
+function delete_from_waiting_list(email){
   
   const api_url = 'https://naqr1xdbd7.execute-api.us-east-1.amazonaws.com/prod/delete_from_waiting_list?email='+encodeURIComponent(email);
   
@@ -303,9 +305,9 @@ function delete_from_waiting_list(email){if(confirm("Do you want to  remove "+em
   .then(response => {console.log(JSON.stringify(response)); get_my_waiting_list(email);get_waiting_list();})
 }
   
-}
 
-function enable_perennial(value){
+
+function request_plot_number(value){
   if(value==1)
   {
     document.getElementById('request_plot_number').style.display="inline-block";
