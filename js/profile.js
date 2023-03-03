@@ -15,7 +15,7 @@ function getUserAttributes() {
         alert(err);
         return;
       }
-      //console.log('session validity: ' + session.isValid());
+    console.log('session validity: ' + session.isValid());
       
       cognitoUser.getUserAttributes(function(err, result) {
         if (err) {
@@ -24,7 +24,7 @@ function getUserAttributes() {
         }
         
         email=result[2].getValue();
-        console.log(email);
+        console.log("Logged in user:" + email);
         showUserInfo(email);
         get_my_plots(email);
         get_my_waiting_list(email);
@@ -46,7 +46,7 @@ async function showUserInfo(email) {
   const api_url = 'https://thv3sn3j63.execute-api.us-east-1.amazonaws.com/prod/get_naga_user_by_email?user_email=' + encodeURIComponent(email);
   const api_response = await fetch(api_url);
   const api_data = await(api_response).json();
-  console.log(api_data);
+  
   document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
 
   
@@ -166,6 +166,7 @@ function get_my_waiting_list(email){
         if(response['Item']['plot_type']) { plot_type=JSON.stringify(response['Item']['plot_type']).replace(/["']/g, "") } else {plot_type="";}
         if(response['Item']['plot_number']) { plot_number=JSON.stringify(response['Item']['plot_number']).replace(/["']/g, "") } else {plot_number="";}
         if(response['Item']['date_added']) { date_added=JSON.stringify(response['Item']['date_added']).replace(/["']/g, "") } else {date_added="";}
+        if(response['Item']['position']) { position=JSON.stringify(response['Item']['position']).replace(/["']/g, "") } else {position="";}
         actions="<input type=button value='Remove' onclick='delete_from_waiting_list(\""+response['Item']['email']+"\")'>";
         no_waiting_list=false; 
 
@@ -174,14 +175,14 @@ function get_my_waiting_list(email){
             <th>Plot type</th>
             <th>Plot number</th>
             <th>Date joined</th>
-            <th>Status</th>
+            <th>Place in line</th>
             <th width=120>Actions</th>
           </tr>
           <tr>
             <td>`+plot_type+`</td>
             <td>`+plot_number+`</td>
             <td>`+date_added+`</td>
-            <td>You are #34 in line</td>
+            <td>`+position+`</td>
             <td>`+actions+`</td>
           <tr>
         </table>`;

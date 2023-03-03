@@ -237,9 +237,9 @@ function select_from_waiting_list(plot_id){
 function get_waiting_list()
 {
     
+    document.getElementById('waiting_list').innerHTML='<div id="waiting_list_marker"></div>';
+    console.log("Waiting list fun start:" + document.getElementById('waiting_list').innerHTML)
     
-    var waiting_list = document.getElementById('waiting_list');
-
     const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     fetch(api_url, {
         method: 'GET',
@@ -251,10 +251,12 @@ function get_waiting_list()
     .then(response => response.json())
     .then(response => {  
         
-        plot_groups=JSON.parse(response);;
+        
+        plot_groups=JSON.parse(response);
         plot_groups.forEach(plot_group => {
-
-            waiting_list.insertAdjacentHTML('beforebegin', `
+            console.log("Before Each group" + document.getElementById('waiting_list').innerHTML)
+            
+            document.getElementById('waiting_list').insertAdjacentHTML('beforebegin', `
                 <h3>${plot_group['Title']}</h3>
                 <table class="list">
                     <tr id="plot_group_${plot_groups.indexOf(plot_group)}">
@@ -267,7 +269,9 @@ function get_waiting_list()
                     <td width=>Actions</td>
                     </tr>
                 </table><br><br>
-            `)
+            `);
+            console.log("After each group:" + document.getElementById('waiting_list').innerHTML)
+            
 
             plot_group['Body'].forEach(plot => {
 
@@ -276,11 +280,12 @@ function get_waiting_list()
                 if(plot['plot_type']) { plot_type=JSON.stringify(plot['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
                 if(plot['plot_number']) { plot_number=JSON.stringify(plot['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
                 if(plot['has_plots']) { has_plots=JSON.stringify(plot['has_plots']['BOOL']) } else {has_plots="";}
+                if(plot['position']) { position=JSON.stringify(plot['position']['N']) } else {position="";}
                 if(plot['date_added']) { date_added=JSON.stringify(plot['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
                 actions="<input type='button' onclick='delete_from_waiting_list(\""+JSON.stringify(plot['email']['S']).replace(/["']/g, "")+"\")' value='Remove'>";
 
                 document.getElementById("plot_group_"+plot_groups.indexOf(plot_group)).insertAdjacentHTML('afterend', `<tr>
-                    <td>${plot_group['Body'].indexOf(plot)+1}</td>
+                    <td width=>${position}</td>
                     <td>${email}</td>
                     <td>${plot_type}</td>
                     <td width=>${plot_number}</td>
@@ -289,16 +294,12 @@ function get_waiting_list()
                     <td width=>${actions}</td>
                 </tr>`)
                 
-                
             });
             
             
-
         });
     
     })
-
-    
 
 }
 
