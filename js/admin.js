@@ -237,9 +237,7 @@ function select_from_waiting_list(plot_id){
 function get_waiting_list()
 {
     
-    document.getElementById('waiting_list').innerHTML='<div id="waiting_list_marker"></div>';
-    console.log("Waiting list fun start:" + document.getElementById('waiting_list').innerHTML)
-    
+    document.getElementById('waiting_list').innerHTML='';
     const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     fetch(api_url, {
         method: 'GET',
@@ -251,55 +249,57 @@ function get_waiting_list()
     .then(response => response.json())
     .then(response => {  
         
-        
-        plot_groups=JSON.parse(response);
-        plot_groups.forEach(plot_group => {
-            console.log("Before Each group" + document.getElementById('waiting_list').innerHTML)
-            
+        plot_types=JSON.parse(response); row=0;
+        plot_types.forEach(plot_type => {
+            row++
             document.getElementById('waiting_list').insertAdjacentHTML('beforebegin', `
-                <h3>${plot_group['Title']}</h3>
-                <table class="list">
-                    <tr id="plot_group_${plot_groups.indexOf(plot_group)}">
-                    <td>Position</td>
-                    <td>Email</td>
-                    <td>Plot type</td>
-                    <td width=>Plot Number</td>
-                    <td width=>Current Occupant</td>
-                    <td width=>Date joined</td>
-                    <td width=>Actions</td>
-                    </tr>
-                </table><br><br>
+            <h3>${plot_type['Title']}</h3>
+
+            <table class="list">
+                <tr id="has_plots_${row}">
+                <th>Position</th>
+                <th>Email</th>
+                <th>Plot Number</th>
+                <th>Current member</th>
+                <th>Date joined</th>
+                <th>Actions</th>
+                </tr>
+                <tr></tr>
+                <tr id="no_plots_${row}">
+                </tr>
+            </table><br><br>
             `);
-            console.log("After each group:" + document.getElementById('waiting_list').innerHTML)
             
-
-            plot_group['Body'].forEach(plot => {
-
+            
+            plot_type['has_plots'].forEach(plot => {
                 
-                if(plot['email']) { email=JSON.stringify(plot['email']['S']).replace(/["']/g, "") } else {email="";}
-                if(plot['plot_type']) { plot_type=JSON.stringify(plot['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
-                if(plot['plot_number']) { plot_number=JSON.stringify(plot['plot_number']['S']).replace(/["']/g, "") } else {plot_number="";}
-                if(plot['has_plots']) { has_plots=JSON.stringify(plot['has_plots']['BOOL']) } else {has_plots="";}
-                if(plot['position']) { position=JSON.stringify(plot['position']['N']) } else {position="";}
-                if(plot['date_added']) { date_added=JSON.stringify(plot['date_added']['S']).replace(/["']/g, "") } else {date_added="";}
-                actions="<input type='button' onclick='delete_from_waiting_list(\""+JSON.stringify(plot['email']['S']).replace(/["']/g, "")+"\")' value='Remove'>";
-
-                document.getElementById("plot_group_"+plot_groups.indexOf(plot_group)).insertAdjacentHTML('afterend', `<tr>
-                    <td width=>${position}</td>
-                    <td>${email}</td>
-                    <td>${plot_type}</td>
-                    <td width=>${plot_number}</td>
-                    <td width=>${has_plots}</td>
-                    <td width=>${date_added}</td>
-                    <td width=>${actions}</td>
-                </tr>`)
-                
+                document.getElementById("has_plots_"+row).insertAdjacentHTML('afterend', `<tr>
+                <td width>${plot['position']['N']}</td>
+                <td>${plot['email']['S']}</td>
+                <td width>${plot['plot_number']['S']}</td>
+                <td width>${plot['has_plots']['BOOL']}</td>
+                <td width>${plot['date_added']['S']}</td>
+                <td width><input type='button' onclick='delete_from_waiting_list(\"${plot['email']['S']}\")' value='Remove'></td>
+                </tr>`);
             });
+
             
-            
+            plot_type['no_plots'].forEach(plot => {
+                
+                document.getElementById("no_plots_"+row).insertAdjacentHTML('afterend', `<tr>
+                <td width>${plot['position']['N']}</td>
+                <td>${plot['email']['S']}</td>
+                <td width>${plot['plot_number']['S']}</td>
+                <td width>${plot['has_plots']['BOOL']}</td>
+                <td width>${plot['date_added']['S']}</td>
+                <td width><input type='button' onclick='delete_from_waiting_list(\"${plot['email']['S']}\")' value='Remove'></td>
+                </tr>`);
+            });
+
+
         });
     
-    })
+    });
 
 }
 

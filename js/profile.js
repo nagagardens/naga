@@ -172,17 +172,17 @@ function get_my_waiting_list(email){
 
         document.getElementById('my_waiting_list_table').innerHTML=`
           <tr>
+            <th>Position</th>
             <th>Plot type</th>
             <th>Plot number</th>
             <th>Date joined</th>
-            <th>Place in line</th>
             <th width=120>Actions</th>
           </tr>
           <tr>
+            <td>`+position+`</td>  
             <td>`+plot_type+`</td>
             <td>`+plot_number+`</td>
             <td>`+date_added+`</td>
-            <td>`+position+`</td>
             <td>`+actions+`</td>
           <tr>
         </table>`;
