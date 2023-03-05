@@ -236,8 +236,7 @@ function select_from_waiting_list(plot_id){
 
 function get_waiting_list()
 {
-    
-    document.getElementById('waiting_list').innerHTML='';
+    document.getElementById('all_waiting_lists').innerHTML='<div id="waiting_list"></div>';
     const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     fetch(api_url, {
         method: 'GET',
@@ -256,7 +255,7 @@ function get_waiting_list()
             <h3>${plot_type['Title']}</h3>
 
             <table class="list">
-                <tr id="has_plots_${row}">
+                <tr id="waiting_list_row_${row}">
                 <th>Position</th>
                 <th>Email</th>
                 <th>Plot Number</th>
@@ -270,11 +269,10 @@ function get_waiting_list()
             </table><br><br>
             `);
             
-            
-            plot_type['has_plots'].forEach(plot => {
+            plot_type['Body'].forEach(plot => {
                 
-                document.getElementById("has_plots_"+row).insertAdjacentHTML('afterend', `<tr>
-                <td width>${plot['position']['N']}</td>
+                document.getElementById("waiting_list_row_"+row).insertAdjacentHTML('afterend', `<tr>
+                <td width>${plot['place']['N']}</td>
                 <td>${plot['email']['S']}</td>
                 <td width>${plot['plot_number']['S']}</td>
                 <td width>${plot['has_plots']['BOOL']}</td>
@@ -282,20 +280,6 @@ function get_waiting_list()
                 <td width><input type='button' onclick='delete_from_waiting_list(\"${plot['email']['S']}\")' value='Remove'></td>
                 </tr>`);
             });
-
-            
-            plot_type['no_plots'].forEach(plot => {
-                
-                document.getElementById("no_plots_"+row).insertAdjacentHTML('afterend', `<tr>
-                <td width>${plot['position']['N']}</td>
-                <td>${plot['email']['S']}</td>
-                <td width>${plot['plot_number']['S']}</td>
-                <td width>${plot['has_plots']['BOOL']}</td>
-                <td width>${plot['date_added']['S']}</td>
-                <td width><input type='button' onclick='delete_from_waiting_list(\"${plot['email']['S']}\")' value='Remove'></td>
-                </tr>`);
-            });
-
 
         });
     
