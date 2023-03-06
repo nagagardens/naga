@@ -99,7 +99,7 @@ function get_plots()
                     Select from waiting list:
                     <br><select onchange='select_from_waiting_list("${plot_id}")' id='select_from_waiting_list_${plot_id}'><option></option></select>
                     <br><br>Email address:
-                    <div class='autocomplete'><input id='occupant_${plot_id}' type='text' name='occupant_${plot_id}' value='${plot['occupant']['S'] }'></div>
+                    <br><div class='autocomplete'><input id='occupant_${plot_id}' type='text' name='occupant_${plot_id}' value='${plot['occupant']['S'] }'></div>
                     <br><br><input type='button'  onclick='assign_plot("${plot_id}",document.getElementById("occupant_${plot_id}").value);' value='Submit'>  
                     <input type='button'  onclick='close_assign_window("${plot_id}")' value='Cancel 'style='background-color:tomato'><br><br></div>
                 `)
