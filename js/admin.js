@@ -213,7 +213,7 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
         response.forEach(element => {
         
         if(element['Title']==plot_type){
-            
+            element['Body'].reverse();
             element['Body'].forEach(item => {
 
                 console.log(item)
