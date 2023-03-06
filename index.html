@@ -3,15 +3,26 @@
     <head>
         <title>Nepean Allotment Garden Association</title>
         <meta charset="utf-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
         <script src="js/amazon-cognito-identity.min.js"></script>
         <script src="js/config.js"></script>
         <script type="text/javascript" src="js/auth.js"></script>
         <link rel="stylesheet" href="js/autocomplete.css">
-        
+        <script src="js/galleria.min.js"></script>
+        <style>
+          .galleria{ width: 100%; height: 600px; background: #FFF }
+      </style>
+      <script>
+        (function() {
+            Galleria.loadTheme('js/themes/classic/galleria.classic.min.js');
+            Galleria.run('.galleria');
+          }());
+      </script>
     </head>
 
     <body>
-  
+      
+     
         <!--Header -->
         <table style="width:600px; border-spacing:20px; padding:10px; margin-left: auto; margin-right: auto">
             <tr> 
@@ -90,10 +101,9 @@
       <!--Events -->
       <h3>Welcome!</h3>
       The Nepean Community Gardens were created in 1991 and they are one of the largest community gardening sites in Ottawa. 
-      We have over 200 plots and around 150 gardeners. 
-      The plots are available for rent from May through October. 
-      <br>
-      <br>We have three types of plots available:
+      We have over 200 plots and around 150 gardeners!
+      
+      <br>We have three types of plots available for rent from <b>May through October</b>:
       <ul>
         <li><b>Raised beds</b> are 4 by 12 ft.</li>
         <li><b>Annual plots</b> are 20 ft by 30 ft, and are rototilled each spring.  </li>
@@ -105,7 +115,6 @@
       Raised beds are often available within a year or even mid-season.
       Annuals take an average of 2+ years.
       Perennials are only available to existing members, and they take an average of 3+ years.
-      
       
       <br><br>
       <h3>Upcoming events</h3>
@@ -125,8 +134,35 @@
     </td>
   </tr>
 
+ 
+  <!-- Photo Gallery -->
+  <tr>
+    <td colspan="3">
+      <h2>Photos from our members</h2>
+      <div class="galleria">
+        <img src="img/photo_01.png">
+        <img src="img/photo_02.png">
+        <img src="img/photo_03.png">
+        <img src="img/photo_04.png">
+        <img src="img/photo_05.png">
+        <img src="img/photo_06.png">
+        <img src="img/photo_07.png">
+        <img src="img/photo_08.png">
+        <img src="img/photo_09.png">
+        <img src="img/photo_10.png">
+        <img src="img/photo_11.png">
+      </div>
+      <br><br>
+      <img src="img/facebook.png" style="width:30px; margin:5px; display:in-line-block; vertical-align:middle">
+      <i>For more pictures and to connect with other members, check out our <a href="https://www.facebook.com/groups/261282425387342">Facebook group! </a></i>
+      <br><br>
 
+      <br><img src="img/map_plots.png" style="width:100%">
+      <br><img src="img/map_aereal.png" style="width:100%">
+      <br>
+    </td>
 
+  </tr>
 
 
 
@@ -978,8 +1014,11 @@
     </td>
   </tr>
 </table>
-        
 
+<br><br><br><br><br><br><br><br><br><br>
+<center>(C) Copyright Nepean Allotment Garden Association. All rights reserved.</center>
+        
+<br><br><br>
   
 
 
