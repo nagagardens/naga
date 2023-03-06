@@ -62,9 +62,7 @@ function get_naga_members(){
 
 function get_plots()
 {
-    document.getElementById('admin_plots_table').innerHTML="<tr><th>Plot Id</th><th>Plot Type</th><th>Occupant</th><th width=120>Actions</th></tr><tr id='plot_list'></tr></table>";
-    var plot_list = document.getElementById('plot_list');
-    
+    document.getElementById('all_plots').innerHTML='<div id="all_plots_start"></div>';
     const api_url = 'https://q1ycf9s40a.execute-api.us-east-1.amazonaws.com/prod';
     fetch(api_url, {
         method: 'GET',
@@ -74,38 +72,56 @@ function get_plots()
         }
     })
     .then(response => response.json())
-    .then(response => { response['body']['Items'].forEach(element => {
+    .then(response => { 
+
+        plot_types=JSON.parse(response); row=0;
+        plot_types.forEach(plot_type => {
+            row++
+            document.getElementById('all_plots_start').insertAdjacentHTML('beforebegin', `
+            <h3>${plot_type['Title']}</h3>
+
+            <table class="list">
+                <tr id="plots_row_${row}">
+                <th>Plot Number</th>
+                <th>Current occupant</th>
+                <th>Actions</th>
+                </tr>
+            </table><br><br>
+            `);
+            
+            plot_type['Body'].forEach(plot => {
+                
+                // Assign plot workflow
+                plot_id=plot['plotId']['S'];
+                occupant_form = (`
+                <div  id='plot_assign_top_${plot_id}'>${plot['occupant']['S'] }</div>
+                <div id='plot_assign_bottom_${plot_id}' style='display:none'>
+                    Select from waiting list:
+                    <br><select onchange='select_from_waiting_list("${plot_id}")' id='select_from_waiting_list_${plot_id}'><option></option></select>
+                    <br><br>Email address:
+                    <div class='autocomplete'><input id='occupant_${plot_id}' type='text' name='occupant_${plot_id}' value='${plot['occupant']['S'] }'></div>
+                    <br><br><input type='button'  onclick='assign_plot("${plot_id}",document.getElementById("occupant_${plot_id}").value);' value='Submit'>  
+                    <input type='button'  onclick='close_assign_window("${plot_id}")' value='Cancel 'style='background-color:tomato'><br><br></div>
+                `)
+
+                document.getElementById("plots_row_"+row).insertAdjacentHTML('afterend', `<tr>
+                <td width>${plot_id}</td>
+                <td width>${occupant_form}</td>
+                <td valign=top>
+                <input type='button' onclick='open_assign_window("${plot['plotId']['S']}","${plot['plot_type']['S'] }")' value='Assign'>
+                <input type='button' onclick='remove_plot("${plot['plotId']['S']}")' value='Remove'>
+                </td>
+                </tr>`);
+
+                // autocomplete(document.getElementById("occupant_"+ plot_id), members_email);
+                
+
+            });
+
+        });
+
         
-        plot_id=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
-        if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
-        if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
-        
-        // Assign plot workflow
-        occupant_form = (
-            "<div  id='plot_assign_top_"
-            + plot_id + "'>"+occupant+ " </div><div id='plot_assign_bottom_"
-        + plot_id + "' style='display:none'>Select from waiting list:<br><select onchange='select_from_waiting_list(\""
-        + plot_id + "\")' id='select_from_waiting_list_"
-        + plot_id + "'><option></option></select><br><br>Email address:<div class='autocomplete'><input style='width:400px; display: inline-block;' id='occupant_"
-        + plot_id + "' type='text' name='occupant_" + plot_id + "' value='"
-        +occupant+ "'></div><br><br><input type='button'  onclick='assign_plot(\""
-        + plot_id + "\",document.getElementById(\"occupant_"
-        + plot_id + "\").value);' value='Submit'>  <input type='button'  onclick='close_assign_window(\""
-        + plot_id + "\")' value='Cancel 'style='background-color:tomato'><br><br></div>")
-
-        plot_list.insertAdjacentHTML('beforebegin', `<tr>
-            <td>${plot_id}</td>
-            <td>${plot_type}</td>
-            <td width=480>${occupant_form}</td>
-            <td valign=top>
-                <input type='button' onclick='open_assign_window("${plot_id}")' value='Assign'>
-                <input type='button' onclick='remove_plot("${plot_id}")' value='Remove'>
-            </td>
-
-        </tr>`)
-
-        autocomplete(document.getElementById("occupant_"+ plot_id), members_email);
-    });})
+    });
 
 }
 
@@ -180,9 +196,7 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
 }
 
 
-  function open_assign_window(plot_id){
-
-
+  function open_assign_window(plot_id,plot_type){
 
     const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     fetch(api_url, {
@@ -193,14 +207,25 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
         }
     })
     .then(response => response.json())
-    .then(response => { response['body']['Items'].forEach(element => {
-        var select = document.getElementById("select_from_waiting_list_"+plot_id);
+    .then(response => { 
+        response=JSON.parse(response);
+        console.log(response);
+        response.forEach(element => {
         
-        var el = document.createElement("option");
-        el.textContent = JSON.stringify(element['email']['S']).replace(/["']/g, "");
-        el.value = JSON.stringify(element['email']['S']).replace(/["']/g, "");
-        select.appendChild(el);
-        
+        if(element['Title']==plot_type){
+            
+            element['Body'].forEach(item => {
+
+                console.log(item)
+                
+                var select = document.getElementById("select_from_waiting_list_"+plot_id);
+                var el = document.createElement("option");
+                el.textContent = item['place']['N'] + " " + JSON.stringify(item['email']['S']).replace(/["']/g, "");
+                el.value = JSON.stringify(item['email']['S']).replace(/["']/g, "");
+                select.appendChild(el);
+                
+            });
+        }
         
 
     });
@@ -250,6 +275,7 @@ function get_waiting_list()
         
         plot_types=JSON.parse(response); row=0;
         plot_types.forEach(plot_type => {
+            
             row++
             document.getElementById('waiting_list').insertAdjacentHTML('beforebegin', `
             <h3>${plot_type['Title']}</h3>
