@@ -8,7 +8,12 @@
   <script type="text/javascript" src="js/profile.js"></script>
   <link rel="stylesheet" href="js/autocomplete.css">
   <script type="text/javascript" src="js/autocomplete.js"></script>
-  
+  <script>
+    window.onload = function(){
+      getUserAttributes();
+      document.getElementById("defaultTab").click();
+    }
+  </script>  
   
 </head>
 
@@ -124,8 +129,8 @@
 
     <div class="tab">
       <button class="tablinks" onclick="openCity(event, 'members_container');get_naga_members();">Members</button>
-      <button class="tablinks" onclick="openCity(event, 'plots_container');get_plots();" id="defaultTab">Plots</button>
-      <button class="tablinks" onclick="openCity(event, 'waiting_list_container');get_waiting_list()">Waiting List</button>
+      <button class="tablinks" onclick="openCity(event, 'plots_container');get_plots();"id="defaultTab">Plots</button>
+      <button class="tablinks" onclick="openCity(event, 'waiting_list_container');get_waiting_list()"  >Waiting List</button>
     </div>
     
 
@@ -167,7 +172,6 @@
       <br><b>Add a plot</b><br>
       <br><input type="text" id="input_plotId"  placeholder="Plot ID" required>
       <select id="input_plot_type">
-        <option>Plot type</option>
         <option>Raised beds</option>
         <option>Annuals</option>
         <option>Perennials</option>
@@ -208,12 +212,6 @@
 
 </body>
 
-<script>
-  window.onload = function(){
-    
-    getUserAttributes();
-    document.getElementById("defaultTab").click();
-  }
-</script>
+
 <script type="text/javascript" src="js/admin.js"></script>
 </html>

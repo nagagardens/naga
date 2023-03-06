@@ -93,13 +93,15 @@ function get_plots()
                 
                 // Assign plot workflow
                 plot_id=plot['plotId']['S'];
+                console.log(plot)
+                if(plot['occupant']['S']) {occupant=plot['occupant']['S'];} else {occupant=""}
                 occupant_form = (`
-                <div  id='plot_assign_top_${plot_id}'>${plot['occupant']['S'] }</div>
+                <div  id='plot_assign_top_${plot_id}'>${occupant}</div>
                 <div id='plot_assign_bottom_${plot_id}' style='display:none'>
                     Select from waiting list:
                     <br><select onchange='select_from_waiting_list("${plot_id}")' id='select_from_waiting_list_${plot_id}'><option></option></select>
                     <br><br>Email address:
-                    <br><div class='autocomplete'><input id='occupant_${plot_id}' type='text' name='occupant_${plot_id}' value='${plot['occupant']['S'] }'></div>
+                    <br><div class='autocomplete'><input id='occupant_${plot_id}' type='text' name='occupant_${plot_id}' value='${occupant}'></div>
                     <br><br><input type='button'  onclick='assign_plot("${plot_id}",document.getElementById("occupant_${plot_id}").value);' value='Submit'>  
                     <input type='button'  onclick='close_assign_window("${plot_id}")' value='Cancel 'style='background-color:tomato'><br><br></div>
                 `)
@@ -120,13 +122,15 @@ function get_plots()
 
         });
 
+        console.log('All plots loaded')
+
         
     });
 
 }
 
 function assign_plot(plot_id, email){
-    
+    console.log(plot_id+email)
     
     fetch('https://q1hk67hzpe.execute-api.us-east-1.amazonaws.com/prod/', {
     method: 'POST',
@@ -209,15 +213,11 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
     .then(response => response.json())
     .then(response => { 
         response=JSON.parse(response);
-        console.log(response);
         response.forEach(element => {
         
         if(element['Title']==plot_type){
             element['Body'].reverse();
             element['Body'].forEach(item => {
-
-                console.log(item)
-                
                 var select = document.getElementById("select_from_waiting_list_"+plot_id);
                 var el = document.createElement("option");
                 el.textContent = item['place']['N'] + " " + JSON.stringify(item['email']['S']).replace(/["']/g, "");
@@ -261,6 +261,8 @@ function select_from_waiting_list(plot_id){
 
 function get_waiting_list()
 {
+    
+
     document.getElementById('all_waiting_lists').innerHTML='<div id="waiting_list"></div>';
     const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     fetch(api_url, {
@@ -275,7 +277,7 @@ function get_waiting_list()
         
         plot_types=JSON.parse(response); row=0;
         plot_types.forEach(plot_type => {
-            
+            // console.log("Plot type received:" + plot_type['Title'])
             row++
             document.getElementById('waiting_list').insertAdjacentHTML('beforebegin', `
             <h3>${plot_type['Title']}</h3>
@@ -295,19 +297,21 @@ function get_waiting_list()
             </table><br><br>
             `);
             
-            plot_type['Body'].forEach(plot => {
-                
+            plot_type['Body'].forEach(item => {
+                // console.log("Item found:" + JSON.stringify(item))
                 document.getElementById("waiting_list_row_"+row).insertAdjacentHTML('afterend', `<tr>
-                <td width>${plot['place']['N']}</td>
-                <td>${plot['email']['S']}</td>
-                <td width>${plot['plot_number']['S']}</td>
-                <td width>${plot['has_plots']['BOOL']}</td>
-                <td width>${plot['date_added']['S']}</td>
-                <td width><input type='button' onclick='delete_from_waiting_list(\"${plot['email']['S']}\")' value='Remove'></td>
+                <td width>${item['place']['N']}</td>
+                <td>${item['email']['S']}</td>
+                <td width>${item['plot_number']['S']}</td>
+                <td width>${item['has_plots']['BOOL']}</td>
+                <td width>${item['date_added']['S']}</td>
+                <td width><input type='button' onclick='delete_from_waiting_list(\"${item['email']['S']}\")' value='Remove'></td>
                 </tr>`);
             });
 
         });
+
+        console.log('All waiting lists loaded')
     
     });
 

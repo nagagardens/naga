@@ -142,6 +142,8 @@ function get_my_plots(email){
 
     if(no_plots) { document.getElementById("my_plots_table").innerHTML="You have no plots assigned to you at the moment."}
     else { document.getElementById('perennial_option').disabled=false}
+
+    console.log ('My plots loaded')
   })
 
 }
@@ -194,6 +196,8 @@ function get_my_waiting_list(email){
     document.getElementById("my_waiting_list_container").style.display="none";}else {document.getElementById("request_plot_container").style.display="none";
     document.getElementById("my_waiting_list_container").style.display="block";}
     })
+
+    console.log ('My waiting list loaded')
 }
 
 function add_to_waiting_list(){
@@ -303,7 +307,9 @@ function delete_from_waiting_list(email){
       }
   })
   .then(response => response.json())
-  .then(response => {console.log(JSON.stringify(response)); get_my_waiting_list(email);get_waiting_list();})
+  .then(response => {
+    console.log('Item deleted from waiting list');
+    get_my_waiting_list(email); get_waiting_list();})
 }
   
 
