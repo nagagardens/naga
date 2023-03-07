@@ -1,4 +1,4 @@
-
+var date_options = { year: 'numeric', month: 'long', day: 'numeric' };
 
 function getUserAttributes() {
 
@@ -167,7 +167,6 @@ function get_my_waiting_list(email){
       if(response['Item']){
         if(response['Item']['plot_type']) { plot_type=JSON.stringify(response['Item']['plot_type']).replace(/["']/g, "") } else {plot_type="";}
         if(response['Item']['plot_number']) { plot_number=JSON.stringify(response['Item']['plot_number']).replace(/["']/g, "") } else {plot_number="";}
-        if(response['Item']['date_added']) { date_added=JSON.stringify(response['Item']['date_added']).replace(/["']/g, "") } else {date_added="";}
         if(response['Item']['place']) { place=JSON.stringify(response['Item']['place']).replace(/["']/g, "") } else {place="";}
         actions="<input type=button value='Remove' onclick='delete_from_waiting_list(\""+response['Item']['email']+"\")'>";
         no_waiting_list=false; 
@@ -184,7 +183,7 @@ function get_my_waiting_list(email){
             <td>`+place+`</td>  
             <td>`+plot_type+`</td>
             <td>`+plot_number+`</td>
-            <td>`+date_added+`</td>
+            <td>${ new Date(response['Item']['date_added']).toLocaleDateString("en-US", date_options)  }</td>
             <td>`+actions+`</td>
           <tr>
         </table>`;
