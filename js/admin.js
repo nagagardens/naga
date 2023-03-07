@@ -1,4 +1,5 @@
 var members_email =[];
+var date_options = { year: 'numeric', month: 'long', day: 'numeric' };
 
 
 function get_naga_members(){
@@ -93,7 +94,7 @@ function get_plots()
                 
                 // Assign plot workflow
                 plot_id=plot['plotId']['S'];
-                console.log(plot)
+                
                 if(plot['occupant']['S']) {occupant=plot['occupant']['S'];} else {occupant=""}
                 occupant_form = (`
                 <div  id='plot_assign_top_${plot_id}'>${occupant}</div>
@@ -107,8 +108,8 @@ function get_plots()
                 `)
 
                 document.getElementById("plots_row_"+row).insertAdjacentHTML('afterend', `<tr>
-                <td width>${plot_id}</td>
-                <td width>${occupant_form}</td>
+                <td>${plot_id}</td>
+                <td>${occupant_form}</td>
                 <td valign=top>
                 <input type='button' onclick='open_assign_window("${plot['plotId']['S']}","${plot['plot_type']['S'] }")' value='Assign'>
                 <input type='button' onclick='remove_plot("${plot['plotId']['S']}")' value='Remove'>
@@ -262,7 +263,7 @@ function select_from_waiting_list(plot_id){
 function get_waiting_list()
 {
     
-    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    
     
 
     document.getElementById('all_waiting_lists').innerHTML='<div id="waiting_list"></div>';
@@ -304,16 +305,16 @@ function get_waiting_list()
             
             plot_type['Body'].forEach(item => {
 
-                var date  = new Date(item['date_added']['S']);
+                
                 
                 if(item['has_plots']['BOOL']==true) { has_plots="<img src=img/checkmark.png width='20'>" } else { has_plots=""}
                 document.getElementById("waiting_list_row_"+row).insertAdjacentHTML('afterend', `<tr>
-                <td width>${item['place']['N']}</td>
+                <td>${item['place']['N']}</td>
                 <td>${item['email']['S']}</td>
-                <td width>${item['plot_number']['S']}</td>
-                <td width>${has_plots } </td>
-                <td width>${date.toLocaleDateString("en-US", options)}<br></td>
-                <td width><input type='button' onclick='delete_from_waiting_list(\"${item['email']['S']}\")' value='Remove'></td>
+                <td>${item['plot_number']['S']}</td>
+                <td>${has_plots } </td>
+                <td>${new Date(item['date_added']['S']).toLocaleDateString("en-US", date_options)}</td>
+                <td><input type='button' onclick='delete_from_waiting_list(\"${item['email']['S']}\")' value='Remove'></td>
                 </tr>`);
             });
 
