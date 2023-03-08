@@ -5,108 +5,120 @@
       <meta charset="utf-8">
       <script src="js/amazon-cognito-identity.min.js"></script>
       <script src="js/config.js"></script>
+      <script src="js/index.js"></script>
       <script type="text/javascript" src="js/auth.js"></script>
       <link rel="stylesheet" href="css/styles.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.5.7/galleria.min.js"></script>
+      
   </head>
   <body>
+
     
-    <!--Header -->
-    <div class="header">
-      <span style="width:60%" onclick="window.location.href='./index.html'"><img src="img/logo.png" width="150"></span>
-      <span style="width:10%">Home</span>
-      <span style="width:10%">About</span>
-      <span style="width:10%">Contact</span>
-      <span><img src="img/facebook.png" width="20"></span>
-    </div>
-    <br><br><br><br><br>
-
-    <!-- Hero -->
-    <div class="hero">
-      <div class="banner">
-        <img src="img/hero.png">
+      
+      <!--Header -->
+      <div class="header">
+        <span style="width:60%" onclick="window.location.href='./index.html'"><img src="img/logo.png" width="150"></span>
+        <span style="width:10%">Home</span>
+        <span style="width:10%">About</span>
+        <span style="width:10%">Contact</span>
+        <span><img src="img/facebook.png" width="20"></span>
       </div>
 
-      <!-- My Profile -->
-      <div class="my_profile">
-
-        <div id='loader'> <img src="img/loader.gif" width="20"></div>
-
-        <div id="sign-out" style="display:none;">
-          <h3>You are logged in</h3>
-          <br><i><span id="member_email"  style="font-size: 10pt;"></span></i>
-          <br><span id="member_name"></span>
-          <br><input type="button" onclick="window.location.href='./profile.html'" value ="Go to profile">  <input type=button onclick="signOut();"  style="background-color:tomato" value="Sign out">
+      <br><br><br><br><br>
+    
+    <div class="lander">
+      <!-- Hero -->
+      <div class="hero">
+        <div class="banner">
+          <img src="img/hero.png">
         </div>
 
-        <div id='sign-in' style="display:none">
-          <form>
-          <h1>Sign in</h1>
-          <input type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
-          <input  type="password" id="inputPassword"  placeholder="Password" name="password" required>
-          <br><a style="font-size: 12px" href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password</a>
-          <p> <input type="button" onclick="signInButton();" value="Sign in"></p>
-          </form>
-          <h5>Don't have an account?</h5>
-          <input type="button" style="width:150px; margin:0;" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'" value ="Become a member"> 
-          <br>
-          <br>
+        <!-- My Profile -->
+        <div class="my_profile">
+
+          <div id='loader'> <img src="img/loader.gif" width="20"></div>
+
+          <div id="sign-out" style="display:none;">
+            <h3>You are logged in</h3>
+            <br><i><span id="member_email"  style="font-size: 10pt;"></span></i>
+            <br><span id="member_name"></span>
+            <br><input type="button" onclick="window.location.href='./profile.html'" value ="Go to profile">  <input type=button onclick="signOut();"  style="background-color:tomato" value="Sign out">
+          </div>
+
+          <div id='sign-in' style="display:none">
+            <form>
+            <h1>Sign in</h1>
+            <input type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
+            <input  type="password" id="inputPassword"  placeholder="Password" name="password" required>
+            <br><a style="font-size: 12px" href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password</a>
+            <p> <input type="button" onclick="signInButton();" value="Sign in"></p>
+            </form>
+            <h5>Don't have an account?</h5>
+            <input type="button" style="width:150px; margin:0;" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'" value ="Become a member"> 
+            <br>
+            <br>
+          </div>
         </div>
+
+        <img src="img/Rake.png" style="width:75">
+
       </div>
 
-      <img src="img/Rake.png" style="width:8%">
+      <div class="welcome">
+        <h2>Welcome</h2>
+        <span>The Nepean Community Gardens were created in 1991 and they are one of the largest community gardening sites in Ottawa. We have over 200 plots and around 150 gardeners! We have three types of plots available for rent from May through October:
+        </span>
 
-    </div>
+        <div class="icon_plots">
+          <div>
+            <img src="img/icon_raised_beds.png">
+            <h5>Raised Beds</h5>
+            <span>4x12'</span>
+          </div>
+          <div>
+            <img src="img/icon_annuals.png">
+            <h5>Annuals</h5>
+            <span>20x30'</span>
+          </div>
+          <div>
+            <img src="img/icon_perennials.png">
+            <h5>Perennials</h5>
+            <span>20x15'</span>
+          </div>
+        </div>
+        <span>
+          If you would like to rent one of our plots, please <a href="">create an account</a> and join our waiting list. 
+          <br><br>
+          Raised beds are often available within a year or even mid-season. Annual plots are rototilled every spring, and they take an average of 2+ years. Perennials plots are entirely maintained by the gardener renting them. They take an average of 3+ years and are only available to existing members. 
+          <br><br> 
+          Preference is given to active NAGA members on all plots.
+        </span>
 
-    <div class="welcome">
-      <h2>Welcome</h2>
-      <span>The Nepean Community Gardens were created in 1991 and they are one of the largest community gardening sites in Ottawa. We have over 200 plots and around 150 gardeners! We have three types of plots available for rent from May through October:
-      </span>
 
-      <div class="icon_plots">
-        <div>
-          <img src="img/icon_raised_beds.png">
-          <h5>Raised Beds</h5>
-          <span>4x12'</span>
-        </div>
-        <div>
-          <img src="img/icon_annuals.png">
-          <h5>Annuals</h5>
-          <span>20x30'</span>
-        </div>
-        <div>
-          <img src="img/icon_perennials.png">
-          <h5>Perennials</h5>
-          <span>20x15'</span>
-        </div>
       </div>
-      <span>
-        If you would like to rent one of our plots, please <a href="">create an account</a> and join our waiting list. 
+
+
+      <div class="welcome">
+        <h2>Explore the garden</h2>
+        <span>The gardens are open to the public at 239 Viewmount Drive in Ottawa, ON, Canada. When visiting, please be respectful of our gardners by not touching any of the plants and picking up after your pets.</span>
+        
+<div class="img-magnifier-container">
+  <br><br><img id="myimage" src="img/map_plots.png"" width="100%">
+</div>
+
+
+
+<script>
+magnify("myimage", 8);
+</script>
+
         <br><br>
-        Raised beds are often available within a year or even mid-season. Annual plots are rototilled every spring, and they take an average of 2+ years. Perennials plots are entirely maintained by the gardener renting them. They take an average of 3+ years and are only available to existing members. 
-        <br><br> 
-        Preference is given to active NAGA members on all plots.
-      </span>
-
-
-    </div>
-
-
-    <div class="welcome">
-      <h2>Explore the garden</h2>
-      <span>The gardens are open to the public at 239 Viewmount Drive in Ottawa, ON, Canada. When visiting, please be respectful of our gardners by not touching any of the plants and picking up after your pets.</span>
-     <center> <img src="img/map_plot_small.png" class="map"></center>
-      <br><br>
-      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11216.433982579041!2d-75.7180095!3d45.3466221!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cce07b304b695ab%3A0x584e71a5124e189!2sNepean%20Allotment%20Garden%20Association%20(NAGA)!5e0!3m2!1sen!2sca!4v1678305825131!5m2!1sen!2sca" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-    </div>
-
-  
-    <!-- Photo Gallery -->
-    <div class="gallery">
-      <p>Member photos</p>
-      <div class="galleria">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d123.03353575977962!2d-75.71780464337962!3d45.34649274719418!2m3!1f90!2f39.48080688745259!3f0!3m2!1i1024!2i768!4f35!5e1!3m2!1sen!2sca!4v1678311721263!5m2!1sen!2sca" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        
+      </div>
+    
+      <h6>Member photos</h6>
+      <div class="gallery">
         <img src="img/photo_01.jpg">
         <img src="img/photo_02.jpg">
         <img src="img/photo_03.jpg">
@@ -138,19 +150,6 @@
     </div>
        
 
-  <br><br><br><br><br><br><br><br><br><br>
-  <center>(C) Copyright Nepean Allotment Garden Association. All rights reserved.</center>
-          
-  <br><br><br>
-    
-
-
-  <script>
-    (function() {
-        Galleria.loadTheme('https://cdnjs.cloudflare.com/ajax/libs/galleria/1.5.7/themes/classic/galleria.classic.min.js');
-        Galleria.run('.galleria');
-    }());
-  </script>
 
 
        
