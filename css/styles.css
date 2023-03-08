@@ -1,13 +1,170 @@
 * { box-sizing: border-box; }
-body {
-  font: 16px Arial, Helvetica, sans-serif;
+
+@font-face {
+  font-family: 'heavitas';
+  src: url('heavitas-webfont.woff2') format('woff2'),
+       url('heavitas-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 
 }
+
+
+body {
+  font: 16px Arial, Helvetica, sans-serif;
+  width:90%;
+  margin-left:auto;
+  margin-right: auto;
+
+}
+
+h1 {
+  font-family: 'heavitas';
+  font-size: 24pt;
+  color: #0E623B;
+}
+
+h2 {
+  font-family: 'heavitas';
+  font-size: 24pt;
+  color: #94C727;
+}
+
+h3 {
+  font-family: 'heavitas';
+  font-size: 18pt;
+  color: #0E623B;
+  margin:0;
+}
+
+h4 {
+  font-family: 'heavitas';
+  font-size: 18pt;
+  color: #94C727;
+  margin:0;
+}
+
+h5 {
+  font-family: 'heavitas';
+  font-size: 10pt;
+  color: #0E623B;
+  margin:10px;
+  margin-left:0px;
+}
+
+h6 {
+  font-family: 'heavitas';
+  font-size: 10pt;
+  color: #94C727;
+}
+
+
+.header {
+  padding: 10px 16px;
+  background: #fff;
+  top: 0;
+  width: 90%;
+  position: fixed;
+  padding:20px;
+  padding-top:40px;
+  color:#94C727;
+  font-family: 'heavitas';
+  font-size:12pt;
+  margin-left:auto;
+  margin-right: auto;
+}
+
+.header span{
+  display:inline-block;
+  cursor:pointer;
+}
+
+.hero {
+  vertical-align: top;
+}
+.hero div{
+  padding:10px;
+  display:inline-block;
+  
+}
+.hero img{
+  display:inline-block; 
+  max-width:75px;
+}
+.banner{
+  width: 60%;
+  display:inline-block;
+}
+
+.banner img{
+  width:100%;
+  max-width:800px;
+}
+
+.my_profile {
+  width:20%; 
+  display:inline-block;
+  
+}
+
+.welcome {
+  display:inline-block;
+  width:45%;
+  vertical-align: top;
+  padding:40px;
+}
+
+
+.icon_plots {
+  width:100%;
+  margin:40px;
+  margin-left: auto;
+  margin-right: auto;
+  display:block;
+  text-align: center;
+}
+.icon_plots div {
+  width:30%;
+  display: inline-block;
+}
+
+.icon_plots img{
+  width:50%;
+}
+
+.map {
+  width:90%;
+  display:block;
+  margin:40px;
+  
+}
+
+.gallery {
+  width:100%;
+  background-color: #851847;
+}
+
+.gallery p{
+  color: #fff;
+  font-family: 'heavitas';
+  font-size: 24pt;
+}
+
+.galleria{background: #fff; width: 100%; height: 600px;  }
+
+
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
 }
+
+.top-container {
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+}
+
 
 
 /* Style the buttons inside the tab */
