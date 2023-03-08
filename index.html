@@ -40,8 +40,11 @@
 
           <div id="sign-out" style="display:none;">
             <h3>You are logged in</h3>
+            <br><br>
+            <img src="img/icon_profile.png" width="100">
+            <br><br><b><span id="member_name"></span></b>
             <br><i><span id="member_email"  style="font-size: 10pt;"></span></i>
-            <br><span id="member_name"></span>
+            <br>
             <br><input type="button" onclick="window.location.href='./profile.html'" value ="Go to profile">  <input type=button onclick="signOut();"  style="background-color:tomato" value="Sign out">
           </div>
 
@@ -49,15 +52,15 @@
             <form>
             <h1>Sign in</h1>
             <input type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
-            <input  type="password" id="inputPassword"  placeholder="Password" name="password" required>
+            <br><input  type="password" id="inputPassword"  placeholder="Password" name="password" required>
             <br><a style="font-size: 12px" href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password</a>
             <p> <input type="button" onclick="signInButton();" value="Sign in"></p>
-            </form>
+            </form><br>
             <h5>Don't have an account?</h5>
             <input type="button" style="width:150px; margin:0;" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'" value ="Become a member"> 
-            <br>
-            <br>
+            
           </div>
+          <br>
         </div>
 
         <img src="img/Rake.png" style="width:75">
