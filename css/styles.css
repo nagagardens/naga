@@ -192,6 +192,10 @@ h6 {
 }
 
 
+.tab_buttons.active h5 {
+  color:white;
+}
+
 .tab_content {
   display: none;
   padding: 6px 12px;
