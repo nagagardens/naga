@@ -104,10 +104,10 @@ function get_my_plots(email){
   
   const api_url = 'https://90oukjmsob.execute-api.us-east-1.amazonaws.com/prod/get_my_plots?email=' + encodeURIComponent(email);;
   
-  document.getElementById('my_plots_table').innerHTML="<tr><th>Plot Id</th><th>Plot Type</th><th>Status</th><th >Renewal date</th><th width=120>Actions</th></tr><tr id='my_plots_list'></tr></table>";
   
-  var my_plots_list = document.getElementById('my_plots_list');
+  var my_plots_list = document.getElementById('my_plots_table');
   var no_plots=true;
+  var item_number=0;
 
   fetch(api_url, {
       method: 'GET',
@@ -120,24 +120,39 @@ function get_my_plots(email){
   .then(response => { 
     
     response.forEach(element => {
-     // alert(JSON.stringify(element));
+      item_number++;
       plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
       if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
       if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
       actions="<input type=button value='Release' onclick='release_plot(\""+ plotId +"\")'>";
 
-      if(occupant == email){
+      no_plots=false; 
 
-        no_plots=false; 
-        my_plots_list.insertAdjacentHTML('beforebegin', `<tr>
-          <td>${plotId}</td>
-          <td>${plot_type}</td>
-          <td>Paid</td>
-          <td>Feb 28, 2024</td>
-          <td>${actions}</td>
-        </tr>`)
+      var tab_buttons = document.createElement("button");
+      tab_buttons.innerHTML = "<h5>"+plotId+"</h5>";
+      tab_buttons.classList.add('tab_buttons');
+      tab_buttons.value=plotId;
+      tab_buttons.onclick= function() { openCity(event, 'plot_tab_'+this.value) };
+      document.getElementById('my_plots_tabs').appendChild(tab_buttons);
+      
+      
+      var tab_content = document.createElement("div");
+      tab_content.setAttribute('id',"plot_tab_" + plotId);
+      tab_content.classList="tab_content";
+      tab_content.innerHTML = `
+        <br><b>Plot details:</b>
+        <br>Plot Id: ${plotId}
+        <br>Plot Type: ${plot_type}
+        <br>
+        <br><br><b>Lease: </b>
+        <br>Period: May 1st, 2024 - October 31st, 2024
+        <br>Rate: $40
+        <br>Status: <font color=red>Payment pending</font>
+        <br><br><input type="button" value ="Make a payment" style="width:200px">
+        <br><br>`;
+        document.getElementById('my_plots_content').appendChild(tab_content);
+      if(item_number == 1) {tab_buttons.click();}
 
-      };
     });
 
     if(no_plots) { document.getElementById("my_plots_table").innerHTML="You have no plots assigned to you at the moment."}
@@ -232,7 +247,7 @@ function signOut() {
   document.getElementById('sign-out').style.display = "none"
   
   const data = { 
-      UserPoolId : _config.cognito.userPoolId,
+    UserPoolId : _config.cognito.userPoolId,
     ClientId : _config.cognito.clientId
   };
   const userPool = new AmazonCognitoIdentity.CognitoUserPool(data);
@@ -281,16 +296,32 @@ function release_plot(plotId){if(confirm("Are you sure you want to give up this 
 }
 
 function openCity(evt, cityName) {
+  console.log(cityName)
   var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
+  tabcontent = document.getElementsByClassName("tab_content");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
   }
-  tablinks = document.getElementsByClassName("tablinks");
+  tablinks = document.getElementsByClassName("tab_buttons");
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function open_admin_tab(evt, tabName) {
+  console.log(tabName)
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("admin_tab_content");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("admin_tab_buttons");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
 }
 

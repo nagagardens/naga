@@ -19,92 +19,90 @@
 
 <body>
   
-      <!--Header -->
-      <div class="header">
-        <span style="width:60%" onclick="window.location.href='./index.html'"><img src="img/logo.png" width="150"></span>
-        <span style="width:10%">Home</span>
-        <span style="width:10%">About</span>
-        <span style="width:10%">Contact</span>
-        <span><img src="img/facebook.png" width="20"></span>
-      </div>
+  <!--Header -->
+  <div class="header">
+    <span style="width:60%" onclick="window.location.href='./index.html'"><img src="img/logo.png" width="150"></span>
+    <span style="width:10%">Home</span>
+    <span style="width:10%">About</span>
+    <span style="width:10%">Contact</span>
+    <span><img src="img/facebook.png" width="20"></span>
+  </div>
 
-      <br><br><br><br><br>
+  <br><br><br><br><br><br><br>
 
-  <!-- Member console -->
-  <table id="member_console" style="width:90%; margin-left: auto; margin-right: auto;" ><tr>
-    <td width="300" valign="top">
-      
-      <!-- My Profile -->
-      <div  style="width:350px; padding:10px;padding-top:0px;border-right:1px solid lightgrey; margin:10px; text-align:left; ">
-        <h3>My profile</h3>
-        <div id='loader'><img src="img/loader.gif" width="20"></div>
-        <br>
-        <div id="sign-out" style="display:none;">
+  <div class="console">
+
+    <!-- My Profile -->
+    <div class="my_profile">
+      <div id='loader'><img src="img/loader.gif" width="20"></div>
+
+      <div id="sign-out" style="display:none;">
+        <h3>Profile</h3>
+      <br>
         <center><img src="img/icon_profile.png" width="100"></center>
         <br>
         <h5>Name:</h5>
-        <input id="input_first_name" type="text" Placeholder="First Name" style="padding:10px; scroll-margin-top:5px;width:90%">
-        <br><input id="input_last_name" type="text"  Placeholder="Last Name" style="padding:10px; margin-top:5px;width:90%"> 
+        <input id="input_first_name" type="text" Placeholder="First Name" style="width:100%">
+        <br><input id="input_last_name" type="text"  Placeholder="Last Name" style="width:100%"> 
         <br><br>
         <h5>Email:</h5> 
         <span id="member_email"></span>
         <br><input  id="input_email" type="text" style="display:none"></span>
         <br><br>
         <h5>Mailing address:</h5>
-        <input id="input_street_address" type="text" Placeholder="Street Address"  style="padding:10px; margin-top:5px; width:260px">
-        <br><input id="input_city" type="text" style="padding:10px; margin-top:5px;width:170px" placeholder="City" value="Ottawa">
-        <select id="input_province" style="padding:10px; margin-top:5px;width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
-        <br><input id="input_postal_code" type="text" style="width:170px; padding:10px; margin-top:5px;" Placeholder="Postal Code">
+        <input id="input_street_address" type="text" Placeholder="Street Address"  style="padding:10px; margin-top:5px; width:100%">
+        <br><input id="input_city" type="text" style="padding:10px; margin-top:5px;width:70%" placeholder="City" value="Ottawa">
+        <select id="input_province" style="padding:10px; margin-top:5px;width:20%"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
+        <br><input id="input_postal_code" type="text" style="width:100%;" Placeholder="Postal Code">
         <br><br>
         <h5>Phone Number:</h5>
-        <input  id="input_phone_number" type="text" Placeholder="000-000-0000"  style="padding:10px; margin-top:5px; width:260px">
+        <input  id="input_phone_number" type="text" Placeholder="000-000-0000"  style="padding:10px; margin-top:5px; width:100%">
         <br>
         <br><input type="button" onclick="update_profile();" value="Update"> <input type="button" onclick="signOut();" value="Sign out" style="background-color:tomato">
-      
-        <br>
       </div>
-    </td>
+    </div>
+
+    <!--My Plots -->
+    <div class="my_plots">
+      <h3>My plots</h3>
+      <br>
+      <div class="tab" id="my_plots_tabs"></div>
+      <div id="my_plots_content"></div>
     
-    <td valign="top">
+    
+    
+      <br><br>
+    
+    <!--Request new plot -->
+    <div id="request_plot_container">
+      <h3>Request a new plot</h3>
+      Raised beds are often available within a year or even mid-season.
+      Annuals take an average of 2+ years.
+      Perennials are only available to existing members, and they take an average of 3+ years.
+      Preference is given to existing members on all plots.
+      
+      <br>
+      <br><select id="request_plot_type">
+        <option>Raised beds</option>
+        <option>Annuals</option>
+        <option id='perennial_option' disabled>Perennials</option></select>
 
-      <!--My Plots -->
-      <div style="padding:10px;padding-top:0px;  margin:10px;">
-        <h3>My garden plots</h3>
-        <table class="list" id="my_plots_table"></table>
-        
-        <br><br>
-      </div>
-
-        <!--Request new plot -->
-      <div id="request_plot_container" style="padding:10px;padding-top:0px;  margin:10px; display:none">
-        <h3>Request a new plot</h3>
-        Raised beds are often available within a year or even mid-season.
-        Annuals take an average of 2+ years.
-        Perennials are only available to existing members, and they take an average of 3+ years.
-        Preference is given to existing members on all plots.
-        
-        <br>
-        <br><select id="request_plot_type">
-          <option>Raised beds</option>
-          <option>Annuals</option>
-          <option id='perennial_option' disabled>Perennials</option></select>
-
-          <select onchange="request_plot_number(this.value)"><option>First available</option><option value="1">I have a plot in mind</option></select>
+        <select onchange="request_plot_number(this.value)"><option>First available</option><option value="1">I have a plot in mind</option></select>
 
 
-        <input type="text" id="request_plot_number" style="display:none" placeholder="Which plot(s)?">
-        <input type="button" onclick="add_to_waiting_list();" value="Submit">
-      </div>
+      <input type="text" id="request_plot_number" style="display:none" placeholder="Which plot(s)?">
+      <input type="button" onclick="add_to_waiting_list();" value="Submit">
+     </div>
 
-      <!--My Waiting list -->
-      <div id="my_waiting_list_container" style="padding:10px;padding-top:0px;  margin:10px; display:none">
-        <h3>Waiting list</h3>
-        <table class="list"  width=100% id="my_waiting_list_table"></table>
-        
-      </div>
-    </td>
-  </tr></table>
+    <!--My Waiting list -->
+    <div id="my_waiting_list_container" style="padding:10px;padding-top:0px;  margin:10px; display:none">
+    <h3>Waiting list</h3>
+    <table class="list"  width=100% id="my_waiting_list_table"></table>
+    </div>
+  </div>
 
+
+  </div>
   
 
   <br><br>
@@ -115,18 +113,18 @@
   <br><br>
   
   <!--Admin Console -->
-  <div id="admin_console" style=" min-height: 1000px; width:90%; margin-left: auto; margin-right: auto; background-color:#ccc;">
+  <div id="admin_console" style=" min-height: 1000px; width:90%; margin-left: auto; margin-right: auto; ">
    
 
-    <div class="tab">
-      <button class="tablinks" onclick="openCity(event, 'members_container');get_naga_members();">Members</button>
-      <button class="tablinks" onclick="openCity(event, 'plots_container');get_plots();"id="defaultTab">Plots</button>
-      <button class="tablinks" onclick="openCity(event, 'waiting_list_container');get_waiting_list()"  >Waiting List</button>
+    <div class="admin_tab">
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();"><h5>Members</h5></button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'plots_container');get_plots();"id="defaultTab"><h5>Plots</h5></button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()"  ><h5>Waiting List</h5></button>
     </div>
     
 
     <!--All Members -->
-    <div  id='members_container' class="tabcontent">
+    <div  id='members_container' class="admin_tab_content">
       
       <div id="add_member_container">
         <br><b>Add a member</b><br><br>
@@ -159,15 +157,17 @@
 
 
     <!--All Plots -->
-    <div id="plots_container"  class="tabcontent">
+    <div id="plots_container"  class="admin_tab_content">
       <br><b>Add a plot</b><br>
-      <br><input type="text" id="input_plotId"  placeholder="Plot ID" required>
+      <br><input type="text" id="input_plotId"  placeholder="Plot Number" required>
       <select id="input_plot_type">
         <option>Raised beds</option>
         <option>Annuals</option>
         <option>Perennials</option>
-        
       </select>
+      <input type="text" id="input_plotId"  placeholder="Width (feet)" style="width:100px" required>
+      <input type="text" id="input_plotId"  placeholder="Height (feet)" style="width:100px" required>
+      <input type="text" id="input_plotId"  placeholder="Rate" required>
       <input type="button" onclick="add_plot();" value="Add plot">
       <br><br><div id="all_plots"></div>
       <table id="admin_plots_table" class="list"></table>
@@ -175,7 +175,7 @@
     </div>
 
     <!--Waiting List -->
-    <div id="waiting_list_container" class="tabcontent">
+    <div id="waiting_list_container" class="admin_tab_content">
       <br><b>Add to waiting list</b><br>
       <br><input type="text" id="admin_input_waiting_list_email"  placeholder="Email address" required>
       <select id="admin_input_waiting_list_plot_type">

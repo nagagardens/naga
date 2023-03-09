@@ -27,7 +27,6 @@ function get_naga_members(){
     .then(response => response.json())
     .then(response => {
         
-        console.log(JSON.stringify(response));
         
         response['body']['Items'].forEach(element => {
             email=JSON.stringify(element['email']['S']).replace(/["']/g, "");
