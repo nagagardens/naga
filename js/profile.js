@@ -101,6 +101,8 @@ function update_profile(){
 
 
 function get_my_plots(email){
+  document.getElementById('my_plots_content').innerHTML="";
+  document.getElementById('my_plots_tabs').innerHTML="";
   
   const api_url = 'https://90oukjmsob.execute-api.us-east-1.amazonaws.com/prod/get_my_plots?email=' + encodeURIComponent(email);;
   
@@ -123,6 +125,9 @@ function get_my_plots(email){
       item_number++;
       plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
       if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
+      if(element['height']) { height=JSON.stringify(element['height']['S']).replace(/["']/g, "") } else {height="";}
+      if(element['width']) { width=JSON.stringify(element['width']['S']).replace(/["']/g, "") } else {width="";}
+      if(element['rate']) { rate=JSON.stringify(element['rate']['S']).replace(/["']/g, "") } else {rate="";}
       if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
       actions="<input type=button value='Release' onclick='release_plot(\""+ plotId +"\")'>";
 
@@ -143,10 +148,11 @@ function get_my_plots(email){
         <br><b>Plot details:</b>
         <br>Plot Id: ${plotId}
         <br>Plot Type: ${plot_type}
+        <br>Size: ${width}x ${height} feet
         <br>
         <br><br><b>Lease: </b>
         <br>Period: May 1st, 2024 - October 31st, 2024
-        <br>Rate: $40
+        <br>Rate: ${rate}
         <br>Status: <font color=red>Payment pending</font>
         <br><br><input type="button" value ="Make a payment" style="width:200px">
         <br><br>`;
@@ -155,7 +161,7 @@ function get_my_plots(email){
 
     });
 
-    if(no_plots) { document.getElementById("my_plots_table").innerHTML="You have no plots assigned to you at the moment."}
+    if(no_plots) { document.getElementById("my_plots_content").innerHTML="You have no plots assigned to you at the moment."}
     else { document.getElementById('perennial_option').disabled=false}
 
     console.log ('My plots loaded')

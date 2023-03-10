@@ -203,7 +203,14 @@ h6 {
   
 }
 
+.edit_plot{
+  color:black; 
+  width:100px;
+}
 
+.edit_plot:disabled{
+  border:0;
+}
 
 .admin_tab {
   overflow: hidden;
@@ -250,6 +257,7 @@ h6 {
   /*the container must be positioned relative:*/
   position: relative;
   display: inline-block;
+  
   
 }
 input {

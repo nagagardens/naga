@@ -83,6 +83,8 @@ function get_plots()
             <table class="list">
                 <tr id="plots_row_${row}">
                 <th>Plot Number</th>
+                <th width=150>Size</th>
+                <th>Rate</th>
                 <th>Current occupant</th>
                 <th>Actions</th>
                 </tr>
@@ -94,28 +96,40 @@ function get_plots()
                 // Assign plot workflow
                 plot_id=plot['plotId']['S'];
                 
-                if(plot['occupant']['S']) {occupant=plot['occupant']['S'];} else {occupant=""}
+                if(plot['occupant']['S']) {occupant=plot['occupant']['S'];} else {occupant=""};
+                if(plot['height']['S']) {height=plot['height']['S'];} else {height=""};
+                if(plot['width']['S']) {width=plot['width']['S'];} else {width=""};
+                if(plot['rate']['S']) {rate=plot['rate']['S'];} else {rate=""};
                 occupant_form = (`
                 <div  id='plot_assign_top_${plot_id}'>${occupant}</div>
                 <div id='plot_assign_bottom_${plot_id}' style='display:none'>
-                    Select from waiting list:
+                    Enter email address:
+                    <br><div class='autocomplete'><input id='occupant_${plot_id}' type='text' name='occupant_${plot_id}' value='${occupant}' style=" width:100%;"></div>
+                    <br><br> or select from waiting list:
                     <br><select onchange='select_from_waiting_list("${plot_id}")' id='select_from_waiting_list_${plot_id}'><option></option></select>
-                    <br><br>Email address:
-                    <br><div class='autocomplete'><input id='occupant_${plot_id}' type='text' name='occupant_${plot_id}' value='${occupant}'></div>
-                    <br><br><input type='button'  onclick='assign_plot("${plot_id}",document.getElementById("occupant_${plot_id}").value);' value='Submit'>  
-                    <input type='button'  onclick='close_assign_window("${plot_id}")' value='Cancel 'style='background-color:tomato'><br><br></div>
+                </div>
+                   
                 `)
 
                 document.getElementById("plots_row_"+row).insertAdjacentHTML('afterend', `<tr>
-                <td>${plot_id}</td>
-                <td>${occupant_form}</td>
+                <td valign=top><input class="edit_plot" disabled  type="text" id="edit_plot_number_${plot_id}" value="${plot_id}"></td>
+                <td valign=top><input disabled  class="edit_plot" style="width:50px" type="text" id="edit_plot_height_${plot_id}" value="${height}">
+                x<input disabled  class="edit_plot" style="width:50px" type="text" id="edit_plot_width_${plot_id}" value="${width}"></td>
+                <td valign=top>$<input disabled  class="edit_plot"  style=" width:50px" type="text" id="edit_plot_rate_${plot_id}" value="${rate}"></td>
+                <td valign=top>${occupant_form}</td>
                 <td valign=top>
-                <input type='button' onclick='open_assign_window("${plot['plotId']['S']}","${plot['plot_type']['S'] }")' value='Assign'>
-                <input type='button' onclick='remove_plot("${plot['plotId']['S']}")' value='Remove'>
+                <div id="edit_plot_top_${plot_id}">
+                    <input type='button' onclick='open_assign_window("${plot['plotId']['S']}","${plot['plot_type']['S'] }")' value='Edit'>
+                    <input type='button' onclick='remove_plot("${plot['plotId']['S']}")' value='Delete' style='background-color:tomato'>
+                </div>
+                <div id="edit_plot_bottom_${plot_id}" style="display:none">
+                    <input type='button'  onclick='assign_plot("${plot_id}",document.getElementById("occupant_${plot_id}").value);' value='Submit'>  
+                    <input type='button'  onclick='close_assign_window("${plot_id}")' value='Cancel 'style='background-color:tomato'><br><br>
+                </div>
                 </td>
                 </tr>`);
 
-                // autocomplete(document.getElementById("occupant_"+ plot_id), members_email);
+                autocomplete(document.getElementById("occupant_"+ plot_id), members_email);
                 
 
             });
@@ -130,8 +144,11 @@ function get_plots()
 }
 
 function assign_plot(plot_id, email){
-    console.log(plot_id+email)
     
+    height=document.getElementById("edit_plot_width_"+plot_id).value;
+    width=document.getElementById("edit_plot_height_"+plot_id).value;
+    rate=document.getElementById("edit_plot_rate_"+plot_id).value;
+    console.log(plot_id+email+height+width+rate)
     fetch('https://q1hk67hzpe.execute-api.us-east-1.amazonaws.com/prod/', {
     method: 'POST',
     headers: {
@@ -140,7 +157,11 @@ function assign_plot(plot_id, email){
     },
     body: JSON.stringify({ 
         "plotId": plot_id,
-        "occupant":email
+        "occupant":email,
+        "height":height,
+        "width":width,
+        "rate":rate
+
     })
     })
     .then(response => response.json())
@@ -161,9 +182,6 @@ function assign_plot(plot_id, email){
 function add_plot()
   {
     
-    plotId = document.getElementById('input_plotId').value;
-    plot_type = document.getElementById('input_plot_type').value;
-    
     fetch('https://phpiuxuth7.execute-api.us-east-1.amazonaws.com/prod', {
     method: 'POST',
     headers: {
@@ -171,8 +189,11 @@ function add_plot()
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({ 
-        "plotId": plotId,
-        "plot_type":plot_type
+        "plotId": document.getElementById('input_plotId').value,
+        "plot_type":document.getElementById('input_plot_type').value,
+        "height":document.getElementById('input_plot_height').value,
+        "width":document.getElementById('input_plot_width').value,
+        "rate":document.getElementById('input_plot_rate').value
     })
     })
     .then(response => response.json())
@@ -230,9 +251,13 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
 
     });
 
-   
+    document.getElementById("edit_plot_width_"+plot_id).disabled=false;
+    document.getElementById("edit_plot_height_"+plot_id).disabled=false;
+    document.getElementById("edit_plot_rate_"+plot_id).disabled=false;
     document.getElementById("plot_assign_top_" + plot_id).style.display="none";
     document.getElementById("plot_assign_bottom_" + plot_id).style.display="block";
+    document.getElementById("edit_plot_top_" + plot_id).style.display="none";
+    document.getElementById("edit_plot_bottom_" + plot_id).style.display="block";
 
     
     })
@@ -246,8 +271,13 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
 
 
 function close_assign_window(plot_id){
+    document.getElementById("edit_plot_width_"+plot_id).disabled=true;
+    document.getElementById("edit_plot_height_"+plot_id).disabled=true;
+    document.getElementById("edit_plot_rate_"+plot_id).disabled=true;
     document.getElementById("plot_assign_top_" + plot_id).style.display="block";
     document.getElementById("plot_assign_bottom_" + plot_id).style.display="none";
+    document.getElementById("edit_plot_top_" + plot_id).style.display="block";
+    document.getElementById("edit_plot_bottom_" + plot_id).style.display="none";
   }
 
 

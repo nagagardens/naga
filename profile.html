@@ -22,7 +22,7 @@
   <!--Header -->
   <div class="header">
     <span style="width:60%" onclick="window.location.href='./index.html'"><img src="img/logo.png" width="150"></span>
-    <span style="width:10%">Home</span>
+    <span style="width:10%" onclick="window.location.href='./index.html'">Home</span>
     <span style="width:10%">About</span>
     <span style="width:10%">Contact</span>
     <span><img src="img/facebook.png" width="20"></span>
@@ -85,7 +85,9 @@
       <br><select id="request_plot_type">
         <option>Raised beds</option>
         <option>Annuals</option>
-        <option id='perennial_option' disabled>Perennials</option></select>
+        <option id='perennial_option' disabled>Perennials</option>
+        <option>Lockers</option>
+      </select>
 
         <select onchange="request_plot_number(this.value)"><option>First available</option><option value="1">I have a plot in mind</option></select>
 
@@ -95,7 +97,7 @@
      </div>
 
     <!--My Waiting list -->
-    <div id="my_waiting_list_container" style="padding:10px;padding-top:0px;  margin:10px; display:none">
+    <div id="my_waiting_list_container" style="display:none">
     <h3>Waiting list</h3>
     <table class="list"  width=100% id="my_waiting_list_table"></table>
     </div>
@@ -117,8 +119,8 @@
    
 
     <div class="admin_tab">
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();"><h5>Members</h5></button>
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'plots_container');get_plots();"id="defaultTab"><h5>Plots</h5></button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();"id="defaultTab"><h5>Members</h5></button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'plots_container');get_plots();"><h5>Plots</h5></button>
       <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()"  ><h5>Waiting List</h5></button>
     </div>
     
@@ -159,15 +161,17 @@
     <!--All Plots -->
     <div id="plots_container"  class="admin_tab_content">
       <br><b>Add a plot</b><br>
-      <br><input type="text" id="input_plotId"  placeholder="Plot Number" required>
+      <br><input type="text" id="input_plotId" style="width:100px" placeholder="Number" required>
       <select id="input_plot_type">
+        <option>Type</option>
         <option>Raised beds</option>
         <option>Annuals</option>
         <option>Perennials</option>
+        <option>Lockers</option>
       </select>
-      <input type="text" id="input_plotId"  placeholder="Width (feet)" style="width:100px" required>
-      <input type="text" id="input_plotId"  placeholder="Height (feet)" style="width:100px" required>
-      <input type="text" id="input_plotId"  placeholder="Rate" required>
+      <input type="text" id="input_plot_width"  placeholder="Width (feet)" style="width:100px" required>
+      <input type="text" id="input_plot_height"  placeholder="Height (feet)" style="width:100px" required>
+      <input type="text" id="input_plot_rate"  placeholder="Rate ($)" style="width:100px" required>
       <input type="button" onclick="add_plot();" value="Add plot">
       <br><br><div id="all_plots"></div>
       <table id="admin_plots_table" class="list"></table>
@@ -182,6 +186,7 @@
         <option>Raised beds</option>
         <option>Annuals</option>
         <option>Perennials</option>
+        <option>Lockers</option>
         
       </select>
       <select id="admin_input_waiting_list_plot_number">
