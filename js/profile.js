@@ -189,7 +189,7 @@ function get_my_waiting_list(email){
         if(response['Item']['plot_type']) { plot_type=JSON.stringify(response['Item']['plot_type']).replace(/["']/g, "") } else {plot_type="";}
         if(response['Item']['plot_number']) { plot_number=JSON.stringify(response['Item']['plot_number']).replace(/["']/g, "") } else {plot_number="";}
         if(response['Item']['place']) { place=JSON.stringify(response['Item']['place']).replace(/["']/g, "") } else {place="";}
-        actions="<input type=button value='Remove' onclick='delete_from_waiting_list(\""+response['Item']['email']+"\")'>";
+        actions="<input type=button value='Resign' style='background-color:tomato' onclick='delete_from_waiting_list(\""+response['Item']['email']+"\")'>";
         no_waiting_list=false; 
 
         document.getElementById('my_waiting_list_table').innerHTML=`
