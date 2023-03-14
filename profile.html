@@ -41,23 +41,31 @@
         <br>
         <center><img src="img/icon_profile.png" width="100"></center>
         <br>
-        <h5>Name:</h5>
-        <input class="edit_profile" id="input_first_name" type="text" Placeholder="First Name" disabled>
-        <input class="edit_profile" id="input_last_name"  type="text"  Placeholder="Last Name" disabled> 
-        <br><br>
+        
         <h5>Email:</h5> 
         <span class="edit_profile" id="member_email"></span>
         <br><input class="edit_profile"  id="input_email" type="text" style="display:none"></span>
-        <br><br>
-        <h5>Mailing address:</h5>
-        <input class="edit_profile" id="input_street_address" disabled type="text" Placeholder="Street Address" >
-        <br><input class="edit_profile" id="input_city" disabled type="text" style="width:100px" placeholder="City" value="Ottawa">
-        <select class="edit_profile" id="input_province" disabled style="width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
-        <br><input class="edit_profile" id="input_postal_code" disabled type="text" Placeholder="Postal Code">
-        <br><br>
-        <h5>Phone Number:</h5>
-        <input class="edit_profile" disabled id="input_phone_number" type="text" Placeholder="000-000-0000">
-        <br>
+        <div id="profile_info">
+          <div id="profile_name"></div>
+          <div id="profile_mailing_address"></div>
+          <div id="profile_phone_number"></div>
+        </div>
+        <div id="profile_form" style="display:none">
+          <br>
+          <h5>Name:</h5>
+          <input class="edit_profile" id="input_first_name" type="text" Placeholder="First Name" >
+          <input class="edit_profile" id="input_last_name"  type="text"  Placeholder="Last Name" > 
+          <br>
+          <br>
+          <h5>Mailing address:</h5>
+          <input class="edit_profile" id="input_street_address"  type="text" Placeholder="Street Address" >
+          <br><input class="edit_profile" id="input_city"  type="text" style="width:100px" placeholder="City" value="Ottawa">
+          <select class="edit_profile" id="input_province"  style="width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
+          <br><input class="edit_profile" id="input_postal_code"  type="text" Placeholder="Postal Code">
+          <br><br>
+          <h5>Phone Number:</h5>
+          <input class="edit_profile"  id="input_phone_number" type="text" Placeholder="000-000-0000">
+        </div>
         <div id="profile_buttons_1" style="width:100%; text-align: center;">
           <br><input type="button" style="background-color: white;border:1px solid green; color:green; width:200px;" onclick="open_edit_profile();" value="Edit Profile ✎"> 
           <br><input type="button" onclick="signOut();" value="Sign out" style="width:200px;background-color:tomato">
@@ -83,20 +91,17 @@
     <!--Request new plot -->
     <div id="request_plot_container">
       <h3>Request a new plot</h3>
-      Raised beds are often available within a year or even mid-season.
+      <br>Raised beds are often available within a year or even mid-season.
       Annuals take an average of 2+ years.
       Perennials are only available to existing members, and they take an average of 3+ years.
       Preference is given to existing members on all plots.
-      
       <br>
-      <br><select id="request_plot_type">
-        <option>Raised beds</option>
-        <option>Annuals</option>
-        <option id='perennial_option' disabled>Perennials</option>
-        <option>Lockers</option>
-      </select>
-
-        <select onchange="request_plot_number(this.value)"><option>First available</option><option value="1">I have a plot in mind</option></select>
+      <br><b>Plot type:</b>
+      <br><br><input type="radio" id="raised_beds_option"  name="request_plot_type" value="Raised beds" checked><label for="raised_beds_option">Raised Beds</label><br>
+      <input type="radio" id="annuals_option" name="request_plot_type" value="Annuals"><label for="annuals_option"> Annual</label>s<br>
+      <input type="radio" id="perennial_option"  name="request_plot_type" value="Perennials" disabled><label id="perennia_option_label" for="perennial_option"><font color="gray">Perennials</font> (only available to current members)</label><br>
+      <input type="radio" id="lockers_option" name="request_plot_type" value="Lockers"><label for="lockers_option">Lockers</label><br>
+      <br><select onchange="request_plot_number(this.value)"><option>First available</option><option value="1">I have a plot in mind</option></select>
 
 
       <input type="text" id="request_plot_number" style="display:none" placeholder="Which plot(s)?">

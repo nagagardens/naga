@@ -48,43 +48,46 @@ async function showUserInfo(email) {
   const api_data = await(api_response).json();
   
   document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
-
-  
   document.getElementById('sign-out').style.display = "block";
   document.getElementById('loader').style.display = "none";
   
-  if(JSON.parse(api_data['body'])['first_name'] != null) { document.getElementById('input_first_name').value  =  JSON.parse(api_data['body'])['first_name'];}
-  if(JSON.parse(api_data['body'])['last_name'] != null) { document.getElementById('input_last_name').value =  JSON.parse(api_data['body'])['last_name'];}
-  if(JSON.parse(api_data['body'])['street_address'] != null) { document.getElementById('input_street_address').value =  JSON.parse(api_data['body'])['street_address'];}
-  if(JSON.parse(api_data['body'])['city'] != null) { document.getElementById('input_city').value =  JSON.parse(api_data['body'])['city'];}
-  if(JSON.parse(api_data['body'])['province'] != null) { document.getElementById('input_province').value =  JSON.parse(api_data['body'])['province'];}
-  if(JSON.parse(api_data['body'])['postal_code'] != null) { document.getElementById('input_postal_code').value =  JSON.parse(api_data['body'])['postal_code'];}
-  if(JSON.parse(api_data['body'])['phone_number'] != null) { document.getElementById('input_phone_number').value =  JSON.parse(api_data['body'])['phone_number']; }
+  if(JSON.parse(api_data['body'])['first_name']) { 
+    document.getElementById('input_first_name').value  =  JSON.parse(api_data['body'])['first_name'];
+    document.getElementById('profile_name').innerHTML  =  "<br><b>Name:</b><br>" + JSON.parse(api_data['body'])['first_name'];}
+  if(JSON.parse(api_data['body'])['last_name']) { 
+    document.getElementById('input_last_name').value =  JSON.parse(api_data['body'])['last_name'];
+    document.getElementById('profile_name').innerHTML  =  document.getElementById('profile_name').innerHTML  + " " + JSON.parse(api_data['body'])['last_name'];
+  }
+  if(JSON.parse(api_data['body'])['street_address']) {
+     document.getElementById('input_street_address').value =  JSON.parse(api_data['body'])['street_address'];
+     document.getElementById('profile_mailing_address').innerHTML = "<br><b>Mailing address:</b><br>" + JSON.parse(api_data['body'])['street_address'];
+  }
+  if(JSON.parse(api_data['body'])['city']) { document.getElementById('input_city').value =  JSON.parse(api_data['body'])['city'];
+  document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  "<br>" + JSON.parse(api_data['body'])['city'];
+  }
+  if(JSON.parse(api_data['body'])['province']) { document.getElementById('input_province').value =  JSON.parse(api_data['body'])['province'];
+  document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  ", " + JSON.parse(api_data['body'])['province'];
+}
+  if(JSON.parse(api_data['body'])['postal_code']) { document.getElementById('input_postal_code').value =  JSON.parse(api_data['body'])['postal_code'];
+  document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  ". " + JSON.parse(api_data['body'])['postal_code'];
+}
+  if(JSON.parse(api_data['body'])['phone_number']) { document.getElementById('input_phone_number').value =  JSON.parse(api_data['body'])['phone_number']; 
+  document.getElementById('profile_phone_number').innerHTML = "<br><b>Phone number:</b><br>"  + JSON.parse(api_data['body'])['phone_number'];}
     
 
   }
 
   function open_edit_profile(){
-    document.getElementById('input_first_name').disabled=false;
-    document.getElementById('input_last_name').disabled=false;
-    document.getElementById('input_street_address').disabled=false;
-    document.getElementById('input_city').disabled=false;
-    document.getElementById('input_province').disabled=false;
-    document.getElementById('input_postal_code').disabled=false;
-    document.getElementById('input_phone_number').disabled=false;
+    document.getElementById('profile_info').style.display="none";
+    document.getElementById('profile_form').style.display="block";
     document.getElementById('profile_buttons_1').style.display="none";
     document.getElementById('profile_buttons_2').style.display="block";
 
   }
 
   function close_edit_profile(){
-    document.getElementById('input_first_name').disabled=true;
-    document.getElementById('input_last_name').disabled=true;
-    document.getElementById('input_street_address').disabled=true;
-    document.getElementById('input_city').disabled=true;
-    document.getElementById('input_province').disabled=true;
-    document.getElementById('input_postal_code').disabled=true;
-    document.getElementById('input_phone_number').disabled=true;
+    document.getElementById('profile_info').style.display="block";
+    document.getElementById('profile_form').style.display="none";
     document.getElementById('profile_buttons_1').style.display="block";
     document.getElementById('profile_buttons_2').style.display="none";
 
@@ -187,7 +190,7 @@ function get_my_plots(email){
     });
 
     if(no_plots) { document.getElementById("my_plots_content").innerHTML="You have no plots assigned to you at the moment."}
-    else { document.getElementById('perennial_option').disabled=false}
+    else { document.getElementById('perennial_option').disabled=false; document.getElementById('perennia_option_label').innerHTML="Perennials"; }
 
     console.log ('My plots loaded')
   })
@@ -248,7 +251,7 @@ function get_my_waiting_list(email){
 function add_to_waiting_list(){
     
   email = document.getElementById('member_email').innerHTML;
-  plot_type = document.getElementById('request_plot_type').value;
+  plot_type = document.querySelector('input[name="request_plot_type"]:checked').value;
   plot_number = document.getElementById('request_plot_number').value;
   has_plots=false;
 
