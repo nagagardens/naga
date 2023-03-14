@@ -64,6 +64,31 @@ async function showUserInfo(email) {
 
   }
 
+  function open_edit_profile(){
+    document.getElementById('input_first_name').disabled=false;
+    document.getElementById('input_last_name').disabled=false;
+    document.getElementById('input_street_address').disabled=false;
+    document.getElementById('input_city').disabled=false;
+    document.getElementById('input_province').disabled=false;
+    document.getElementById('input_postal_code').disabled=false;
+    document.getElementById('input_phone_number').disabled=false;
+    document.getElementById('profile_buttons_1').style.display="none";
+    document.getElementById('profile_buttons_2').style.display="block";
+
+  }
+
+  function close_edit_profile(){
+    document.getElementById('input_first_name').disabled=true;
+    document.getElementById('input_last_name').disabled=true;
+    document.getElementById('input_street_address').disabled=true;
+    document.getElementById('input_city').disabled=true;
+    document.getElementById('input_province').disabled=true;
+    document.getElementById('input_postal_code').disabled=true;
+    document.getElementById('input_phone_number').disabled=true;
+    document.getElementById('profile_buttons_1').style.display="block";
+    document.getElementById('profile_buttons_2').style.display="none";
+
+  }
 
 function update_profile(){
     
@@ -95,7 +120,7 @@ function update_profile(){
   })
   })
   .then(response => response.json())
-  .then(response => { console.log(JSON.stringify(response)); getUserAttributes();})
+  .then(response => { console.log(JSON.stringify(response)); close_edit_profile(); getUserAttributes();})
     
 }
 

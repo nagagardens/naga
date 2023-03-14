@@ -9,6 +9,16 @@
 
 }
 
+@font-face {
+  font-family: 'OpenSans-ExtraBold';
+  src: url('OpenSans-ExtraBold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
+
 
 body {
   font: 16px Arial, Helvetica, sans-serif;
@@ -27,21 +37,21 @@ h2 {
 }
 
 h3 {
-  font-family: 'heavitas';
+  font-family: 'OpenSans-ExtraBold';
   font-size: 18pt;
   color: #0E623B;
   margin:0;
 }
 
 h4 {
-  font-family: 'heavitas';
+  font-family: 'OpenSans-ExtraBold';
   font-size: 18pt;
   color: #94C727;
   margin:0;
 }
 
 h5 {
-  font-family: 'heavitas';
+  font-family: 'OpenSans-ExtraBold';
   font-size: 12pt;
   color: #000;
   margin:10px;
@@ -49,7 +59,7 @@ h5 {
 }
 
 h6 {
-  font-family: 'heavitas';
+  font-family: 'OpenSans-ExtraBold';
   font-size: 24pt;
   color: #851847;
   margin:20px;
@@ -105,6 +115,10 @@ h6 {
 .my_profile {
   width:20%; 
   display:inline-block;
+  border-radius: 20px;
+  background-color: #f1f1f1;
+  padding:20px;
+  min-width: 250px;
 }
 
 .welcome {
@@ -210,6 +224,23 @@ h6 {
 
 .edit_plot:disabled{
   border:0;
+}
+
+
+.edit_profile{
+  color:black; 
+  width:100%;
+  display:inline-block;
+  
+  
+  
+}
+
+.edit_profile:disabled{
+  border:0;
+  background-color: #f1f1f1;
+  padding:0;
+  margin:0;
 }
 
 .admin_tab {

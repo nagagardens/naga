@@ -36,29 +36,36 @@
     <div class="my_profile">
       <div id='loader'><img src="img/loader.gif" width="20"></div>
 
-      <div id="sign-out" style="display:none;">
+      <div id="sign-out" style="display:none; width:100%;">
         <h3>Profile</h3>
-      <br>
+        <br>
         <center><img src="img/icon_profile.png" width="100"></center>
         <br>
         <h5>Name:</h5>
-        <input id="input_first_name" type="text" Placeholder="First Name" style="width:100%">
-        <br><input id="input_last_name" type="text"  Placeholder="Last Name" style="width:100%"> 
+        <input class="edit_profile" id="input_first_name" style="width:40%" type="text" Placeholder="First Name" disabled>
+        <input class="edit_profile" id="input_last_name" style="width:40%"  type="text"  Placeholder="Last Name" disabled> 
         <br><br>
         <h5>Email:</h5> 
-        <span id="member_email"></span>
-        <br><input  id="input_email" type="text" style="display:none"></span>
+        <span class="edit_profile" id="member_email"></span>
+        <br><input class="edit_profile"  id="input_email" type="text" style="display:none"></span>
         <br><br>
         <h5>Mailing address:</h5>
-        <input id="input_street_address" type="text" Placeholder="Street Address"  style="padding:10px; margin-top:5px; width:100%">
-        <br><input id="input_city" type="text" style="padding:10px; margin-top:5px;width:70%" placeholder="City" value="Ottawa">
-        <select id="input_province" style="padding:10px; margin-top:5px;width:20%"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
-        <br><input id="input_postal_code" type="text" style="width:100%;" Placeholder="Postal Code">
+        <input class="edit_profile" id="input_street_address" disabled type="text" Placeholder="Street Address" >
+        <br><input class="edit_profile" id="input_city" disabled type="text" style="width:100px" placeholder="City" value="Ottawa">
+        <select class="edit_profile" id="input_province" disabled style="width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
+        <br><input class="edit_profile" id="input_postal_code" disabled type="text" Placeholder="Postal Code">
         <br><br>
         <h5>Phone Number:</h5>
-        <input  id="input_phone_number" type="text" Placeholder="000-000-0000"  style="padding:10px; margin-top:5px; width:100%">
+        <input class="edit_profile" disabled id="input_phone_number" type="text" Placeholder="000-000-0000">
         <br>
-        <br><input type="button" onclick="update_profile();" value="Update"> <input type="button" onclick="signOut();" value="Sign out" style="background-color:tomato">
+        <div id="profile_buttons_1" style="width:100%; text-align: center;">
+          <br><input type="button" style="background-color: white;border:1px solid green; color:green; width:200px;" onclick="open_edit_profile();" value="Edit Profile ✎"> 
+          <br><input type="button" onclick="signOut();" value="Sign out" style="width:200px;background-color:tomato">
+        </div>
+        <div id="profile_buttons_2" style="width:100%; text-align: center; display:none">
+          <br><input type="button" style="width:200px;" onclick="update_profile();" value="Save"> 
+          <br><input type="button" onclick="close_edit_profile();" value="Cancel" style="width:200px;background-color:tomato">
+        </div>
       </div>
     </div>
 
@@ -140,7 +147,7 @@
              </td>
             <td valign="top">
               <input id="admin_input_street_address" type="text" Placeholder="Street Address" style="width:200px" >
-              <br><input id="admin_input_city" type="text" placeholder="City" value="Ottawa" style="width:100px" >
+              <br><input id="admin_input_city" type="text" placeholder="City" value="Ottawa" style="width:80px" >
               <select id="admin_input_province" style="width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
               <br><input id="admin_input_postal_code" type="text" Placeholder="Postal Code" style="width:100px" >
               
@@ -242,6 +249,7 @@
             </table>
           </td>
           <td width="100"></td>
+
           <td><img src="img/tulip.png" width="50"></td><td>Spring frost <h3>May 18th</h3></td><td></td><td><img src="img/fall.png" width="50"></td><td>Fall frost<h3>September15th</h3></td>
         </tr>
       </table>
