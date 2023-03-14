@@ -27,7 +27,7 @@ body {
 h1 {
   font-family: 'heavitas';
   font-size: 24pt;
-  color: #0E623B;
+  color: 07814E;
 }
 
 h2 {
@@ -39,7 +39,7 @@ h2 {
 h3 {
   font-family: 'OpenSans-ExtraBold';
   font-size: 18pt;
-  color: #0E623B;
+  color: 07814E;
   margin:0;
 }
 
@@ -52,9 +52,9 @@ h4 {
 
 h5 {
   font-family: 'OpenSans-ExtraBold';
-  font-size: 12pt;
+  font-size: 10pt;
   color: #000;
-  margin:10px;
+  margin:5px;
   margin-left:0px;
 }
 
@@ -155,18 +155,7 @@ h6 {
   
 }
 
-.img-magnifier-container {
-  position:relative;
-}
 
-.img-magnifier-glass {
-  position: absolute;
-  border: 1px solid gray;
-  border-radius: 50%;
-  cursor: none;
-  width: 80px;
-  height: 80px;
-}
 
 .gallery {
   column-count: 3;
@@ -298,7 +287,7 @@ select {
   padding:10px; scroll-margin-top:5px;
 }
 input[type=button] {
-  background-color: #04AA6D;
+  background-color: #07814E;
   color: #fff;
   border:0px;
   cursor:pointer;
