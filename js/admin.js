@@ -2,56 +2,6 @@ var members_email =[];
 var date_options = { year: 'numeric', month: 'long', day: 'numeric' };
 
 
-function getUserAttributes() {
-
-    var data = {
-      UserPoolId : _config.cognito.userPoolId,
-      ClientId : _config.cognito.clientId
-    };
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(data);
-    var cognitoUser = userPool.getCurrentUser();
-  
-    if (cognitoUser != null) {
-      cognitoUser.getSession(function(err, session) {
-        if (err) {
-          alert(err);
-          return;
-        }
-      console.log('session validity: ' + session.isValid());
-        
-        cognitoUser.getUserAttributes(function(err, result) {
-          if (err) {
-            console.log(err);
-            return;
-          }
-          
-          email=result[2].getValue();
-          console.log("Logged in user:" + email);
-          showUserInfo(email);
-  
-        });
-  
-      });
-    } else {
-      console.log("User is signed-out");
-      window.location.href='./index.html';
-    }
-  }
-  
-  
-  
-  async function showUserInfo(email) {
-    
-    // gets user from DynamoDB using email address  
-    const api_url = 'https://thv3sn3j63.execute-api.us-east-1.amazonaws.com/prod/get_naga_user_by_email?user_email=' + encodeURIComponent(email);
-    const api_response = await fetch(api_url);
-    const api_data = await(api_response).json();
-    
-    document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
-    
-    
-  
-    }
 
 function get_naga_members(){
 
@@ -133,10 +83,10 @@ function get_plots()
 
             <table class="list">
                 <tr id="plots_row_${row}">
-                <th>Plot Number</th>
+                <th width=80>Number</th>
                 <th width=150>Size</th>
                 <th>Rate</th>
-                <th>Current occupant</th>
+                <th>Occupant</th>
                 <th>Actions</th>
                 </tr>
             </table><br><br>
@@ -144,38 +94,37 @@ function get_plots()
             
             plot_type['Body'].forEach(plot => {
                 
-                // Assign plot workflow
                 plot_id=plot['plotId']['S'];
                 
-                if(plot['occupant']['S']) {occupant=plot['occupant']['S'];} else {occupant=""};
+                if(plot['occupant']['S']) {occupant=plot['occupant']['S'];} else {occupant=""; };
                 if(plot['height']['S']) {height=plot['height']['S'];} else {height=""};
                 if(plot['width']['S']) {width=plot['width']['S'];} else {width=""};
                 if(plot['rate']['S']) {rate=plot['rate']['S'];} else {rate=""};
                 occupant_form = (`
-                <div  id='plot_assign_top_${plot_id}'>${occupant}</div>
-                <div id='plot_assign_bottom_${plot_id}' style='display:none'>
+                <div  id='edit_plot_top_${plot_id}'>${occupant}</div>
+                <div id='edit_plot_bottom_${plot_id}' style='display:none'>
                     Enter email address:
-                    <br><div class='autocomplete'><input id='occupant_${plot_id}' type='text' name='occupant_${plot_id}' value='${occupant}' style=" width:100%;"></div>
-                    <br><br> or select from waiting list:
-                    <br><select onchange='select_from_waiting_list("${plot_id}")' id='select_from_waiting_list_${plot_id}'><option></option></select>
+                    <br><div class='autocomplete'><input id='occupant_${plot_id}' type='text' name='occupant_${plot_id}' value='${occupant}' style="width:200px"></div>
+                    <br><br> or select from waiting list: 
+                    <br> <select style="width:200px;" onchange='select_from_waiting_list("${plot_id}")' id='select_from_waiting_list_${plot_id}'><option></option></select>
                 </div>
                    
                 `)
 
                 document.getElementById("plots_row_"+row).insertAdjacentHTML('afterend', `<tr>
-                <td valign=top><input class="edit_plot" disabled  type="text" id="edit_plot_number_${plot_id}" value="${plot_id}"></td>
+                <td valign=top><input class="edit_plot" disabled  type="text" style="width:80px" id="edit_plot_number_${plot_id}" value="${plot_id}"></td>
                 <td valign=top><input disabled  class="edit_plot" style="width:50px" type="text" id="edit_plot_height_${plot_id}" value="${height}">
                 x<input disabled  class="edit_plot" style="width:50px" type="text" id="edit_plot_width_${plot_id}" value="${width}"></td>
                 <td valign=top>$<input disabled  class="edit_plot"  style=" width:50px" type="text" id="edit_plot_rate_${plot_id}" value="${rate}"></td>
                 <td valign=top>${occupant_form}</td>
                 <td valign=top>
-                <div id="edit_plot_top_${plot_id}">
-                    <input type='button' onclick='open_assign_window("${plot['plotId']['S']}","${plot['plot_type']['S'] }")' value='Edit'>
+                <div id="edit_plot_buttons1_${plot_id}">
+                    <input type='button' onclick='open_edit_plot("${plot['plotId']['S']}","${plot['plot_type']['S'] }")' value='Edit'>
                     <input type='button' onclick='remove_plot("${plot['plotId']['S']}")' value='Delete' style='background-color:tomato'>
                 </div>
-                <div id="edit_plot_bottom_${plot_id}" style="display:none">
-                    <input type='button'  onclick='assign_plot("${plot_id}",document.getElementById("occupant_${plot_id}").value);' value='Submit'>  
-                    <input type='button'  onclick='close_assign_window("${plot_id}")' value='Cancel 'style='background-color:tomato'><br><br>
+                <div id="edit_plot_buttons2_${plot_id}" style="display:none">
+                    <input type='button'  onclick='edit_plot("${plot_id}",document.getElementById("occupant_${plot_id}").value);' value='Submit'>  
+                    <input type='button'  onclick='close_edit_plot("${plot_id}")' value='Cancel 'style='background-color:tomato'><br><br>
                 </div>
                 </td>
                 </tr>`);
@@ -194,13 +143,13 @@ function get_plots()
 
 }
 
-function assign_plot(plot_id, email){
+function edit_plot(plot_id, email){
     
     height=document.getElementById("edit_plot_width_"+plot_id).value;
     width=document.getElementById("edit_plot_height_"+plot_id).value;
     rate=document.getElementById("edit_plot_rate_"+plot_id).value;
     console.log(plot_id+email+height+width+rate)
-    fetch('https://q1hk67hzpe.execute-api.us-east-1.amazonaws.com/prod/', {
+    fetch('https://cwjjxnn2dd.execute-api.us-east-1.amazonaws.com/prod/', {
     method: 'POST',
     headers: {
         'Accept': 'application/json',
@@ -272,7 +221,7 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
 }
 
 
-  function open_assign_window(plot_id,plot_type){
+  function open_edit_plot(plot_id,plot_type){
 
     const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     fetch(api_url, {
@@ -305,10 +254,10 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
     document.getElementById("edit_plot_width_"+plot_id).disabled=false;
     document.getElementById("edit_plot_height_"+plot_id).disabled=false;
     document.getElementById("edit_plot_rate_"+plot_id).disabled=false;
-    document.getElementById("plot_assign_top_" + plot_id).style.display="none";
-    document.getElementById("plot_assign_bottom_" + plot_id).style.display="block";
     document.getElementById("edit_plot_top_" + plot_id).style.display="none";
     document.getElementById("edit_plot_bottom_" + plot_id).style.display="block";
+    document.getElementById("edit_plot_buttons1_" + plot_id).style.display="none";
+    document.getElementById("edit_plot_buttons2_" + plot_id).style.display="block";
 
     
     })
@@ -321,12 +270,12 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
   }
 
 
-function close_assign_window(plot_id){
+function close_edit_plot(plot_id){
     document.getElementById("edit_plot_width_"+plot_id).disabled=true;
     document.getElementById("edit_plot_height_"+plot_id).disabled=true;
     document.getElementById("edit_plot_rate_"+plot_id).disabled=true;
-    document.getElementById("plot_assign_top_" + plot_id).style.display="block";
-    document.getElementById("plot_assign_bottom_" + plot_id).style.display="none";
+    document.getElementById("edit_plot_top_" + plot_id).style.display="block";
+    document.getElementById("edit_plot_bottom" + plot_id).style.display="none";
     document.getElementById("edit_plot_top_" + plot_id).style.display="block";
     document.getElementById("edit_plot_bottom_" + plot_id).style.display="none";
   }
@@ -343,9 +292,6 @@ function select_from_waiting_list(plot_id){
 function get_waiting_list()
 {
     
-    
-    
-
     document.getElementById('all_waiting_lists').innerHTML='<div id="waiting_list"></div>';
     const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     fetch(api_url, {
@@ -358,13 +304,10 @@ function get_waiting_list()
     .then(response => response.json())
     .then(response => {  
         
-        plot_types=JSON.parse(response); row=0;
+        plot_types=JSON.parse(response); row=0; waiting_list_id=0;
         plot_types.forEach(plot_type => {
-            // console.log("Plot type received:" + plot_type['Title'])
             row++
             
-            
-
             document.getElementById('waiting_list').insertAdjacentHTML('beforebegin', `
             <h3>${plot_type['Title']}</h3>
 
@@ -383,18 +326,30 @@ function get_waiting_list()
             </table><br><br>
             `);
             
+            
             plot_type['Body'].forEach(item => {
 
-                
-                
+                waiting_list_id++
+
                 if(item['has_plots']['BOOL']==true) { has_plots="<img src=img/checkmark.png width='20'>" } else { has_plots=""}
                 document.getElementById("waiting_list_row_"+row).insertAdjacentHTML('afterend', `<tr>
                 <td>${item['place']['N']}</td>
-                <td>${item['email']['S']}</td>
+                <td id="assign_plot_email_${waiting_list_id}">${item['email']['S']}</td>
                 <td>${item['plot_number']['S']}</td>
                 <td>${has_plots } </td>
                 <td>${new Date(item['date_added']['S']).toLocaleDateString("en-US", date_options)}</td>
-                <td><input type='button' onclick='delete_from_waiting_list(\"${item['email']['S']}\")' value='Remove'></td>
+                <td>
+                    <div id="assign_plots_top_${waiting_list_id}">
+                        <input type='button' onclick='open_assign_plot(\"${waiting_list_id}\",\"${plot_type['Title']}\")' value='Assign'>
+                        <input type='button' onclick='delete_from_waiting_list(\"${item['email']['S']}\")' style="background-color:tomato" value='Delete'>
+                    </div>
+                    <div id="assign_plots_bottom_${waiting_list_id}" style="display:none">
+                        Select from available plots:
+                        <br> <select style="width:200px;" id='assign_plot_list_${waiting_list_id}'><option></option></select>
+                        <br> <input type='button' onclick='assign_plot(\"${waiting_list_id}\")' value='Submit'>
+                        <input type='button' onclick='close_assign_plot(\"${waiting_list_id}\")' style="background-color:tomato" value='Cancel'>
+                    </div>
+                </td>
                 </tr>`);
             });
 
@@ -405,6 +360,73 @@ function get_waiting_list()
     });
 
 }
+
+
+function open_assign_plot(waiting_list_id,plot_type){
+    get_empty_plots(plot_type,waiting_list_id);
+    document.getElementById('assign_plots_top_'+waiting_list_id).style.display="none";
+    document.getElementById('assign_plots_bottom_'+waiting_list_id).style.display="block";
+    
+}
+
+function close_assign_plot(waiting_list_id){
+    document.getElementById('assign_plots_top_'+waiting_list_id).style.display="block";
+    document.getElementById('assign_plots_bottom_'+waiting_list_id).style.display="none";
+}
+
+function assign_plot(waiting_list_id){
+    email=document.getElementById('assign_plot_email_'+waiting_list_id).innerHTML;
+    plot_number=document.getElementById('assign_plot_list_'+waiting_list_id).value;
+    console.log( JSON.stringify({ 
+        "email": email,
+        "plot_number":plot_number
+    }))
+    fetch('https://q1hk67hzpe.execute-api.us-east-1.amazonaws.com/prod/', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ 
+        "email": email,
+        "plot_number":plot_number
+    })
+    })
+    .then(response => response.json())
+    .then(response => { 
+        console.log(JSON.stringify(response));
+        delete_from_waiting_list(email);
+        close_assign_plot(waiting_list_id)});
+               
+}
+
+function get_empty_plots(plot_type,waiting_list_id){
+    
+    const api_url = 'https://jawb81aeuf.execute-api.us-east-1.amazonaws.com/prod/get_empty_plots?plot_type=' + encodeURIComponent(plot_type);
+    fetch(api_url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(response => { 
+      
+      response.forEach(element => {
+        console.log(element)
+        var select = document.getElementById("assign_plot_list_"+waiting_list_id);
+        var el = document.createElement("option");
+        el.textContent = element['plotId']['S'];
+        el.value = element['plotId']['S'];
+        select.appendChild(el);
+      });
+  
+      
+    })
+  
+  }
+  
 
 function add_member(){
     
@@ -463,60 +485,3 @@ function remove_member(email){if(confirm("Are you sure you want to remove this u
   
     
 }}
-
-
-
-function magnify(imgID, zoom) {
-    var img, glass, w, h, bw;
-    img = document.getElementById(imgID);
-    /*create magnifier glass:*/
-    glass = document.createElement("DIV");
-    glass.setAttribute("class", "img-magnifier-glass");
-    /*insert magnifier glass:*/
-    img.parentElement.insertBefore(glass, img);
-    /*set background properties for the magnifier glass:*/
-    glass.style.backgroundImage = "url('" + img.src + "')";
-    glass.style.backgroundRepeat = "no-repeat";
-    glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
-    bw = 3;
-    w = glass.offsetWidth / 2;
-    h = glass.offsetHeight / 2;
-    /*execute a function when someone moves the magnifier glass over the image:*/
-    glass.addEventListener("mousemove", moveMagnifier);
-    img.addEventListener("mousemove", moveMagnifier);
-    /*and also for touch screens:*/
-    glass.addEventListener("touchmove", moveMagnifier);
-    img.addEventListener("touchmove", moveMagnifier);
-    function moveMagnifier(e) {
-      var pos, x, y;
-      /*prevent any other actions that may occur when moving over the image*/
-      e.preventDefault();
-      /*get the cursor's x and y positions:*/
-      pos = getCursorPos(e);
-      x = pos.x;
-      y = pos.y;
-      /*prevent the magnifier glass from being positioned outside the image:*/
-      if (x > img.width - (w / zoom)) {x = img.width - (w / zoom);}
-      if (x < w / zoom) {x = w / zoom;}
-      if (y > img.height - (h / zoom)) {y = img.height - (h / zoom);}
-      if (y < h / zoom) {y = h / zoom;}
-      /*set the position of the magnifier glass:*/
-      glass.style.left = (x - w) + "px";
-      glass.style.top = (y - h) + "px";
-      /*display what the magnifier glass "sees":*/
-      glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
-    }
-    function getCursorPos(e) {
-      var a, x = 0, y = 0;
-      e = e || window.event;
-      /*get the x and y positions of the image:*/
-      a = img.getBoundingClientRect();
-      /*calculate the cursor's x and y coordinates, relative to the image:*/
-      x = e.pageX - a.left;
-      y = e.pageY - a.top;
-      /*consider any page scrolling:*/
-      x = x - window.pageXOffset;
-      y = y - window.pageYOffset;
-      return {x : x, y : y};
-    }
-  }

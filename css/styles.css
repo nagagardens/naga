@@ -209,10 +209,12 @@ h6 {
 .edit_plot{
   color:black; 
   width:100px;
+  background-color:none;
 }
 
 .edit_plot:disabled{
   border:0;
+  padding:0;
 }
 
 
@@ -277,6 +279,8 @@ h6 {
   /*the container must be positioned relative:*/
   position: relative;
   display: inline-block;
+  width:100%;
+  
   
   
 }

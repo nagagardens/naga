@@ -11,6 +11,7 @@
   <script>
     window.onload = function(){
       getUserAttributes();
+      document.getElementById("defaultTab").click();
     }
   </script>  
   
@@ -45,13 +46,13 @@
         <span class="edit_profile" id="member_email"></span>
         <br><input class="edit_profile"  id="input_email" type="text" style="display:none"></span>
         <div id="profile_info">
-          <br><b>Administration</b>
-          <br><input type="button" style="width:200px;" onclick="window.location.href='./admin.html'" value="Go to Admin Console"> 
+          
           
           <div id="profile_name"></div>
           <div id="profile_mailing_address"></div>
           <div id="profile_phone_number"></div>
-          <br><br><input type="button" style="background-color: white;border:1px solid green; color:green; width:200px;" onclick="open_edit_profile();" value="Edit Profile ✎"> 
+          <br>
+          <br><input type="button" style="background-color: white;border:1px solid green; color:green; width:200px;" onclick="open_edit_profile();" value="Edit Profile ✎"> 
           <br><input type="button" onclick="signOut();" value="Sign out" style="width:200px;background-color:tomato">
         
         </div>
@@ -72,11 +73,6 @@
           <input class="edit_profile"  id="input_phone_number" type="text" Placeholder="000-000-0000">
           <br><input type="button" style="width:200px;" onclick="update_profile();" value="Save"> 
           <br><input type="button" onclick="close_edit_profile();" value="Cancel" style="width:200px;background-color:tomato">
-        </div>
-        <div id="profile_buttons_1" style="width:100%; text-align: center;">
-        </div>
-        <div id="profile_buttons_2" style="width:100%; text-align: center; display:none">
-          
         </div>
       </div>
 
@@ -138,11 +134,102 @@
   </div>
   
 
-  <br><br>
+  <br><br><br>
   
 
 
 
+
+  <div style="margin-left:auto; margin-right:auto; min-height: 1000px; width:90%;">
+    <h5>Admin Console</h5>
+    Only user with administrative access will be able to see this section
+    <br><br><br>
+
+
+    <div class="admin_tab">
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();"><h5>Members</h5></button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'plots_container');get_plots();"><h5>Plots</h5></button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()" id="defaultTab" ><h5>Waiting List</h5></button>
+    </div>
+
+
+    <!--All Members -->
+    <div  id='members_container' class="admin_tab_content">
+      
+      <div id="add_member_container">
+        <br><b>Add a member</b><br><br>
+        <table>
+          <tr>
+            <td valign="top">
+              <input id="admin_input_email" type="text" placeholder="Email address">
+              <br><input id="admin_input_first_name" type="text" Placeholder="First Name">
+              <br><input id="admin_input_last_name" type="text"  Placeholder="Last Name"> 
+              
+              </td>
+            <td valign="top">
+              <input id="admin_input_street_address" type="text" Placeholder="Street Address" style="width:200px" >
+              <br><input id="admin_input_city" type="text" placeholder="City" value="Ottawa" style="width:80px" >
+              <select id="admin_input_province" style="width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
+              <br><input id="admin_input_postal_code" type="text" Placeholder="Postal Code" style="width:100px" >
+              
+            </td><td valign="top">
+              <input  id="admin_input_phone_number" type="text" Placeholder="Phone number" >
+              <br><br><input id="admin_input_admin_checkbox" type="checkbox"> Admin user
+              <br><br><input type="button"  onclick="add_member();" value="Submit">              
+            </td>
+
+          </tr>
+        </table>
+      </div>
+        <br><br>
+        <table id="admin_members_table" class="list" ></table>
+    </div>
+
+
+    <!--All Plots -->
+    <div id="plots_container"  class="admin_tab_content">
+      <br><b>Add a plot</b><br>
+      <br><input type="text" id="input_plotId" style="width:100px" placeholder="Number" required>
+      <select id="input_plot_type">
+        <option>Type</option>
+        <option>Raised beds</option>
+        <option>Annuals</option>
+        <option>Perennials</option>
+        <option>Lockers</option>
+      </select>
+      <input type="text" id="input_plot_width"  placeholder="Width (feet)" style="width:100px" required>
+      <input type="text" id="input_plot_height"  placeholder="Height (feet)" style="width:100px" required>
+      <input type="text" id="input_plot_rate"  placeholder="Rate ($)" style="width:100px" required>
+      <input type="button" onclick="add_plot();" value="Add plot">
+      <br><br><div id="all_plots"></div>
+      <table id="admin_plots_table" class="list"></table>
+
+    </div>
+
+    <!--Waiting List -->
+    <div id="waiting_list_container" class="admin_tab_content">
+      <br><b>Add to waiting list</b><br>
+      <br><input type="text" id="admin_input_waiting_list_email"  placeholder="Email address" required>
+      <select id="admin_input_waiting_list_plot_type">
+        <option>Raised beds</option>
+        <option>Annuals</option>
+        <option>Perennials</option>
+        <option>Lockers</option>
+        
+      </select>
+      <select id="admin_input_waiting_list_plot_number">
+        <option>Plot Number</option>
+        <option>A01</option>
+        <option>P01</option>
+        <option>R01</option>
+      </select>
+      <input type="button" onclick="add_plot();" value="Add plot">
+      <br><br><div id="all_waiting_lists"></div>
+
+
+
+    </div>
+  </div>
 
 
   <!-- Planting Calendar
@@ -982,5 +1069,5 @@
 
 </body>
 
-
+<script type="text/javascript" src="js/admin.js"></script>
 </html>
