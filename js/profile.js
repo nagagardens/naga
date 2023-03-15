@@ -61,15 +61,15 @@ async function showUserInfo(email) {
   if(JSON.parse(api_data['body'])['street_address']) {
      document.getElementById('input_street_address').value =  JSON.parse(api_data['body'])['street_address'];
      document.getElementById('profile_mailing_address').innerHTML = "<br><b>Mailing address:</b><br>" + JSON.parse(api_data['body'])['street_address'];
-  }
+  }else document.getElementById('profile_mailing_address').innerHTML = "";
   if(JSON.parse(api_data['body'])['city']) { document.getElementById('input_city').value =  JSON.parse(api_data['body'])['city'];
-  document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  "<br>" + JSON.parse(api_data['body'])['city'];
+  if(JSON.parse(api_data['body'])['street_address']) {document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  "<br>" + JSON.parse(api_data['body'])['city'];}
   }
   if(JSON.parse(api_data['body'])['province']) { document.getElementById('input_province').value =  JSON.parse(api_data['body'])['province'];
-  document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  ", " + JSON.parse(api_data['body'])['province'];
+  if(JSON.parse(api_data['body'])['street_address']) {document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  ", " + JSON.parse(api_data['body'])['province'];}
 }
   if(JSON.parse(api_data['body'])['postal_code']) { document.getElementById('input_postal_code').value =  JSON.parse(api_data['body'])['postal_code'];
-  document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  ". " + JSON.parse(api_data['body'])['postal_code'];
+  if(JSON.parse(api_data['body'])['street_address']) {document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  ". " + JSON.parse(api_data['body'])['postal_code'];}
 }
   if(JSON.parse(api_data['body'])['phone_number']) { document.getElementById('input_phone_number').value =  JSON.parse(api_data['body'])['phone_number']; 
   document.getElementById('profile_phone_number').innerHTML = "<br><b>Phone number:</b><br>"  + JSON.parse(api_data['body'])['phone_number'];}
@@ -80,16 +80,12 @@ async function showUserInfo(email) {
   function open_edit_profile(){
     document.getElementById('profile_info').style.display="none";
     document.getElementById('profile_form').style.display="block";
-    document.getElementById('profile_buttons_1').style.display="none";
-    document.getElementById('profile_buttons_2').style.display="block";
 
   }
 
   function close_edit_profile(){
     document.getElementById('profile_info').style.display="block";
     document.getElementById('profile_form').style.display="none";
-    document.getElementById('profile_buttons_1').style.display="block";
-    document.getElementById('profile_buttons_2').style.display="none";
 
   }
 

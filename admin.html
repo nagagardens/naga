@@ -28,27 +28,21 @@
     <span><img src="img/facebook.png" width="20"></span>
   </div>
 
-     <br><br><br><br><br><br><br>
+     <br><br><br><br><br>
      
-    <!-- My Profile -->
-    <div class="my_profile">
-
-        <div id='loader'><img src="img/loader.gif" width="20"></div>
-
-        <div id="sign-out" style="display:none; width:100%;">
-            <h3>Admin Profile</h3>
-            <br>
-            <center><img src="img/icon_profile.png" width="100"></center>
-            <br>
-            <span class="edit_profile" id="member_email"></span>
-            <br><br><input type="button" style="width:200px;" onclick="window.location.href='./profile.html'" value="Go to profile"> 
-            <br><input type="button" onclick="signOut();" value="Sign out" style="width:200px;background-color:tomato">
-        </div>
-    </div>
-
-     <!--Admin Console -->
-  <div id="admin_console" style="display:inline-block;margin-left:20px;min-height: 1000px; width:70%; vertical-align: top;">
-   
+     
+  <div style="margin-left:auto; margin-right:auto; min-height: 1000px; width:90%;">
+    <table width="100%">
+      <tr>
+        <td ><h3>Admin Console</h3>
+          <br>
+          <b>User: </b><span class="edit_profile" id="member_email"></span>
+        <br><br><input type="button"  onclick="window.location.href='./profile.html'" value="Go to profile"> 
+        <input type="button" onclick="signOut();" value="Sign out" style="background-color:tomato"></td>
+      </tr>
+    </table>
+    <br><br>
+    
 
     <div class="admin_tab">
       <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();"><h5>Members</h5></button>

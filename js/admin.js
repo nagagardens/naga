@@ -28,8 +28,6 @@ function getUserAttributes() {
           email=result[2].getValue();
           console.log("Logged in user:" + email);
           showUserInfo(email);
-          get_my_plots(email);
-          get_my_waiting_list(email);
   
         });
   
@@ -50,8 +48,7 @@ function getUserAttributes() {
     const api_data = await(api_response).json();
     
     document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
-    document.getElementById('sign-out').style.display = "block";
-    document.getElementById('loader').style.display = "none";
+    
     
   
     }
