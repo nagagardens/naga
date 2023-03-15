@@ -160,6 +160,11 @@ function get_my_plots(email){
       actions="<input type=button value='Release' onclick='release_plot(\""+ plotId +"\")'>";
 
       no_plots=false; 
+      document.getElementById('exchange_plot_form').style.display="block";
+      var option = document.createElement("option");
+      option.text = "Yes - " + plotId ;
+      option.value=plotId;
+      document.getElementById('no_trade_option').add(option);
 
       var tab_buttons = document.createElement("button");
       tab_buttons.innerHTML = "<h5>"+plotId+"</h5>";
@@ -189,8 +194,8 @@ function get_my_plots(email){
 
     });
 
-    if(no_plots) { document.getElementById("my_plots_content").innerHTML="You have no plots assigned to you at the moment."}
-    else { document.getElementById('perennial_option').disabled=false; document.getElementById('perennia_option_label').innerHTML="Perennials"; }
+    if(no_plots) { document.getElementById("my_plots_content").innerHTML="You have no plots assigned to you at the moment."; document.getElementById('perennial_option').disabled=true;}
+    
 
     console.log ('My plots loaded')
   })
@@ -251,7 +256,7 @@ function get_my_waiting_list(email){
 function add_to_waiting_list(){
     
   email = document.getElementById('member_email').innerHTML;
-  plot_type = document.querySelector('input[name="request_plot_type"]:checked').value;
+  plot_type = document.getElementById('request_plot_type').value;
   plot_number = document.getElementById('request_plot_number').value;
   has_plots=false;
 

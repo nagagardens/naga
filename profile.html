@@ -89,7 +89,7 @@
       <br><br>
     
     <!--Request new plot -->
-    <div id="request_plot_container">
+    <div id="request_plot_container" style="background-color: #f1f1f1; padding:20px; border-radius: 20px;">
       <h3>Request a new plot</h3>
       <br>Raised beds are often available within a year or even mid-season.
       Annuals take an average of 2+ years.
@@ -97,15 +97,28 @@
       Preference is given to existing members on all plots.
       <br>
       <br><b>Plot type:</b>
-      <br><br><input type="radio" id="raised_beds_option"  name="request_plot_type" value="Raised beds" checked><label for="raised_beds_option">Raised Beds</label><br>
-      <input type="radio" id="annuals_option" name="request_plot_type" value="Annuals"><label for="annuals_option"> Annual</label>s<br>
-      <input type="radio" id="perennial_option"  name="request_plot_type" value="Perennials" disabled><label id="perennia_option_label" for="perennial_option"><font color="gray">Perennials</font> (only available to current members)</label><br>
-      <input type="radio" id="lockers_option" name="request_plot_type" value="Lockers"><label for="lockers_option">Lockers</label><br>
-      <br><select onchange="request_plot_number(this.value)"><option>First available</option><option value="1">I have a plot in mind</option></select>
-
-
+      <br><br>
+      <select id="request_plot_type">
+        <option value="Raised beds">Raised bed</option>
+        <option value="Annuals">Annual</option>
+        <option value="Perennials"  id="perennial_option"  >Perennial</option>
+        <option value="Lockers">Locker</option>
+      </select> 
+      <br>
+      <br><b>Plot number:</b>
+      <br><br><select onchange="request_plot_number(this.value)"><option>First available</option><option value="1">I have a plot in mind</option></select>
       <input type="text" id="request_plot_number" style="display:none" placeholder="Which plot(s)?">
-      <input type="button" onclick="add_to_waiting_list();" value="Submit">
+      
+      
+      <div id="exchange_plot_form" style="display:none">
+        <br><b>Would you like to trade in one of your current plots?</b>
+        <br><br><select  id="no_trade_option"><option>No</option></select>
+        
+      </div>
+      <br><br>
+      <input type="checkbox" name="checkbox"><label for="checkbox">I have read and agree with the <a href="https://www.dropbox.com/home/NAGA%20Dropbox/Membership/Forms?preview=Terms+and+Conditions+of+License+2022.pdf">NAGA Terms and Conditions</a> </label>
+      <br>
+      <br><input type="button" onclick="add_to_waiting_list();" value="Submit request" style="width:200px">
      </div>
 
     <!--My Waiting list -->
