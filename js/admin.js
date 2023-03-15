@@ -2,6 +2,60 @@ var members_email =[];
 var date_options = { year: 'numeric', month: 'long', day: 'numeric' };
 
 
+function getUserAttributes() {
+
+    var data = {
+      UserPoolId : _config.cognito.userPoolId,
+      ClientId : _config.cognito.clientId
+    };
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(data);
+    var cognitoUser = userPool.getCurrentUser();
+  
+    if (cognitoUser != null) {
+      cognitoUser.getSession(function(err, session) {
+        if (err) {
+          alert(err);
+          return;
+        }
+      console.log('session validity: ' + session.isValid());
+        
+        cognitoUser.getUserAttributes(function(err, result) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          
+          email=result[2].getValue();
+          console.log("Logged in user:" + email);
+          showUserInfo(email);
+          get_my_plots(email);
+          get_my_waiting_list(email);
+  
+        });
+  
+      });
+    } else {
+      console.log("User is signed-out");
+      window.location.href='./index.html';
+    }
+  }
+  
+  
+  
+  async function showUserInfo(email) {
+    
+    // gets user from DynamoDB using email address  
+    const api_url = 'https://thv3sn3j63.execute-api.us-east-1.amazonaws.com/prod/get_naga_user_by_email?user_email=' + encodeURIComponent(email);
+    const api_response = await fetch(api_url);
+    const api_data = await(api_response).json();
+    
+    document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
+    document.getElementById('sign-out').style.display = "block";
+    document.getElementById('loader').style.display = "none";
+    
+  
+    }
+
 function get_naga_members(){
 
     document.getElementById('admin_members_table').innerHTML=`
