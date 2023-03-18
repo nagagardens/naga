@@ -48,20 +48,20 @@ async function showUserInfo(email) {
   const api_data = await(api_response).json();
   
   document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
-  document.getElementById('sign-out').style.display = "block";
+  document.getElementById('sign-out').style.display = "inline-block";
   document.getElementById('loader').style.display = "none";
   
   if(JSON.parse(api_data['body'])['first_name']) { 
     document.getElementById('input_first_name').value  =  JSON.parse(api_data['body'])['first_name'];
-    document.getElementById('profile_name').innerHTML  =  "<br><b>Name:</b><br>" + JSON.parse(api_data['body'])['first_name'];}
+    document.getElementById('profile_name').innerHTML  =  "<br><h5>Name:</h5>" + JSON.parse(api_data['body'])['first_name'];}
   if(JSON.parse(api_data['body'])['last_name']) { 
     document.getElementById('input_last_name').value =  JSON.parse(api_data['body'])['last_name'];
     document.getElementById('profile_name').innerHTML  =  document.getElementById('profile_name').innerHTML  + " " + JSON.parse(api_data['body'])['last_name'];
   }
   if(JSON.parse(api_data['body'])['street_address']) {
      document.getElementById('input_street_address').value =  JSON.parse(api_data['body'])['street_address'];
-     document.getElementById('profile_mailing_address').innerHTML = "<br><b>Mailing address:</b><br>" + JSON.parse(api_data['body'])['street_address'];
-  }else document.getElementById('profile_mailing_address').innerHTML = "<br><b>Mailing address:</b><br>" + JSON.parse(api_data['body'])['street_address'];
+     document.getElementById('profile_mailing_address').innerHTML = "<br><h5>Mailing address:</h5>" + JSON.parse(api_data['body'])['street_address'];
+  }else document.getElementById('profile_mailing_address').innerHTML = "<br><h5>Mailing address:</h5" + JSON.parse(api_data['body'])['street_address'];
   if(JSON.parse(api_data['body'])['city']) { document.getElementById('input_city').value =  JSON.parse(api_data['body'])['city'];
   if(JSON.parse(api_data['body'])['street_address']) {document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  "<br>" + JSON.parse(api_data['body'])['city'];}
   }
@@ -72,19 +72,19 @@ async function showUserInfo(email) {
   if(JSON.parse(api_data['body'])['street_address']) {document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  ". " + JSON.parse(api_data['body'])['postal_code'];}
 }
   if(JSON.parse(api_data['body'])['phone_number']) { document.getElementById('input_phone_number').value =  JSON.parse(api_data['body'])['phone_number']; 
-  document.getElementById('profile_phone_number').innerHTML = "<br><b>Phone number:</b><br>"  + JSON.parse(api_data['body'])['phone_number'];}
+  document.getElementById('profile_phone_number').innerHTML = "<br><h5>Phone number:</h5>"  + JSON.parse(api_data['body'])['phone_number'];}
     
 
   }
 
   function open_edit_profile(){
     document.getElementById('profile_info').style.display="none";
-    document.getElementById('profile_form').style.display="block";
+    document.getElementById('profile_form').style.display="inline-block";
 
   }
 
   function close_edit_profile(){
-    document.getElementById('profile_info').style.display="block";
+    document.getElementById('profile_info').style.display="inline-block";
     document.getElementById('profile_form').style.display="none";
 
   }
@@ -153,7 +153,7 @@ function get_my_plots(email){
       if(element['width']) { width=JSON.stringify(element['width']['S']).replace(/["']/g, "") } else {width="";}
       if(element['rate']) { rate=JSON.stringify(element['rate']['S']).replace(/["']/g, "") } else {rate="";}
       if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
-      actions="<input type=button value='Release' onclick='release_plot(\""+ plotId +"\")'>";
+      
 
       no_plots=false; 
       document.getElementById('exchange_plot_form').style.display="block";
@@ -201,7 +201,7 @@ function get_my_plots(email){
 
 function get_my_waiting_list(email){
   
-  var no_waiting_list = true;
+  var has_waiting_list = false;
   
   const api_url = 'https://70tip4ggnj.execute-api.us-east-1.amazonaws.com/prod/get_my_waiting_list?email=' + encodeURIComponent(email);
   fetch(api_url, {
@@ -215,35 +215,33 @@ function get_my_waiting_list(email){
   .then(response => { 
       
       if(response['Item']){
+        
         if(response['Item']['plot_type']) { plot_type=JSON.stringify(response['Item']['plot_type']).replace(/["']/g, "") } else {plot_type="";}
         if(response['Item']['plot_number']) { plot_number=JSON.stringify(response['Item']['plot_number']).replace(/["']/g, "") } else {plot_number="";}
         if(response['Item']['place']) { place=JSON.stringify(response['Item']['place']).replace(/["']/g, "") } else {place="";}
-        actions="<input type=button value='Resign' style='background-color:tomato' onclick='delete_from_waiting_list(\""+response['Item']['email']+"\")'>";
-        no_waiting_list=false; 
-
-        document.getElementById('my_waiting_list_table').innerHTML=`
-          <tr>
-            <th>Position</th>
-            <th>Plot type</th>
-            <th>Plot number</th>
-            <th>Date joined</th>
-            <th width=120>Actions</th>
-          </tr>
-          <tr>
-            <td>`+place+`</td>  
-            <td>`+plot_type+`</td>
-            <td>`+plot_number+`</td>
-            <td>${ new Date(response['Item']['date_added']).toLocaleDateString("en-US", date_options)  }</td>
-            <td>`+actions+`</td>
-          <tr>
-        </table>`;
+        
+        has_waiting_list=true; 
+        waiting_list_details = `
+        <br><h3>Waiting list</h3>
+        <br>We have received your request and you are currently on our waiting list. You will receive an email when a plot has been assigned to you.<br><br>
+        <div class="request_plot"><b>Plot type:</b> ${plot_type}.
+          <br><b>Plot number:</b> ${plot_number}.
+          <br><b>Date joined:</b> ${ new Date(response['Item']['date_added']).toLocaleDateString("en-US", date_options)  }
+          <br><br>You are currently #${place} in line. 
+        <br><br><input type=button value='Cancel request' style='background-color:tomato; width:200px' onclick='delete_from_waiting_list(\"${email}\", true)'>
+        </div>
+        `;
+        
 
       }
       
-      
-    if (no_waiting_list) {document.getElementById("request_plot_container").style.display="block";
-    document.getElementById("my_waiting_list_container").style.display="none";}else {document.getElementById("request_plot_container").style.display="none";
-    document.getElementById("my_waiting_list_container").style.display="block";}
+    if (has_waiting_list) {
+      document.getElementById('my_waiting_list_container').innerHTML=waiting_list_details;
+      document.getElementById("request_plot_container").style.display="none";
+    } else {
+      document.getElementById('my_waiting_list_container').innerHTML = "";
+      document.getElementById("request_plot_container").style.display="inline-block";
+    }
     })
 
     console.log ('My waiting list loaded')
@@ -254,8 +252,7 @@ function add_to_waiting_list(){
   email = document.getElementById('member_email').innerHTML;
   plot_type = document.getElementById('request_plot_type').value;
   plot_number = document.getElementById('request_plot_number').value;
-  has_plots=false;
-
+  if(!plot_number){plot_number="First available"}
 
   
   fetch('https://ln7qb82w92.execute-api.us-east-1.amazonaws.com/prod', {
@@ -278,7 +275,7 @@ function add_to_waiting_list(){
 
 function signOut() {
 
-  document.getElementById('loader').style.display = "block";
+  document.getElementById('loader').style.display = "inline-block";
   document.getElementById('sign-out').style.display = "none"
   
   const data = { 
@@ -308,27 +305,6 @@ function signOut() {
     
 }
 
-
-function release_plot(plotId){if(confirm("Are you sure you want to give up this plot? You will have to join the waiting list to get it back!")==true){
-  email = document.getElementById('member_email').innerHTML;
-    fetch('https://q1hk67hzpe.execute-api.us-east-1.amazonaws.com/prod/', {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ 
-        "plotId": plotId,
-        "occupant":""
-    })
-    })
-    .then(response => response.json())
-    .then(response => { console.log(JSON.stringify(response));get_my_plots(email); get_plots();})
-    
-  }
-    
-
-}
 
 function openCity(evt, cityName) {
   console.log(cityName)
@@ -360,8 +336,11 @@ function open_admin_tab(evt, tabName) {
   evt.currentTarget.className += " active";
 }
 
-function delete_from_waiting_list(email){
+function delete_from_waiting_list(email,ask_confirm){
   
+  if(ask_confirm)
+  {if(!confirm('Are you sure you want to cancel this request? You will loose your place in line')){ return;}}
+
   const api_url = 'https://naqr1xdbd7.execute-api.us-east-1.amazonaws.com/prod/delete_from_waiting_list?email='+encodeURIComponent(email);
   
   fetch(api_url, {

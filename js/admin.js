@@ -313,15 +313,6 @@ function get_waiting_list()
 
             <table class="list">
                 <tr id="waiting_list_row_${row}">
-                <th>Position</th>
-                <th>Email</th>
-                <th>Plot Number</th>
-                <th>Current member</th>
-                <th>Date joined</th>
-                <th>Actions</th>
-                </tr>
-                <tr></tr>
-                <tr id="no_plots_${row}">
                 </tr>
             </table><br><br>
             `);
@@ -331,23 +322,26 @@ function get_waiting_list()
 
                 waiting_list_id++
 
-                if(item['has_plots']['BOOL']==true) { has_plots="<img src=img/checkmark.png width='20'>" } else { has_plots=""}
+                if(item['has_plots']['BOOL']==true) { has_plots="<img src=img/checkmark.png width='20'>" } else { has_plots="No"}
                 document.getElementById("waiting_list_row_"+row).insertAdjacentHTML('afterend', `<tr>
-                <td>${item['place']['N']}</td>
-                <td id="assign_plot_email_${waiting_list_id}">${item['email']['S']}</td>
-                <td>${item['plot_number']['S']}</td>
-                <td>${has_plots } </td>
-                <td>${new Date(item['date_added']['S']).toLocaleDateString("en-US", date_options)}</td>
-                <td>
-                    <div id="assign_plots_top_${waiting_list_id}">
-                        <input type='button' onclick='open_assign_plot(\"${waiting_list_id}\",\"${plot_type['Title']}\")' value='Assign'>
-                        <input type='button' onclick='delete_from_waiting_list(\"${item['email']['S']}\")' style="background-color:tomato" value='Delete'>
-                    </div>
-                    <div id="assign_plots_bottom_${waiting_list_id}" style="display:none">
-                        Select from available plots:
-                        <br> <select style="width:200px;" id='assign_plot_list_${waiting_list_id}'><option></option></select>
-                        <br> <input type='button' onclick='assign_plot(\"${waiting_list_id}\")' value='Submit'>
-                        <input type='button' onclick='close_assign_plot(\"${waiting_list_id}\")' style="background-color:tomato" value='Cancel'>
+                
+                <td valign=top>
+                    <div class="in_line"><b># ${item['place']['N']}</b><br><span id="assign_plot_email_${waiting_list_id}">${item['email']['S']}</span></div>
+                    <div class="in_line"><b>Desired plot:</b><br> ${item['plot_number']['S']}</div>
+                    <div class="in_line"><b>Date joined:</b><br> ${new Date(item['date_added']['S']).toLocaleDateString("en-US", date_options)} </div>
+                    <div class="in_line"><b>Active member:</b><br>${has_plots } </div>
+                    <div class="in_line">
+                        <div id="assign_plots_top_${waiting_list_id}">
+                        <b>Actions:</b><br>
+                            <input type='button' onclick='open_assign_plot(\"${waiting_list_id}\",\"${plot_type['Title']}\")' value='Assign'>
+                            <input type='button' onclick='delete_from_waiting_list(\"${item['email']['S']}\")' style="background-color:tomato" value='Delete'>
+                        </div>
+                        <div id="assign_plots_bottom_${waiting_list_id}" style="display:none">
+                        <b> Select from available plots:</b>
+                        <br> <select style="width:200px;" id='assign_plot_list_${waiting_list_id}'></select>
+                        <br><br> <input type='button' onclick='assign_plot(\"${waiting_list_id}\")' value='Submit'>
+                            <input type='button' onclick='close_assign_plot(\"${waiting_list_id}\")' style="background-color:tomato" value='Cancel'>
+                        </div>
                     </div>
                 </td>
                 </tr>`);
@@ -365,12 +359,12 @@ function get_waiting_list()
 function open_assign_plot(waiting_list_id,plot_type){
     get_empty_plots(plot_type,waiting_list_id);
     document.getElementById('assign_plots_top_'+waiting_list_id).style.display="none";
-    document.getElementById('assign_plots_bottom_'+waiting_list_id).style.display="block";
+    document.getElementById('assign_plots_bottom_'+waiting_list_id).style.display="inline-block";
     
 }
 
 function close_assign_plot(waiting_list_id){
-    document.getElementById('assign_plots_top_'+waiting_list_id).style.display="block";
+    document.getElementById('assign_plots_top_'+waiting_list_id).style.display="inline-block";
     document.getElementById('assign_plots_bottom_'+waiting_list_id).style.display="none";
 }
 
@@ -401,7 +395,8 @@ function assign_plot(waiting_list_id){
 }
 
 function get_empty_plots(plot_type,waiting_list_id){
-    
+    var select = document.getElementById("assign_plot_list_"+waiting_list_id);
+    select.innerHTML="";
     const api_url = 'https://jawb81aeuf.execute-api.us-east-1.amazonaws.com/prod/get_empty_plots?plot_type=' + encodeURIComponent(plot_type);
     fetch(api_url, {
         method: 'GET',
@@ -415,7 +410,7 @@ function get_empty_plots(plot_type,waiting_list_id){
       
       response.forEach(element => {
         console.log(element)
-        var select = document.getElementById("assign_plot_list_"+waiting_list_id);
+        
         var el = document.createElement("option");
         el.textContent = element['plotId']['S'];
         el.value = element['plotId']['S'];

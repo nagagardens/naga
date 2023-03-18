@@ -138,7 +138,7 @@ async function showUserInfo(email) {
   if(JSON.parse(api_data['body'])['first_name'] != null) { document.getElementById('member_name').innerHTML =  JSON.parse(api_data['body'])['first_name']; }
   
   
-  document.getElementById('sign-out').style.display = "block";
+  document.getElementById('sign-out').style.display = "inline-block";
   document.getElementById('loader').style.display = "none";
   
 

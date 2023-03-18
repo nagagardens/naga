@@ -17,13 +17,6 @@
 
 }
 
-
-.lander{
-  width:90%;
-  margin-left:auto;
-  margin-right: auto;
-}
-
 .hero {
   vertical-align: top;
 }
@@ -189,7 +182,7 @@
   
 }
 input {
-  padding:10px; margin:5px; scroll-margin-top:5px;
+  padding:10px;  scroll-margin-top:5px;
 }
 select {
   padding:10px; scroll-margin-top:5px;
@@ -230,9 +223,9 @@ input[type=button] {
 }
 
 .list {
-  padding: 30px;
   border-collapse: collapse;
   width:100%;
+  
 }
 
 .list td, .list th {
@@ -252,46 +245,24 @@ input[type=button] {
   color: white;
 }
 
-.console {
-  
-  width:90%;
-  margin-left: auto;
-  margin-right: auto;
-  vertical-align: top;
-}
 
 
-
-.my_profile {
-  width:20%; 
-  display:inline-block;
-  border-radius: 20px;
-  background-color: #f1f1f1;
-  padding:20px;
-  min-width: 250px;
-}
-
-
-
-
-.my_plots{
-  display:inline-block; 
-  width:70%;
-  vertical-align: top;
-  margin-left:20px;
-}
 
 
 
 body {
   font: 16px Arial, Helvetica, sans-serif;
   margin:0px;
+  padding:5%;
+  padding-top:0px;
+]
 
 }
 h1 {
   font-family: 'heavitas';
   color: 07814E;
   font-size: 24pt;
+  margin:2px;
 
 }
 
@@ -317,7 +288,7 @@ h4 {
 
 h5 {
   font-family: 'OpenSans-ExtraBold';
-  font-size: 10pt;
+  font-size: 12pt;
   color: #000;
   margin:5px;
   margin-left:0px;
@@ -332,12 +303,14 @@ h6 {
 
 
 
+/* For small mobiles: */
 
+  
+  
 
- /* For mobile phones: */
 
 .header {
-  width: 100%;
+  width: 95%;
   position: fixed;
   color:#94C727;
   font-family: 'heavitas';
@@ -365,20 +338,41 @@ h6 {
 .sign_in{
   width:70%;
   display:inline-block;
-  
-  
+  vertical-align: middle;
+  margin-top:20px;
+  min-width:250px;
 }
 
 
 .sign_in input {
-  width:100%;
-}
-.banner2 {
-  width:75px;
-  display: inline-block;
-  margin-left:20px;
+  width:95%;
 }
 
+.forgot_password {
+  font-size:small;
+  color:gray;
+  text-decoration: none;
+  width:90%;
+  text-align: right;
+  cursor: pointer;
+}
+
+.banner2 {
+  display:none;
+}
+
+
+ /* For mobile phones: */
+ @media only screen and (min-width: 420px) {
+  .banner2 {
+    width:60px;
+    display: inline-block;
+    margin-left:20px;
+    margin-top:20px;
+    vertical-align: middle;
+  }
+ }
+ 
 
 .gallery {
   column-count: 2;
@@ -390,6 +384,49 @@ h6 {
   width:100%;
   padding:3px;
  }
+
+
+.my_profile {
+  width:100%; 
+  display:inline-block;
+}
+
+
+.my_profile div {
+  display: inline-block;
+  width:100%;
+}
+.my_profile input {
+  width:95%;
+}
+
+
+.my_plots{
+  display:inline-block; 
+  width:100%;
+}
+
+.request_plot{
+  width:100%;
+  background-color: #f1f1f1; 
+  padding:20px; 
+  border-radius: 20px;
+
+}
+
+.in_line {
+  display:inline-block;
+  margin:10px;
+  vertical-align: top;
+}
+
+
+.in_line input {
+  margin: 0px;
+}
+
+
+
 
 
 /* For tablets: */
@@ -426,6 +463,8 @@ h6 {
   .gallery img{
     padding:10px;
   }
+
+
   
 }
 
@@ -435,7 +474,7 @@ h6 {
 
 
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1000px) {
   
   /* For big  desktop: */
   
@@ -443,24 +482,59 @@ h6 {
     width:60%
   }
   
-.sign_in{
-  width:250px;
-  display:inline-block;
-  
-  
+  .sign_in{
+    width:250px;
+    display:inline-block;
+    vertical-align: top;
+    margin-left:20px;
+    margin-top:10px;
+    
+  }
+
+  .banner2 {
+    width:65px;
+    vertical-align: top;
+    margin-top:30px;
+  }
+
+
+  .welcome {
+    width:45%;
+  }
+
+
+  .my_profile {
+    width:100%; 
+    border-radius: 20px;
+    background-color: #f1f1f1;
+    padding:20px;
+    
+  }
+
+
+  .my_plots{
+    width:100%;
+    vertical-align: top;
+    
+  }
+
+  .waiting_list {
+    display:inline-block;
+  }
+
+  .left_bar {
+    width:20%;
+    display:inline-block;
+    vertical-align: top;
+    min-width: 250px;
+  }
+
+  .right_bar {
+    width:60%;
+    display:inline-block;
+    vertical-align: top;
+    margin-left:20px;
+  }
+
 }
 
-.banner2 {
-  width:75px;
-  display: inline-block;
-}
-
-
-.welcome {
-  width:45%;
-}
-
-  h1 {
-    font-size: 24pt;
-  } 
-}
