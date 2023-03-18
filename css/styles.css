@@ -46,6 +46,8 @@
 .icon_plots div {
   width:30%;
   display: inline-block;
+  min-width: 90px;
+  font-size: small;
 }
 
 .icon_plots img{
@@ -183,6 +185,7 @@
 }
 input {
   padding:10px;  scroll-margin-top:5px;
+  margin:5px;
 }
 select {
   padding:10px; scroll-margin-top:5px;
@@ -281,14 +284,14 @@ h3 {
 
 h4 {
   font-family: 'OpenSans-ExtraBold';
-  font-size: 18pt;
-  color: #94C727;
+  font-size: 14pt;
+  color: #000;
   margin:0;
 }
 
 h5 {
   font-family: 'OpenSans-ExtraBold';
-  font-size: 12pt;
+  font-size: 10pt;
   color: #000;
   margin:5px;
   margin-left:0px;
@@ -420,7 +423,6 @@ h6 {
   vertical-align: top;
 }
 
-
 .in_line input {
   margin: 0px;
 }
@@ -430,9 +432,10 @@ h6 {
 
 
 /* For tablets: */
-@media only screen and (min-width: 780px) {
+@media only screen and (min-width: 820px) {
   
   
+
   .header_buttons {
     text-align: right;
     width:40%;
@@ -444,6 +447,28 @@ h6 {
     margin-right:20px;
   }
 
+  h5 {
+    font-size:12pt;
+  }
+  .banner {
+    width:60%;
+  }
+  
+  .sign_in{
+    width:250px;
+    vertical-align: top;
+    margin-left:10px;
+    margin-top:10px;
+    
+  }
+
+  .banner2 {
+    display:none;
+  }
+
+  h1 {
+    font-size:18pt;
+  }
 
 
   .welcome {
@@ -474,9 +499,27 @@ h6 {
 
 
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1020px) {
   
-  /* For big  desktop: */
+  /* For desktop: */
+
+
+  h1 {
+    font-size:24pt;
+  }
+
+
+  h4 {
+    font-size:18pt;
+    margin-bottom:10px;
+    margin-top:20px;
+  }
+
+
+  .header_buttons {
+    margin-right:50px;
+  }
+
   
   .banner {
     width:60%
@@ -484,8 +527,7 @@ h6 {
   
   .sign_in{
     width:250px;
-    display:inline-block;
-    vertical-align: top;
+    vertical-align: bottom;
     margin-left:20px;
     margin-top:10px;
     
@@ -493,8 +535,9 @@ h6 {
 
   .banner2 {
     width:65px;
-    vertical-align: top;
+    vertical-align: bottom;
     margin-top:30px;
+    display:inline-block;
   }
 
 
@@ -538,3 +581,15 @@ h6 {
 
 }
 
+
+
+@media only screen and (min-width: 1440px) {
+  
+  /* For big desktop: */
+
+  .banner2 {
+    width:80px;
+  }
+
+
+}
