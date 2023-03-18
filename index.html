@@ -3,6 +3,7 @@
   <head>
       <title>Nepean Allotment Garden Association</title>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <script src="js/amazon-cognito-identity.min.js"></script>
       <script src="js/config.js"></script>
       <script src="js/index.js"></script>
@@ -18,27 +19,29 @@
       
     <!--Header -->
     <div class="header">
-      <span style="width:60%" onclick="window.location.href='./index.html'"><img src="img/logo.png" width="150"></span>
-      <span style="width:10%" onclick="window.location.href='./index.html'">Home</span>
-      <span style="width:10%">About</span>
-      <span style="width:10%">Contact</span>
-      <span><img src="img/facebook.png" width="20"></span>
+      <div class="header_logo" onclick="window.location.href='./index.html'"><img src="img/logo.png" width="150"></div>
+      <div class="header_buttons">
+        <span onclick="window.location.href='./index.html'">Home</span>
+        <span >About</span>
+        <span >Contact</span>
+        <span><img src="img/facebook.png" width="20"></span>
+      </div>
     </div>
       <br><br><br><br><br>
     
     <div class="lander">
       <!-- Hero -->
       <div class="hero">
-        <div class="banner">
-          <img src="img/hero.png">
-        </div>
+        
+        <img class="banner" src="img/hero.png">
+        
 
         <!-- My Profile -->
-        <div>
+        <div id='loader'> <img src="img/loader.gif" width="20"></div>
 
-          <div id='loader'> <img src="img/loader.gif" width="20"></div>
+        <div class="sign_in">
 
-          <div id="sign-out" style="display:none;">
+          <div  id="sign-out" style="display:none;">
             <h3>You are<br> logged in</h3>
             <br><br>
             <img src="img/icon_profile.png" onclick="window.location.href='./profile.html'" width="100">
@@ -47,23 +50,26 @@
             <br>
             <br><input type="button" onclick="window.location.href='./profile.html'" value ="Go to profile">  <input type=button onclick="signOut();"  style="background-color:tomato" value="Sign out">
           </div>
-
-          <div id='sign-in' style="display:none">
+          
+          <div id='sign-in' style="display:none;">
             <form>
             <h1>Sign in</h1>
             <input type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
             <br><input  type="password" id="inputPassword"  placeholder="Password" name="password" required>
-            <br><a style="font-size: 12px" href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password</a>
             <p> <input type="button" onclick="signInButton();" value="Sign in"></p>
+            <a  href="#" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password</a>
             </form><br>
             <h5>Don't have an account?</h5>
             <input type="button" style="width:150px; margin:0;" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'" value ="Become a member"> 
-            
           </div>
-          <br>
+          <br><br>
+          
         </div>
+        
+        <img class="banner2" src="img/Rake.png">
+        
 
-        <img src="img/Rake.png" style="width:75">
+        
 
       </div>
 
@@ -95,6 +101,7 @@
           Raised beds are often available within a year or even mid-season. Annual plots are rototilled every spring, and they take an average of 2+ years. Perennials plots are entirely maintained by the gardener renting them. They take an average of 3+ years and are only available to existing members. 
           <br><br> 
           Preference is given to active NAGA members on all plots.
+          <br><br> 
         </span>
 
 
@@ -103,7 +110,7 @@
 
       <div class="welcome">
         <h2>Explore the garden</h2>
-        <span>We are located at 239 Viewmount Drive in Ottawa, Ontario, Canada. When visiting, please be respectful of our gardners by not touching any of the plants and picking up after your pets.</span>
+        <span>We are located at 239 Viewmount Drive in Ottawa, Ontario, Canada. When visiting, please be respectful of our gardeners by not touching any of the plants and picking up after your pets.</span>
         
 
         <br><br><a href="img/map_plots.png" target="new"><img src="img/map_plot_small.png" border="0" width="100%"></a>
