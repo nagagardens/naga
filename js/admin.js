@@ -83,11 +83,6 @@ function get_plots()
 
             <table class="list">
                 <tr id="plots_row_${row}">
-                <th width=80>Number</th>
-                <th width=150>Size</th>
-                <th>Rate</th>
-                <th>Occupant</th>
-                <th>Actions</th>
                 </tr>
             </table><br><br>
             `);
@@ -101,31 +96,32 @@ function get_plots()
                 if(plot['width']['S']) {width=plot['width']['S'];} else {width=""};
                 if(plot['rate']['S']) {rate=plot['rate']['S'];} else {rate=""};
                 occupant_form = (`
-                <div  id='edit_plot_top_${plot_id}'>${occupant}</div>
+                <div id='edit_plot_top_${plot_id}'>${occupant}</div>
                 <div id='edit_plot_bottom_${plot_id}' style='display:none'>
-                    Enter email address:
-                    <br><div class='autocomplete'><input id='occupant_${plot_id}' type='text' name='occupant_${plot_id}' value='${occupant}' style="width:200px"></div>
+                    <div class='autocomplete'><input id='occupant_${plot_id}' type='text' placeholder="Email address" name='occupant_${plot_id}' value='${occupant}' style="width:200px"></div>
                     <br><br> or select from waiting list: 
                     <br> <select style="width:200px;" onchange='select_from_waiting_list("${plot_id}")' id='select_from_waiting_list_${plot_id}'><option></option></select>
                 </div>
                    
                 `)
 
-                document.getElementById("plots_row_"+row).insertAdjacentHTML('afterend', `<tr>
-                <td valign=top><input class="edit_plot" disabled  type="text" style="width:80px" id="edit_plot_number_${plot_id}" value="${plot_id}"></td>
-                <td valign=top><input disabled  class="edit_plot" style="width:50px" type="text" id="edit_plot_height_${plot_id}" value="${height}">
-                x<input disabled  class="edit_plot" style="width:50px" type="text" id="edit_plot_width_${plot_id}" value="${width}"></td>
-                <td valign=top>$<input disabled  class="edit_plot"  style=" width:50px" type="text" id="edit_plot_rate_${plot_id}" value="${rate}"></td>
-                <td valign=top>${occupant_form}</td>
+                document.getElementById("plots_row_"+row).insertAdjacentHTML('afterend', `
+                <tr>
                 <td valign=top>
-                <div id="edit_plot_buttons1_${plot_id}">
-                    <input type='button' onclick='open_edit_plot("${plot['plotId']['S']}","${plot['plot_type']['S'] }")' value='Edit'>
-                    <input type='button' onclick='remove_plot("${plot['plotId']['S']}")' value='Delete' style='background-color:tomato'>
-                </div>
-                <div id="edit_plot_buttons2_${plot_id}" style="display:none">
-                    <input type='button'  onclick='edit_plot("${plot_id}",document.getElementById("occupant_${plot_id}").value);' value='Submit'>  
-                    <input type='button'  onclick='close_edit_plot("${plot_id}")' value='Cancel 'style='background-color:tomato'><br><br>
-                </div>
+                    <div class="in_line"><b>Plot number:</b><br><h3><span id="edit_plot_number_${plot_id}">${plot_id}</span></h3></div>
+                    <div class="in_line"><b>Size:</b><br><input disabled  class="edit_plot" style="width:40px; text-align:center;" type="text" id="edit_plot_height_${plot_id}" value="${height}">
+                        x<input disabled  class="edit_plot" style="width:40px; text-align:center;" type="text" id="edit_plot_width_${plot_id}" value="${width}"></div>
+                    <div class="in_line"><b>Rate:</b><br> $<input disabled  class="edit_plot"  style=" width:50px" type="text" id="edit_plot_rate_${plot_id}" value="${rate}"></div>
+                    <div class="in_line"><b>Occupant:</b>${occupant_form}</div><br>
+                
+                    <div class="in_line" id="edit_plot_buttons1_${plot_id}">
+                        <input type='button' onclick='open_edit_plot("${plot['plotId']['S']}","${plot['plot_type']['S'] }")' value='Edit'>
+                        <input type='button' onclick='remove_plot("${plot['plotId']['S']}")' value='Delete' style='background-color:tomato'>
+                    </div>
+                    <div class="in_line" id="edit_plot_buttons2_${plot_id}" style="display:none">
+                        <input type='button'  onclick='edit_plot("${plot_id}",document.getElementById("occupant_${plot_id}").value);' value='Submit'>  
+                        <input type='button'  onclick='close_edit_plot("${plot_id}")' value='Cancel 'style='background-color:tomato'><br><br>
+                    </div>
                 </td>
                 </tr>`);
 
@@ -275,9 +271,10 @@ function close_edit_plot(plot_id){
     document.getElementById("edit_plot_height_"+plot_id).disabled=true;
     document.getElementById("edit_plot_rate_"+plot_id).disabled=true;
     document.getElementById("edit_plot_top_" + plot_id).style.display="block";
-    document.getElementById("edit_plot_bottom" + plot_id).style.display="none";
-    document.getElementById("edit_plot_top_" + plot_id).style.display="block";
     document.getElementById("edit_plot_bottom_" + plot_id).style.display="none";
+    document.getElementById("edit_plot_buttons1_" + plot_id).style.display="block";
+    document.getElementById("edit_plot_buttons2_" + plot_id).style.display="none";
+    
   }
 
 
@@ -330,9 +327,9 @@ function get_waiting_list()
                     <div class="in_line"><b>Desired plot:</b><br> ${item['plot_number']['S']}</div>
                     <div class="in_line"><b>Date joined:</b><br> ${new Date(item['date_added']['S']).toLocaleDateString("en-US", date_options)} </div>
                     <div class="in_line"><b>Active member:</b><br>${has_plots } </div>
+                    <br>
                     <div class="in_line">
                         <div id="assign_plots_top_${waiting_list_id}">
-                        <b>Actions:</b><br>
                             <input type='button' onclick='open_assign_plot(\"${waiting_list_id}\",\"${plot_type['Title']}\")' value='Assign'>
                             <input type='button' onclick='delete_from_waiting_list(\"${item['email']['S']}\")' style="background-color:tomato" value='Delete'>
                         </div>
