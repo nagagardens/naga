@@ -339,7 +339,7 @@ h6 {
   }
 
 .sign_in{
-  width:70%;
+  width:250;
   display:inline-block;
   vertical-align: middle;
   margin-top:20px;
@@ -366,7 +366,7 @@ h6 {
 
 
  /* For mobile phones: */
- @media only screen and (min-width: 420px) {
+ @media only screen and (min-width: 375px) {
   .banner2 {
     width:60px;
     display: inline-block;
@@ -433,7 +433,7 @@ h6 {
 
 
 .links img {
-  width:90%;
+  width:80%;
   max-width: 250px;
 }
 
@@ -510,8 +510,12 @@ h6 {
     width:100%;
     vertical-align: top;
     padding:40px;
+    text-align: justify;
   }
 
+  .welcome h2 { 
+    text-align: left;
+  }
 
 
   .gallery {

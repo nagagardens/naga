@@ -359,7 +359,7 @@ function delete_from_waiting_list(email,ask_confirm){
 
 
 function request_plot_number(value){
-  if(value==1)
+  if(value=="special_request")
   {
     document.getElementById('request_plot_number').style.display="inline-block";
   } else { 
