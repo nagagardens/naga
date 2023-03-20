@@ -335,11 +335,10 @@ h6 {
   }
 
 .sign_in{
-  width:250;
+  width:200;
   display:inline-block;
   vertical-align: middle;
   margin-top:20px;
-  min-width:250px;
 }
 
 
@@ -361,8 +360,8 @@ h6 {
 }
 
 
- /* For mobile phones: */
- @media only screen and (min-width: 380px) {
+ /* For large mobile: */
+ @media only screen and (min-width: 415px) {
   .banner2 {
     width:60px;
     display: inline-block;
