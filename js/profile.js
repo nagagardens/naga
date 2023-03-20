@@ -223,14 +223,13 @@ function get_my_waiting_list(email){
         has_waiting_list=true; 
         waiting_list_details = `
         <br><h3>Waiting list</h3>
-        <br>We have received your request and you are currently on our waiting listL<br><br>
+        <br>We have received your request and you are currently on our waiting list:<br><br>
         <div class="request_plot"><b>Plot type:</b> ${plot_type}.
           <br><b>Plot number:</b> ${plot_number}.
           <br><b>Date joined:</b> ${ new Date(response['Item']['date_added']).toLocaleDateString("en-US", date_options)  }
           <br><br>You are currently #${place} in line. 
         <br><br><input type=button value='Cancel request' style='background-color:tomato; width:200px' onclick='delete_from_waiting_list(\"${email}\", true)'>
         </div>
-        <br>You will receive an email when a plot has been assigned to you.
         `;
         
 
