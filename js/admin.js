@@ -319,14 +319,15 @@ function get_waiting_list()
 
                 waiting_list_id++
 
-                if(item['has_plots']['BOOL']==true) { has_plots="<img src=img/checkmark.png width='20'>" } else { has_plots="No"}
+                if(item['has_plots']['BOOL']==true) { has_plots="<img src='img/checkmark.png' alt='Active NAGA member' width='15'>" } else { has_plots=""}
                 document.getElementById("waiting_list_row_"+row).insertAdjacentHTML('afterend', `<tr>
                 
                 <td valign=top>
-                    <div class="in_line"><b># ${item['place']['N']}</b><br><span id="assign_plot_email_${waiting_list_id}">${item['email']['S']}</span></div>
+                    <div class="in_line"><b>Position:</b><h3># ${item['place']['N']}</h3></div>
+                    <div class="in_line"><b>Member email:</b><br><span id="assign_plot_email_${waiting_list_id}">${item['email']['S']}</span> ${has_plots }</div>
                     <div class="in_line"><b>Desired plot:</b><br> ${item['plot_number']['S']}</div>
                     <div class="in_line"><b>Date joined:</b><br> ${new Date(item['date_added']['S']).toLocaleDateString("en-US", date_options)} </div>
-                    <div class="in_line"><b>Active member:</b><br>${has_plots } </div>
+                    
                     <br>
                     <div class="in_line">
                         <div id="assign_plots_top_${waiting_list_id}">
@@ -367,6 +368,7 @@ function close_assign_plot(waiting_list_id){
 
 function assign_plot(waiting_list_id){
     email=document.getElementById('assign_plot_email_'+waiting_list_id).innerHTML;
+    console.log("email: " + email)
     plot_number=document.getElementById('assign_plot_list_'+waiting_list_id).value;
     console.log( JSON.stringify({ 
         "email": email,
