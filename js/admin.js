@@ -5,14 +5,7 @@ var date_options = { year: 'numeric', month: 'long', day: 'numeric' };
 
 function get_naga_members(){
 
-    document.getElementById('admin_members_table').innerHTML=`
-    <tr><th>Email</th>
-    <th>Name</th>
-    <th>Address</th>
-    <th>Phone Number</th>
-    <th>Admin</th>
-    <th width=120>Actions</th>
-    </tr><tr id='member_list'></tr></table>`;
+    document.getElementById('admin_members_table').innerHTML=`<tr id='member_list'></tr>`;
 
     const api_url = 'https://g1t81zygbh.execute-api.us-east-1.amazonaws.com/prod/get_naga_members';
     var member_list = document.getElementById('member_list');
@@ -45,12 +38,14 @@ function get_naga_members(){
             actions="<input type=button onclick='remove_member(\""+email+"\")' value='Remove'>";
             
             member_list.insertAdjacentHTML('beforebegin', `<tr>
-                <td>${email}</td>
-                <td>${full_name}</td>
-                <td>${full_address}</td>
-                <td>${phone_number}</td>
-                <td>${admin} </td>
-                <td>${actions}</td>
+                <td valign=top>
+                    <div class="in_line"><b>Email address:</b><br>${email}</div>
+                    <div class="in_line">${admin}</div>
+                    <div class="in_line"><b>Name:</b><br>${full_name}</div>
+                    <div class="in_line"><b>Address:</b><br>${full_address}</div>
+                    <div class="in_line"><b>Phone number:</b><br>${phone_number}</div>
+                    <br><div class="in_line">${actions}</div>
+                </td>
             </tr>`); 
 
         });
