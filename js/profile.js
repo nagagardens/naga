@@ -366,3 +366,23 @@ function request_plot_number(value){
     document.getElementById('request_plot_number').style.display="none";
   }
 }
+
+
+function add_photo(file){
+  console.log(file);
+
+  var data = new FormData()
+  data.append('file', file)
+  data.append('user', 'hubot')
+
+fetch('https://06inolvp65.execute-api.us-east-1.amazonaws.com/add_photo', {
+  method: 'POST',
+  headers: {
+    'Access-Control-Allow-Origin': 'http://localhost:3000',
+    'Access-Control-Allow-Credentials': 'true'
+  },
+  body: data
+})
+
+
+}
