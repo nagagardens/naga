@@ -39,8 +39,8 @@ function get_naga_members(){
             
             member_list.insertAdjacentHTML('beforebegin', `<tr>
                 <td valign=top>
-                    <div class="in_line"><b>Email address:</b><br>${email}</div>
-                    <div class="in_line">${admin}</div>
+                    <div class="in_line"><b>Email address:</b><br>${email}
+                    ${admin}</div>
                     <div class="in_line"><b>Name:</b><br>${full_name}</div>
                     <div class="in_line"><b>Address:</b><br>${full_address}</div>
                     <div class="in_line"><b>Phone number:</b><br>${phone_number}</div>
@@ -136,10 +136,10 @@ function get_plots()
 
 function edit_plot(plot_id, email){
     
-    height=document.getElementById("edit_plot_width_"+plot_id).value;
-    width=document.getElementById("edit_plot_height_"+plot_id).value;
+    height=document.getElementById("edit_plot_height_"+plot_id).value;
+    width=document.getElementById("edit_plot_width_"+plot_id).value;
     rate=document.getElementById("edit_plot_rate_"+plot_id).value;
-    console.log(plot_id+email+height+width+rate)
+    
     fetch('https://cwjjxnn2dd.execute-api.us-east-1.amazonaws.com/prod/', {
     method: 'POST',
     headers: {
@@ -318,8 +318,8 @@ function get_waiting_list()
                 document.getElementById("waiting_list_row_"+row).insertAdjacentHTML('afterend', `<tr>
                 
                 <td valign=top>
-                    <div class="in_line"><b>Position:</b><h3># ${item['place']['N']}</h3></div>
-                    <div class="in_line"><b>Member email:</b><br><span id="assign_plot_email_${waiting_list_id}">${item['email']['S']}</span> ${has_plots }</div>
+                    <div style="min-width:50px" class="in_line"><b>Position:</b><h3># ${item['place']['N']}</h3></div>
+                    <div class="in_line"><b>Email:</b><br><span id="assign_plot_email_${waiting_list_id}">${item['email']['S']}</span> ${has_plots }</div>
                     <div class="in_line"><b>Desired plot:</b><br> ${item['plot_number']['S']}</div>
                     <div class="in_line"><b>Date joined:</b><br> ${new Date(item['date_added']['S']).toLocaleDateString("en-US", date_options)} </div>
                     

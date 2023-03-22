@@ -447,12 +447,13 @@ h6 {
 
 .in_line {
   display:inline-block;
-  margin:10px;
+  margin:5px;
   vertical-align: top;
+  min-width: 200px;
 }
 
-.in_line input {
-  margin: 0px;
+.in_line input  {
+  margin: 2px;
 }
 
 
