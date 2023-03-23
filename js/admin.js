@@ -161,10 +161,12 @@ function add_member(){
 
 function open_add_member(){
     document.getElementById('add_member_form').style.display="block";
+    document.getElementById('admin_controls_members').style.display="none";
 }
 
 function close_add_member(){
     document.getElementById('add_member_form').style.display="none";
+    document.getElementById('admin_controls_members').style.display="block";
 }
 
 function remove_member(email){if(confirm("Are you sure you want to remove this user? This cannot be undone.")==true){

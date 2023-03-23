@@ -156,11 +156,21 @@
     </div>
 
 
-    <div  id='members_container' class="admin_tab_content">
+    <div id='members_container' class="admin_tab_content">
       
-      <input type="button" value="Add new member" style="width:150px" onclick="open_add_member()">
-      <div id="add_member_form" class="request_plot" style="display:none">
-        <h5>Add new member</h5>
+      <div class="admin_controls" id="admin_controls_members">
+        <div class="in_line">
+          <b>Search:</b><br><input type="text" placeholder="Enter email address">
+        </div>
+        <div class="in_line">
+          <b>Filter:</b><br><select><option>All members</option><option>Verified</option><option>With plots</option><option>In waiting list</option></select>
+        </div>
+        <div class="in_line" style="vertical-align: bottom;">
+          <input type="button" value="Add new member" style="width:150px" onclick="open_add_member()">
+        </div>
+      </div>
+      <div id="add_member_form" class="admin_controls" style="display:none">
+        <h5>Add new member</h5><br>
         <div class="in_line">
           <b>Email:</b>
           <br><input id="admin_input_email" type="text" placeholder="Email address">

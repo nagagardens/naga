@@ -450,14 +450,18 @@ h6 {
   display:inline-block;
   margin:5px;
   vertical-align: top;
-  min-width: 200px;
+  min-width:220px;
 }
 
 .in_line input  {
   margin: 2px;
 }
 
-
+.admin_controls {
+  width:100%;
+  background-color: #f1f1f1;
+  padding:10px;
+}
 
 
 
