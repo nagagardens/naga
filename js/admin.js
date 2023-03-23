@@ -351,6 +351,17 @@ function add_plot()
     
   }
 
+
+function open_add_plot(){
+    document.getElementById('add_plot_form').style.display="block";
+    document.getElementById('admin_controls_plots').style.display="none";
+}
+
+function close_add_plotr(){
+    document.getElementById('add_plot_form').style.display="none";
+    document.getElementById('admin_controls_plots').style.display="block";
+}
+
 function remove_plot(plot_id){if(confirm("Are you sure you want to remove this plot? This cannot be undone.")==true){
     email = document.getElementById('member_email').innerHTML;
     const api_url = ' https://un7umkeqkc.execute-api.us-east-1.amazonaws.com/prod/remove_plot?plotId='+plot_id;
