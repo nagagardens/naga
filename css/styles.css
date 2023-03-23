@@ -139,13 +139,15 @@
 }
 
 .admin_tab button {
-  background-color: inherit;
+  background-color: white;
+  font-weight: bold;
   float: left;
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 10px 10px 10px 20px;
-  transition: 0.3s;border-radius: 20px 20px 0px 0px ;
+  padding: 10px;
+  transition: 0.3s;
+  vertical-align: bottom;
 }
 
 .admin_tab button:hover {
@@ -153,17 +155,16 @@
 }
 
 .admin_tab button.active {
-  background-color: #851847;
-
-}
-.admin_tab_buttons.active h5 {
-  color:white;
+  border: 1px solid silver;
+  border-bottom: 0px;
+  background-color: #f1f1f1;
+  
 }
 
 .admin_tab_content {
   display: none;
-  padding: 6px 12px;
-  border: 1px solid #851847;
+  border: 1px solid silver;
+  padding:0px;
   
 }
 
@@ -232,7 +233,7 @@ input[type=button] {
 }
 
 .list td, .list th {
-  border: 1px solid #ddd;
+  
   padding: 8px;
 }
 

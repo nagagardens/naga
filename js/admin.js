@@ -5,12 +5,11 @@ var date_options = { year: 'numeric', month: 'long', day: 'numeric' };
 
 function get_naga_members(){
 
-    document.getElementById('admin_members_table').innerHTML=`<tr id='member_list'></tr>`;
+    members_table=document.getElementById('all_members').innerHTML;
+    members_table=`<table class="list">`;
+    row=0;
 
     const api_url = 'https://g1t81zygbh.execute-api.us-east-1.amazonaws.com/prod/get_naga_members';
-    var member_list = document.getElementById('member_list');
-    row=0;
-      
     fetch(api_url, {
         method: 'GET',
         headers: {
@@ -21,8 +20,8 @@ function get_naga_members(){
     .then(response => response.json())
     .then(response => {
         
-        row++;
         response['body']['Items'].forEach(element => {
+            row++;
             email=JSON.stringify(element['email']['S']).replace(/["']/g, "");
             members_email.unshift(email);
             first_name=JSON.stringify(element['first_name']['S']).replace(/["']/g, "");
@@ -36,7 +35,8 @@ function get_naga_members(){
             full_name=first_name + " " + last_name;
             full_address=street_address + "<br>" + city + ", " + province + "<br>" + postal_code;
             
-            member_list.insertAdjacentHTML('beforebegin', `<tr>
+            members_table=members_table+ `
+                <tr>
                 <td valign=top>
                     <div id="display_member_info_${row}">
                         <div class="in_line"><b>Email:</b><br>${email}
@@ -53,39 +53,74 @@ function get_naga_members(){
                     <div id="edit_member_info_${row}" style="display:none">
                         <div class="in_line">
                             <b>Email:</b>
-                            <br>${email} ${admin}
+                            <br><span id="edit_member_email_${row}">${email}</span> ${admin}
                         </div>
                         <div class="in_line">
                             <b>Name:</b>
-                            <br><input id="input_first_name" type="text" Placeholder="First Name" value="${first_name}">
-                            <br><input id="input_last_name"  type="text"  Placeholder="Last Name" value="${last_name}" > 
+                            <br><input id="edit_member_first_name_${row}" type="text" Placeholder="First Name" value="${first_name}">
+                            <br><input id="edit_member_last_name_${row}"  type="text"  Placeholder="Last Name" value="${last_name}" > 
                         </div>
                         <div class="in_line">
                             <b>Address:</b>
-                            <br><input id="input_street_address"  type="text" Placeholder="Street Address"  value="${street_address}">
-                            <br><input id="input_city"  type="text" style="width:85px" placeholder="City"  value="${city}">
-                            <select id="input_province"  style="width:70px"> <option>${province}</option><option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
-                            <br><input id="input_postal_code"  type="text" Placeholder="Postal Code" value="${postal_code}">
+                            <br><input id="edit_member_street_address_${row}"  type="text" Placeholder="Street Address"  value="${street_address}">
+                            <br><input id="edit_member_city_${row}"  type="text" style="width:85px" placeholder="City"  value="${city}">
+                            <select id="edit_member_province_${row}"  style="width:70px"> <option>${province}</option><option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
+                            <br><input id="edit_member_postal_code_${row}"  type="text" Placeholder="Postal Code" value="${postal_code}">
                         </div>
                         <div class="in_line">
                             <b>Phone Number:</b>
-                            <br><input id="input_phone_number" type="text" Placeholder="000-000-0000" value="${phone_number}">
+                            <br><input id="edit_member_phone_number_${row}" type="text" Placeholder="000-000-0000" value="${phone_number}">
                         </div>
-                        <br><br><input type="button" onclick="close_edit_member(${row})" value="Save"> 
+                        <br><br><input type="button" onclick="edit_member(${row})" value="Save"> 
                         <input type="button" onclick="close_edit_member(${row})" value="Cancel" style="background-color:tomato">
                         <br><br>
                     </div>
                 </td>
-            </tr>`); 
+            
+            </tr>`; 
 
         });
-      
-    })
+        
+        document.getElementById('all_members').innerHTML=members_table+"</table>";
+        
+    });
 
 
 }
 
-
+function edit_member (row){
+    
+    email = document.getElementById('edit_member_email_'+row).innerHTML;
+    first_name = document.getElementById('edit_member_first_name_'+row).value;
+    last_name = document.getElementById('edit_member_last_name_'+row).value;
+    street_address = document.getElementById('edit_member_street_address_'+row).value;
+    city = document.getElementById('edit_member_city_'+row).value;
+    province = document.getElementById('edit_member_province_'+row).value;
+    postal_code = document.getElementById('edit_member_postal_code_'+row).value;
+    phone_number= document.getElementById('edit_member_phone_number_'+row).value;
+    
+    
+    fetch('https://ixih1qmuzb.execute-api.us-east-1.amazonaws.com/prod', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ 
+        "email": email,
+        "first_name":first_name,
+        "last_name":last_name,
+        "street_address":street_address,
+        "city":city,
+        "province":province,
+        "postal_code":postal_code,
+        "phone_number":phone_number
+    })
+    })
+    .then(response => response.json())
+    .then(response => { console.log(JSON.stringify(response)); get_naga_members();})
+      
+  }
 
 
 function add_member(){
@@ -124,6 +159,13 @@ function add_member(){
     
 }
 
+function open_add_member(){
+    document.getElementById('add_member_form').style.display="block";
+}
+
+function close_add_member(){
+    document.getElementById('add_member_form').style.display="none";
+}
 
 function remove_member(email){if(confirm("Are you sure you want to remove this user? This cannot be undone.")==true){
     const api_url = 'https://ddgo7c2d6l.execute-api.us-east-1.amazonaws.com/prod/remove_member?email='+ encodeURIComponent(email);
@@ -188,7 +230,7 @@ function get_plots()
         plot_types.forEach(plot_type => {
             row++
             document.getElementById('all_plots_start').insertAdjacentHTML('beforebegin', `
-            <h3>${plot_type['Title']}</h3>
+             <h3 style="padding-left:15px">${plot_type['Title']}</h3><br>
 
             <table class="list">
                 <tr id="plots_row_${row}">
@@ -418,7 +460,7 @@ function get_waiting_list()
             row++
             
             document.getElementById('waiting_list').insertAdjacentHTML('beforebegin', `
-            <h3>${plot_type['Title']}</h3>
+            <h3 style="padding-left:15px">${plot_type['Title']}</h3><br>
 
             <table class="list">
                 <tr id="waiting_list_row_${row}">

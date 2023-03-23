@@ -183,6 +183,7 @@ function get_my_plots(email){
         <br>Period: May 1st, 2024 - October 31st, 2024
         <br>Rate: ${rate}
         <br>Status: <font color=red>Payment pending</font>
+        <br>Please note: You have 30 days to make a payment or the plot will be assigned to someone else.
         <br><br><input type="button" value ="Make a payment" style="width:200px">
         <br><br>`;
         document.getElementById('my_plots_content').appendChild(tab_content);

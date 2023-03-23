@@ -150,16 +150,17 @@
 
 
     <div class="admin_tab">
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()" ><h5>Waiting List</h5></button>
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();"  id="defaultTab"><h5>All Members</h5></button>
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'plots_container');get_plots();"><h5>All Plots</h5></button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()" >Waiting List</button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();"  id="defaultTab">Members</button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'plots_container');get_plots();">Plots</button>
     </div>
 
 
     <div  id='members_container' class="admin_tab_content">
       
-      <div id="add_member_container">
-        <br><h5>Add a member</h5><br>
+      <input type="button" value="Add new member" style="width:150px" onclick="open_add_member()">
+      <div id="add_member_form" class="request_plot" style="display:none">
+        <h5>Add new member</h5>
         <div class="in_line">
           <b>Email:</b>
           <br><input id="admin_input_email" type="text" placeholder="Email address">
@@ -182,12 +183,14 @@
           <br><br><input id="admin_input_admin_checkbox" type="checkbox"> Admin
         </div>
         
-          <br><input type="button" style="margin-left:12px" onclick="add_member();" value="Submit">              
+        <div style="width:100%; text-align: right">
+          <input type="button" onclick="close_add_member();" style="background-color: tomato" value="Cancel">
+          <input type="button" onclick="add_member();" value="Submit">
+        </div>
         
         
-      </div>
-        <br><br>
-        <table id="admin_members_table" class="list" ></table>
+      </div><br><br>
+      <div id="all_members"></div>
     </div>
 
 
@@ -206,7 +209,7 @@
       <input type="text" id="input_plot_rate"  placeholder="Rate ($)" style="width:100px" required>
       <br><input type="button" onclick="add_plot();" value="Add plot">
       <br><br><div id="all_plots"></div>
-      <table id="admin_plots_table" class="list"></table>
+      
 
     </div>
 
