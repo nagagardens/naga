@@ -1,7 +1,7 @@
 var members_email =[];
 var date_options = { year: 'numeric', month: 'long', day: 'numeric' };
 
-
+// MEMBER FUNCTIONS 
 
 function get_naga_members(){
 
@@ -9,7 +9,7 @@ function get_naga_members(){
 
     const api_url = 'https://g1t81zygbh.execute-api.us-east-1.amazonaws.com/prod/get_naga_members';
     var member_list = document.getElementById('member_list');
-    
+    row=0;
       
     fetch(api_url, {
         method: 'GET',
@@ -21,7 +21,7 @@ function get_naga_members(){
     .then(response => response.json())
     .then(response => {
         
-        
+        row++;
         response['body']['Items'].forEach(element => {
             email=JSON.stringify(element['email']['S']).replace(/["']/g, "");
             members_email.unshift(email);
@@ -35,16 +35,46 @@ function get_naga_members(){
             if(JSON.stringify(element['admin'])) { admin=JSON.stringify(element['admin']['BOOL']); } else {admin="";} 
             full_name=first_name + " " + last_name;
             full_address=street_address + "<br>" + city + ", " + province + "<br>" + postal_code;
-            actions="<input type=button onclick='remove_member(\""+email+"\")' value='Remove'>";
             
             member_list.insertAdjacentHTML('beforebegin', `<tr>
                 <td valign=top>
-                    <div class="in_line"><b>Email address:</b><br>${email}
-                    ${admin}</div>
-                    <div class="in_line"><b>Name:</b><br>${full_name}</div>
-                    <div class="in_line"><b>Address:</b><br>${full_address}</div>
-                    <div class="in_line"><b>Phone number:</b><br>${phone_number}</div>
-                    <br><div class="in_line">${actions}</div>
+                    <div id="display_member_info_${row}">
+                        <div class="in_line"><b>Email:</b><br>${email}
+                        ${admin}</div>
+                        <div class="in_line"><b>Name:</b><br>${full_name}</div>
+                        <div class="in_line"><b>Address:</b><br>${full_address}</div>
+                        <div class="in_line"><b>Phone number:</b><br>${phone_number}</div>
+                        <br><div class="in_line">
+                        <input type=button onclick='open_edit_member(${row})' value='Edit' >
+                        <input type=button onclick='remove_member("${email}")' value='Delete' style="background-color:tomato">
+                        </div>
+
+                    </div>
+                    <div id="edit_member_info_${row}" style="display:none">
+                        <div class="in_line">
+                            <b>Email:</b>
+                            <br>${email} ${admin}
+                        </div>
+                        <div class="in_line">
+                            <b>Name:</b>
+                            <br><input id="input_first_name" type="text" Placeholder="First Name" value="${first_name}">
+                            <br><input id="input_last_name"  type="text"  Placeholder="Last Name" value="${last_name}" > 
+                        </div>
+                        <div class="in_line">
+                            <b>Address:</b>
+                            <br><input id="input_street_address"  type="text" Placeholder="Street Address"  value="${street_address}">
+                            <br><input id="input_city"  type="text" style="width:85px" placeholder="City"  value="${city}">
+                            <select id="input_province"  style="width:70px"> <option>${province}</option><option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
+                            <br><input id="input_postal_code"  type="text" Placeholder="Postal Code" value="${postal_code}">
+                        </div>
+                        <div class="in_line">
+                            <b>Phone Number:</b>
+                            <br><input id="input_phone_number" type="text" Placeholder="000-000-0000" value="${phone_number}">
+                        </div>
+                        <br><br><input type="button" onclick="close_edit_member(${row})" value="Save"> 
+                        <input type="button" onclick="close_edit_member(${row})" value="Cancel" style="background-color:tomato">
+                        <br><br>
+                    </div>
                 </td>
             </tr>`); 
 
@@ -55,6 +85,90 @@ function get_naga_members(){
 
 }
 
+
+
+
+function add_member(){
+    
+    email=document.getElementById('admin_input_email').value;
+    first_name=document.getElementById('admin_input_first_name').value;
+    last_name=document.getElementById('admin_input_last_name').value;
+    street_address=document.getElementById('admin_input_street_address').value;
+    city=document.getElementById('admin_input_city').value;
+    province=document.getElementById('admin_input_province').value;
+    postal_code=document.getElementById('admin_input_postal_code').value;
+    phone_number=document.getElementById('admin_input_phone_number').value;
+    admin=document.getElementById('admin_input_admin_checkbox').checked;
+    
+    fetch('https://baf4kiept7.execute-api.us-east-1.amazonaws.com/prod', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ 
+        "email": email,
+        "first_name":first_name,
+        "last_name":last_name,
+        "street_address":street_address,
+        "city":city,
+        "province":province,
+        "postal_code":postal_code,
+        "phone_number":phone_number,
+        "admin":admin
+    })
+    })
+    .then(response => response.json())
+    .then(response => { console.log(JSON.stringify(response));get_naga_members();})
+    
+    
+}
+
+
+function remove_member(email){if(confirm("Are you sure you want to remove this user? This cannot be undone.")==true){
+    const api_url = 'https://ddgo7c2d6l.execute-api.us-east-1.amazonaws.com/prod/remove_member?email='+ encodeURIComponent(email);
+    
+  
+    fetch(api_url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+        console.log(JSON.stringify(response)); 
+        delete_from_waiting_list(email);
+        get_naga_members();
+    })
+  
+    
+}}
+
+
+function open_edit_member (row) {
+    document.getElementById('display_member_info_'+row).style.display='none';
+    document.getElementById('edit_member_info_'+row).style.display='block';
+
+}
+
+
+function close_edit_member (row) {
+    document.getElementById('display_member_info_'+row).style.display='block';
+    document.getElementById('edit_member_info_'+row).style.display='none';
+
+}
+
+
+
+
+
+
+
+
+
+// PLOT FUNCTIONS
 
 function get_plots()
 {
@@ -273,13 +387,16 @@ function close_edit_plot(plot_id){
   }
 
 
-
 function select_from_waiting_list(plot_id){
     value=document.getElementById("select_from_waiting_list_"+plot_id).value;
     document.getElementById("occupant_"+plot_id).value=value;
   
 }
 
+
+
+
+/// WAITING LIST OPTIONS
   
 function get_waiting_list()
 {
@@ -416,61 +533,3 @@ function get_empty_plots(plot_type,waiting_list_id){
   
   }
   
-
-function add_member(){
-    
-    email=document.getElementById('admin_input_email').value;
-    first_name=document.getElementById('admin_input_first_name').value;
-    last_name=document.getElementById('admin_input_last_name').value;
-    street_address=document.getElementById('admin_input_street_address').value;
-    city=document.getElementById('admin_input_city').value;
-    province=document.getElementById('admin_input_province').value;
-    postal_code=document.getElementById('admin_input_postal_code').value;
-    phone_number=document.getElementById('admin_input_phone_number').value;
-    admin=document.getElementById('admin_input_admin_checkbox').checked;
-    
-    fetch('https://baf4kiept7.execute-api.us-east-1.amazonaws.com/prod', {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ 
-        "email": email,
-        "first_name":first_name,
-        "last_name":last_name,
-        "street_address":street_address,
-        "city":city,
-        "province":province,
-        "postal_code":postal_code,
-        "phone_number":phone_number,
-        "admin":admin
-    })
-    })
-    .then(response => response.json())
-    .then(response => { console.log(JSON.stringify(response));get_naga_members();})
-    
-    
-}
-
-
-function remove_member(email){if(confirm("Are you sure you want to remove this user? This cannot be undone.")==true){
-    const api_url = 'https://ddgo7c2d6l.execute-api.us-east-1.amazonaws.com/prod/remove_member?email='+ encodeURIComponent(email);
-    
-  
-    fetch(api_url, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(response => {
-        console.log(JSON.stringify(response)); 
-        delete_from_waiting_list(email);
-        get_naga_members();
-    })
-  
-    
-}}

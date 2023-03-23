@@ -65,7 +65,7 @@
       <h5>Mailing address:</h5>
       <input class="edit_profile" id="input_street_address"  type="text" Placeholder="Street Address" >
       <br><input class="edit_profile" id="input_city"  type="text" style="width:100px" placeholder="City" value="Ottawa">
-      <select class="edit_profile" id="input_province"  style="width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
+      <select class="edit_profile" id="input_province"  style="width:80px"> <option></option><option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
       <br><input class="edit_profile" id="input_postal_code"  type="text" Placeholder="Postal Code">
       <br><br>
       <h5>Phone Number:</h5>
@@ -150,8 +150,8 @@
 
 
     <div class="admin_tab">
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()" id="defaultTab" ><h5>Waiting List</h5></button>
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();"><h5>All Members</h5></button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()" ><h5>Waiting List</h5></button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();"  id="defaultTab"><h5>All Members</h5></button>
       <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'plots_container');get_plots();"><h5>All Plots</h5></button>
     </div>
 
@@ -159,20 +159,26 @@
     <div  id='members_container' class="admin_tab_content">
       
       <div id="add_member_container">
-        <br><b>Add a member</b><br><br>
+        <br><h5>Add a member</h5><br>
         <div class="in_line">
-          <input id="admin_input_email" type="text" placeholder="Email address">
+          <b>Email:</b>
+          <br><input id="admin_input_email" type="text" placeholder="Email address">
+        </div>
+        <div class="in_line">
+          <b>Name:</b>
           <br><input id="admin_input_first_name" type="text" Placeholder="First Name">
           <br><input id="admin_input_last_name" type="text"  Placeholder="Last Name">  
         </div>
         <div class="in_line">
-          <input id="admin_input_street_address" type="text" Placeholder="Street Address" style="width:200px" >
+          <b>Address:</b>
+          <br><input id="admin_input_street_address" type="text" Placeholder="Street Address" style="width:200px" >
           <br><input id="admin_input_city" type="text" placeholder="City" value="Ottawa" style="width:80px" >
           <select id="admin_input_province" style="width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
           <br><input id="admin_input_postal_code" type="text" Placeholder="Postal Code" style="width:100px" >
         </div>
         <div class="in_line">    
-          <input  id="admin_input_phone_number" type="text" Placeholder="Phone number" >
+          <b>Phone number:</b>
+          <br><input  id="admin_input_phone_number" type="text" Placeholder="Phone number" >
           <br><br><input id="admin_input_admin_checkbox" type="checkbox"> Admin
         </div>
         
