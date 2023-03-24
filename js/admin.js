@@ -154,7 +154,7 @@ function add_member(){
     })
     })
     .then(response => response.json())
-    .then(response => { console.log(JSON.stringify(response));get_naga_members();})
+    .then(response => { console.log(response);get_naga_members();})
     
     
 }
@@ -346,7 +346,7 @@ function add_plot()
     })
     })
     .then(response => response.json())
-    .then(response => { console.log(JSON.stringify(response));get_plots();})
+    .then(response => { console.log(response);  close_add_plot(); get_plots();})
     
     
   }
@@ -357,7 +357,7 @@ function open_add_plot(){
     document.getElementById('admin_controls_plots').style.display="none";
 }
 
-function close_add_plotr(){
+function close_add_plot(){
     document.getElementById('add_plot_form').style.display="none";
     document.getElementById('admin_controls_plots').style.display="block";
 }
@@ -587,4 +587,16 @@ function get_empty_plots(plot_type,waiting_list_id){
     })
   
   }
+
+
+function open_add_waiting_list(){
+    document.getElementById('add_waiting_list_form').style.display="block";
+    document.getElementById('admin_controls_waiting_list').style.display="none";
+}
+
+function close_add_waiting_list(){
+    document.getElementById('add_waiting_list_form').style.display="none";
+    document.getElementById('admin_controls_waiting_list').style.display="block";
+}
+
   

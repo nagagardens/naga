@@ -170,10 +170,11 @@
         </div>
       </div>
       <div id="add_member_form" class="admin_controls" style="display:none">
-        <h5>Add new member</h5><br>
+        <br><b>Add new member</b><br><br>
         <div class="in_line">
           <b>Email:</b>
           <br><input id="admin_input_email" type="text" placeholder="Email address">
+          <br><br><input id="admin_input_admin_checkbox" type="checkbox"> Admin
         </div>
         <div class="in_line">
           <b>Name:</b>
@@ -190,15 +191,12 @@
         <div class="in_line">    
           <b>Phone number:</b>
           <br><input  id="admin_input_phone_number" type="text" Placeholder="Phone number" >
-          <br><br><input id="admin_input_admin_checkbox" type="checkbox"> Admin
+          
         </div>
-        
-        <div style="width:100%; text-align: right">
-          <input type="button" onclick="close_add_member();" style="background-color: tomato" value="Cancel">
-          <input type="button" onclick="add_member();" value="Add member">
-        </div>
-        
-        
+        <br>
+        <input type="button" onclick="add_member();" value="Add member">
+        <input type="button" onclick="close_add_member();" style="background-color: tomato" value="Cancel">
+
       </div>
       <div id="all_members"></div>
     </div>
@@ -219,7 +217,12 @@
 
       <div id="add_plot_form" class="admin_controls" style="display:none">
         <br><b>Add a plot</b><br>
-        <br><input type="text" id="input_plotId" style="width:100px" placeholder="Number" required>
+        <br>
+        <div class="in_line">
+        <b>Plot number:</b><br><input type="text" id="input_plotId" style="width:100px" placeholder="Number" required>
+      </div>
+      <div class="in_line">
+        <b>Type:</b><br>
         <select id="input_plot_type">
           <option>Type</option>
           <option>Raised beds</option>
@@ -227,34 +230,54 @@
           <option>Perennials</option>
           <option>Lockers</option>
         </select>
+      </div>
+      <div class="in_line">
+        <b>Size:</b><br>
         <input type="text" id="input_plot_width"  placeholder="Width (feet)" style="width:100px" required>
         <input type="text" id="input_plot_height"  placeholder="Height (feet)" style="width:100px" required>
+      </div>
+      <div class="in_line">
+        <b>Rate:</b><br>
         <input type="text" id="input_plot_rate"  placeholder="Rate ($)" style="width:100px" required>
-        <input type="button" onclick="close_add_plot();" style="background-color: tomato" value="Cancel">
+      </div>
         <br><input type="button" onclick="add_plot();" value="Add plot">
+        <input type="button" onclick="close_add_plot();" style="background-color: tomato" value="Cancel">
+        
       </div>
       <br><div id="all_plots"></div>
     </div>
 
     <div id="waiting_list_container" class="admin_tab_content">
+
+      <div class="admin_controls" id="admin_controls_waiting_list">
+        <div class="in_line">
+          <b>Plot type:</b><br><select><option>All types</option><option>Raised beds</option><option>Annuals</option><option>Perennials</option><option>Lockers</option></select>
+        </div>
+        <div class="in_line">
+          <b>Member status:</b><br><select><option>All members</option><option>New members</option><option>Active members</option></select>
+        </div>
+        <div class="in_line" style="vertical-align: bottom;">
+          <input type="button" value="Add to waiting list" style="width:150px" onclick="open_add_waiting_list()">
+        </div>
+      </div>
+
+      <div id="add_waiting_list_form" class="admin_controls" style="display:none">
       <br><b>Add to waiting list</b><br>
-      <br><input type="text" id="admin_input_waiting_list_email"  placeholder="Email address" required>
-      <select id="admin_input_waiting_list_plot_type">
-        <option>Raised beds</option>
-        <option>Annuals</option>
-        <option>Perennials</option>
-        <option>Lockers</option>
-        
-      </select>
-      <select id="admin_input_waiting_list_plot_number">
-        <option>Plot Number</option>
-        <option>A01</option>
-        <option>P01</option>
-        <option>R01</option>
-      </select>
-      <input type="button" onclick="close_add_member();" style="background-color: tomato" value="Cancel">
-      <input type="button" onclick="add_plot();" value="Add plot">
-      <br><br><div id="all_waiting_lists"></div>
+      <div class="in_line">
+        <br><b>Email:</b><br><input type="text" id="admin_input_waiting_list_email"  placeholder="Email address" required>
+      </div>
+      <div class="in_line">
+        <br><b>Plot number:</b><br><input type="text" id="admin_input_waiting_list_email"  placeholder="Email address" required>
+      </div>
+      <div class="in_line">
+        <br><b>Trade:</b><br><input type="text" id="admin_input_waiting_list_email"  placeholder="Email address" required>
+      </div>
+      <br>
+      
+      <input type="button" onclick="add_plot();" style="width:150px" value="Add to waiting list">
+      <input type="button" onclick="close_add_waiting_list();" style="background-color: tomato" value="Cancel">
+      </div>
+      <br><div id="all_waiting_lists"></div>
 
 
 
