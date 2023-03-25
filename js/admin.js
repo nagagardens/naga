@@ -22,6 +22,7 @@ function get_naga_members(){
         
         response['body']['Items'].forEach(element => {
             row++;
+            
             email=JSON.stringify(element['email']['S']).replace(/["']/g, "");
             members_email.unshift(email);
             first_name=JSON.stringify(element['first_name']['S']).replace(/["']/g, "");
@@ -31,7 +32,7 @@ function get_naga_members(){
             province=JSON.stringify(element['province']['S']).replace(/["']/g, "");
             postal_code=JSON.stringify(element['postal_code']['S']).replace(/["']/g, "");
             phone_number=JSON.stringify(element['phone_number']['S']).replace(/["']/g, "");
-            if(JSON.stringify(element['admin'])) { admin=JSON.stringify(element['admin']['BOOL']); } else {admin="";} 
+            if(element['admin']['BOOL']== true) {  admin_checkbox="checked"; admin_message="<img src=img/checkmark.png width=15> Admin"; } else { admin_checkbox=""; admin_message=""; } 
             full_name=first_name + " " + last_name;
             full_address=street_address + "<br>" + city + ", " + province + "<br>" + postal_code;
             
@@ -39,8 +40,10 @@ function get_naga_members(){
                 <tr>
                 <td valign=top>
                     <div id="display_member_info_${row}">
-                        <div class="in_line"><b>Email:</b><br>${email}
-                        ${admin}</div>
+                        <div class="in_line">
+                            <b>Email:</b><br>${email}
+                            <br><br>${admin_message}
+                        </div>
                         <div class="in_line"><b>Name:</b><br>${full_name}</div>
                         <div class="in_line"><b>Address:</b><br>${full_address}</div>
                         <div class="in_line"><b>Phone number:</b><br>${phone_number}</div>
@@ -53,7 +56,8 @@ function get_naga_members(){
                     <div id="edit_member_info_${row}" style="display:none">
                         <div class="in_line">
                             <b>Email:</b>
-                            <br><span id="edit_member_email_${row}">${email}</span> ${admin}
+                            <br><span id="edit_member_email_${row}">${email}</span> 
+                            <br><br><input type="checkbox" id="edit_member_admin_${row}" ${admin_checkbox}> Admin
                         </div>
                         <div class="in_line">
                             <b>Name:</b>
@@ -98,6 +102,7 @@ function edit_member (row){
     province = document.getElementById('edit_member_province_'+row).value;
     postal_code = document.getElementById('edit_member_postal_code_'+row).value;
     phone_number= document.getElementById('edit_member_phone_number_'+row).value;
+    admin= document.getElementById('edit_member_admin_'+row).checked;
     
     
     fetch('https://ixih1qmuzb.execute-api.us-east-1.amazonaws.com/prod', {
@@ -114,11 +119,12 @@ function edit_member (row){
         "city":city,
         "province":province,
         "postal_code":postal_code,
-        "phone_number":phone_number
+        "phone_number":phone_number,
+        "admin":admin
     })
     })
     .then(response => response.json())
-    .then(response => { console.log(JSON.stringify(response)); get_naga_members();})
+    .then(response => { console.log(response); get_naga_members();})
       
   }
 
@@ -154,7 +160,7 @@ function add_member(){
     })
     })
     .then(response => response.json())
-    .then(response => { console.log(response);get_naga_members();})
+    .then(response => { console.log(response);close_add_member();get_naga_members();})
     
     
 }

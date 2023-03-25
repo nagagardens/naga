@@ -64,7 +64,7 @@
       <br>
       <h5>Mailing address:</h5>
       <input class="edit_profile" id="input_street_address"  type="text" Placeholder="Street Address" >
-      <br><input class="edit_profile" id="input_city"  type="text" style="width:100px" placeholder="City" value="Ottawa">
+      <br><input class="edit_profile" id="input_city"  type="text" style="width:100px" placeholder="City" Placeholder="Ottawa">
       <select class="edit_profile" id="input_province"  style="width:80px"> <option></option><option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
       <br><input class="edit_profile" id="input_postal_code"  type="text" Placeholder="Postal Code">
       <br><br>
@@ -80,7 +80,7 @@
   <div class="links">
     <br><br>
     
-    <h3>Links</h3>  
+    <h3>Browse</h3>  
     <ul>
       <li><a target="_blank" href="img/NAGA_2023_spring_newsletter.pdf"><img src="img/icon_new_window.png"> Newsletter</a> </li>
       <li><a target="_blank"  href="img/map_plots.png"><img src="img/icon_new_window.png"> Garden map</a> </li>
@@ -150,8 +150,8 @@
 
 
     <div class="admin_tab">
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()" >Waiting List</button>
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();"  id="defaultTab">Members</button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()">Waiting List</button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();" id="defaultTab">Members</button>
       <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'plots_container');get_plots();">Plots</button>
     </div>
 
@@ -159,18 +159,20 @@
     <div id='members_container' class="admin_tab_content">
       
       <div class="admin_controls" id="admin_controls_members">
+        <!--Filters 
         <div class="in_line">
           <b>Search:</b><br><input type="text" placeholder="Enter email address">
         </div>
         <div class="in_line">
           <b>Filter:</b><br><select><option>All members</option><option>Verified</option><option>With plots</option><option>In waiting list</option></select>
         </div>
+        -->
         <div class="in_line" style="vertical-align: bottom;">
           <input type="button" value="Add new member" style="width:150px" onclick="open_add_member()">
         </div>
       </div>
       <div id="add_member_form" class="admin_controls" style="display:none">
-        <br><b>Add new member</b><br><br>
+        
         <div class="in_line">
           <b>Email:</b>
           <br><input id="admin_input_email" type="text" placeholder="Email address">
@@ -204,19 +206,21 @@
 
     <div id="plots_container"  class="admin_tab_content">
       <div class="admin_controls" id="admin_controls_plots">
+        <!-- Filters 
         <div class="in_line">
           <b>Plot type:</b><br><select><option>All types</option><option>Raised beds</option><option>Annuals</option><option>Perennials</option><option>Lockers</option></select>
         </div>
         <div class="in_line">
           <b>Occupancy:</b><br><select><option>All plots</option><option>Occupied</option><option>Available</option></select>
         </div>
+        -->
         <div class="in_line" style="vertical-align: bottom;">
           <input type="button" value="Add new plot" style="width:150px" onclick="open_add_plot()">
         </div>
       </div>
 
       <div id="add_plot_form" class="admin_controls" style="display:none">
-        <br><b>Add a plot</b><br>
+        
         <br>
         <div class="in_line">
         <b>Plot number:</b><br><input type="text" id="input_plotId" style="width:100px" placeholder="Number" required>
@@ -250,19 +254,21 @@
     <div id="waiting_list_container" class="admin_tab_content">
 
       <div class="admin_controls" id="admin_controls_waiting_list">
+        <!-- Filters 
         <div class="in_line">
           <b>Plot type:</b><br><select><option>All types</option><option>Raised beds</option><option>Annuals</option><option>Perennials</option><option>Lockers</option></select>
         </div>
         <div class="in_line">
           <b>Member status:</b><br><select><option>All members</option><option>New members</option><option>Active members</option></select>
         </div>
+        -->
         <div class="in_line" style="vertical-align: bottom;">
           <input type="button" value="Add to waiting list" style="width:150px" onclick="open_add_waiting_list()">
         </div>
       </div>
 
       <div id="add_waiting_list_form" class="admin_controls" style="display:none">
-      <br><b>Add to waiting list</b><br>
+      
       <div class="in_line">
         <br><b>Email:</b><br><input type="text" id="admin_input_waiting_list_email"  placeholder="Email address" required>
       </div>
