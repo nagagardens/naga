@@ -60,8 +60,8 @@ async function showUserInfo(email) {
   }
   if(JSON.parse(api_data['body'])['street_address']) {
      document.getElementById('input_street_address').value =  JSON.parse(api_data['body'])['street_address'];
-     document.getElementById('profile_mailing_address').innerHTML = "<br><h5>Mailing address:</h5>" + JSON.parse(api_data['body'])['street_address'];
-  }else document.getElementById('profile_mailing_address').innerHTML = "<br><h5>Mailing address:</h5" + JSON.parse(api_data['body'])['street_address'];
+     document.getElementById('profile_mailing_address').innerHTML = "<br><h5>Address:</h5>" + JSON.parse(api_data['body'])['street_address'];
+  }
   if(JSON.parse(api_data['body'])['city']) { document.getElementById('input_city').value =  JSON.parse(api_data['body'])['city'];
   if(JSON.parse(api_data['body'])['street_address']) {document.getElementById('profile_mailing_address').innerHTML =document.getElementById('profile_mailing_address').innerHTML +  "<br>" + JSON.parse(api_data['body'])['city'];}
   }

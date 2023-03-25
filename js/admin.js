@@ -32,6 +32,7 @@ function get_naga_members(){
             province=JSON.stringify(element['province']['S']).replace(/["']/g, "");
             postal_code=JSON.stringify(element['postal_code']['S']).replace(/["']/g, "");
             phone_number=JSON.stringify(element['phone_number']['S']).replace(/["']/g, "");
+            last_logged_in="";
             if(element['admin']['BOOL']== true) {  admin_checkbox="checked"; admin_message="<img src=img/checkmark.png width=15> Admin"; } else { admin_checkbox=""; admin_message=""; } 
             full_name=first_name + " " + last_name;
             full_address=street_address + "<br>" + city + ", " + province + "<br>" + postal_code;
@@ -47,6 +48,7 @@ function get_naga_members(){
                         <div class="in_line"><b>Name:</b><br>${full_name}</div>
                         <div class="in_line"><b>Address:</b><br>${full_address}</div>
                         <div class="in_line"><b>Phone number:</b><br>${phone_number}</div>
+                        <div class="in_line"><b>Last logged in:</b><br>${last_logged_in}</div>
                         <br><div class="in_line">
                         <input type=button onclick='open_edit_member(${row})' value='Edit' >
                         <input type=button onclick='remove_member("${email}")' value='Delete' style="background-color:tomato">
@@ -74,6 +76,10 @@ function get_naga_members(){
                         <div class="in_line">
                             <b>Phone Number:</b>
                             <br><input id="edit_member_phone_number_${row}" type="text" Placeholder="000-000-0000" value="${phone_number}">
+                        </div>
+                        <div class="in_line">
+                            <b>Last logged in:</b>
+                            <br>${last_logged_in}
                         </div>
                         <br><br><input type="button" onclick="edit_member(${row})" value="Save"> 
                         <input type="button" onclick="close_edit_member(${row})" value="Cancel" style="background-color:tomato">
