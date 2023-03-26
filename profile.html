@@ -51,7 +51,7 @@
         <div id="profile_mailing_address"></div>
         <div id="profile_phone_number"></div>
         <br><input type="button" style="background-color: white;border:1px solid green; color:green;" onclick="open_edit_profile();" value="Edit Profile ✎"> 
-        <br><input type="button" onclick="signOut();" value="Sign out" style="background-color:gray">
+        <br><input type="button" onclick="signOut();" value="Sign out" style="background-color:tomato">
         <br><br>
     </div>
     
@@ -111,7 +111,7 @@
     Preference is given to existing members on all plots.
     
     <br><br><b>Plot type:</b>
-    <br><br><select id="request_plot_type">
+    <br><select id="request_plot_type">
       <option value="Raised beds">Raised bed</option>
       <option value="Annuals">Annual</option>
       <option value="Perennials"  id="perennial_option" >Perennial</option>
@@ -119,17 +119,17 @@
     </select> 
     
     <br><br><b>Plot number:</b>
-    <br><br><select onchange="request_plot_number(this.value)"><option>First available</option><option value="special_request">Special request</option></select>
+    <br><select onchange="request_plot_number(this.value)"><option>First available</option><option value="special_request">Special request</option></select>
     <input type="text" id="request_plot_number" style="display:none; width:250px" placeholder="Type in your request (eg, plot number)">
     <br>
     
     <div id="exchange_plot_form" style="display:none">
       <br><b>Would you like to trade in one of your current plots?</b>
-      <br><br><select  id="no_trade_option"><option>No</option></select>
+      <br><br><select  id="trade_option"><option value="No">No</option></select>
     </div>
 
-    <br><input type="checkbox" name="checkbox"><label for="checkbox">I have read and agree with the <a href="https://www.dropbox.com/home/NAGA%20Dropbox/Membership/Forms?preview=Terms+and+Conditions+of+License+2022.pdf">NAGA Terms and Conditions</a> </label>
-    <br><br><input type="button" onclick="add_to_waiting_list();" value="Submit request" style="width:200px">
+    <br><input type="checkbox" onchange="document.getElementById('terms_button').disabled = !this.checked;" id="terms_checkbox"><label for="terms_checkbox">I have read and accept the </label><a target="_blank" href="NAGA_Terms_and_Conditions_v2022.pdf">NAGA Terms and Conditions</a> 
+    <br><br><input type="button" onclick="add_to_waiting_list();" id="terms_button"   value="Submit request" style="width:200px" disabled>
   </div>
 
   <!--My Waiting list -->
