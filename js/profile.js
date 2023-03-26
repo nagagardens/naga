@@ -128,13 +128,12 @@ function get_my_plots(email){
   document.getElementById('my_plots_content').innerHTML="";
   document.getElementById('my_plots_tabs').innerHTML="";
   
-  const api_url = 'https://90oukjmsob.execute-api.us-east-1.amazonaws.com/prod/get_my_plots?email=' + encodeURIComponent(email);;
   
   
-  var my_plots_list = document.getElementById('my_plots_table');
   var no_plots=true;
   var item_number=0;
 
+  const api_url = 'https://90oukjmsob.execute-api.us-east-1.amazonaws.com/prod/get_my_plots?email=' + encodeURIComponent(email);;
   fetch(api_url, {
       method: 'GET',
       headers: {
@@ -148,11 +147,23 @@ function get_my_plots(email){
     response.forEach(element => {
       item_number++;
       plotId=JSON.stringify(element['plotId']['S']).replace(/["']/g, "");
+      if(element['date_assigned']) {
+         date_assigned=new Date(element['date_assigned']['S']).toLocaleDateString("en-US", date_options);
+         date_deadline = new Date(date_assigned)
+         date_deadline.setDate(date_deadline.getDate() + 30);
+         today=new Date()
+         var days = Math.ceil((date_deadline.getTime() - today.getTime()) / (1000 * 3600 * 24));
+      } else {date_assigned="";date_deadline=""; days="";}
       if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
       if(element['height']) { height=JSON.stringify(element['height']['S']).replace(/["']/g, "") } else {height="";}
       if(element['width']) { width=JSON.stringify(element['width']['S']).replace(/["']/g, "") } else {width="";}
-      if(element['rate']) { rate=JSON.stringify(element['rate']['S']).replace(/["']/g, "") } else {rate="";}
+      if(element['rate']) { rate="$"+JSON.stringify(element['rate']['S']).replace(/["']/g, "") } else {rate="";}
       if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
+      if(element['payment']) { payment=JSON.stringify(element['payment']['S']).replace(/["']/g, "") } else {payment="";}
+      if(payment=="Unpaid") { payment = `<font color=red>Payment pending.</font>
+      <br><br>You have until <b> ${date_deadline}</b> to make a payment. If a payment is not received in the next <b>${days}</b> days the plot will be assigned to someone else.
+      <br><br><input type="button" value ="Make a payment" onclick="window.open('https://square.link/u/UyZb9hJo','_blank') "style="width:200px">`;}
+      
       
 
       no_plots=false; 
@@ -160,7 +171,7 @@ function get_my_plots(email){
       var option = document.createElement("option");
       option.text = "Yes - " + plotId ;
       option.value=plotId;
-      document.getElementById('no_trade_option').add(option);
+      document.getElementById('trade_option').add(option);
 
       var tab_buttons = document.createElement("button");
       tab_buttons.innerHTML = "<h5>"+plotId+"</h5>";
@@ -180,11 +191,10 @@ function get_my_plots(email){
         <br>Size: ${width}x ${height} feet
         <br>
         <br><br><b>Lease: </b>
+        <br>Date assigned:  ${date_assigned}
         <br>Period: May 1st, 2024 - October 31st, 2024
         <br>Rate: ${rate}
-        <br>Status: <font color=red>Payment pending</font>
-        <br>Please note: You have 30 days to make a payment or the plot will be assigned to someone else.
-        <br><br><input type="button" value ="Make a payment" style="width:200px">
+        <br>Status: ${payment}
         <br><br>`;
         document.getElementById('my_plots_content').appendChild(tab_content);
       if(item_number == 1) {tab_buttons.click();}
@@ -218,6 +228,7 @@ function get_my_waiting_list(email){
       if(response['Item']){
         
         if(response['Item']['plot_type']) { plot_type=JSON.stringify(response['Item']['plot_type']).replace(/["']/g, "") } else {plot_type="";}
+        if(response['Item']['trade_option']) { trade_option=JSON.stringify(response['Item']['trade_option']).replace(/["']/g, "") } else {trade_option="";}
         if(response['Item']['plot_number']) { plot_number=JSON.stringify(response['Item']['plot_number']).replace(/["']/g, "") } else {plot_number="";}
         if(response['Item']['place']) { place=JSON.stringify(response['Item']['place']).replace(/["']/g, "") } else {place="";}
         
@@ -227,6 +238,7 @@ function get_my_waiting_list(email){
         <br>We have received your request and you are currently on our waiting list:<br><br>
         <div class="request_plot"><b>Plot type:</b> ${plot_type}.
           <br><b>Plot number:</b> ${plot_number}.
+          <br><b>Trade:</b> ${trade_option}.
           <br><b>Date joined:</b> ${ new Date(response['Item']['date_added']).toLocaleDateString("en-US", date_options)  }
           <br><br>You are currently #${place} in line. 
         <br><br><input type=button value='Cancel request' style='background-color:tomato; width:200px' onclick='delete_from_waiting_list(\"${email}\", true)'>
@@ -248,10 +260,12 @@ function get_my_waiting_list(email){
     console.log ('My waiting list loaded')
 }
 
+
 function add_to_waiting_list(){
     
   email = document.getElementById('member_email').innerHTML;
   plot_type = document.getElementById('request_plot_type').value;
+  if (document.getElementById('trade_option')) { trade_option = document.getElementById('trade_option').value; } else { trade_option="No";}
   plot_number = document.getElementById('request_plot_number').value;
   if(!plot_number){plot_number="First available"}
 
@@ -265,11 +279,16 @@ function add_to_waiting_list(){
   body: JSON.stringify({ 
       "email": email,
       "plot_type":plot_type,
-      "plot_number":plot_number
+      "plot_number":plot_number,
+      "trade_option":trade_option
   })
   })
   .then(response => response.json())
-  .then(response => { console.log(JSON.stringify(response));get_my_waiting_list(email);get_waiting_list();})
+  .then(response => { 
+    console.log(response); console.log("trade_option: " + trade_option)
+    get_my_waiting_list(email);
+    get_waiting_list();
+  })
     
 }
 

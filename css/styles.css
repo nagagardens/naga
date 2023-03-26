@@ -188,6 +188,7 @@ input {
   padding:10px;  scroll-margin-top:5px;
   margin:5px;
 }
+
 select {
   padding:10px; scroll-margin-top:5px;
 }
@@ -199,6 +200,10 @@ input[type=button] {
   margin:5px;
   width:100px;
 }
+input:disabled {
+  background-color: silver;
+}
+
 .autocomplete-items {
   position: absolute;
   border: 1px solid #d4d4d4;

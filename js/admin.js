@@ -260,6 +260,9 @@ function get_plots()
                 if(plot['height']['S']) {height=plot['height']['S'];} else {height=""};
                 if(plot['width']['S']) {width=plot['width']['S'];} else {width=""};
                 if(plot['rate']['S']) {rate=plot['rate']['S'];} else {rate=""};
+                if(plot['date_assigned']) {date_assigned=plot['date_assigned']['S'];} else {date_assigned=""};
+                if(plot['payment']) {payment=plot['payment']['S'];} else {payment=""};
+
                 occupant_form = (`
                 <div id='edit_plot_top_${plot_id}'>${occupant}</div>
                 <div id='edit_plot_bottom_${plot_id}' style='display:none'>
@@ -276,9 +279,12 @@ function get_plots()
                     <div class="in_line"><b>Plot number:</b><br><h3><span id="edit_plot_number_${plot_id}">${plot_id}</span></h3></div>
                     <div class="in_line"><b>Size:</b><br><input disabled  class="edit_plot" style="width:40px; text-align:center;" type="text" id="edit_plot_height_${plot_id}" value="${height}">
                         x<input disabled  class="edit_plot" style="width:40px; text-align:center;" type="text" id="edit_plot_width_${plot_id}" value="${width}"></div>
-                    <div class="in_line"><b>Rate:</b><br> $<input disabled  class="edit_plot"  style=" width:50px" type="text" id="edit_plot_rate_${plot_id}" value="${rate}"></div>
-                    <div class="in_line"><b>Occupant:</b>${occupant_form}</div><br>
-                
+                        <div class="in_line"><b>Rate:</b><br> $<input disabled  class="edit_plot"  style=" width:50px" type="text" id="edit_plot_rate_${plot_id}" value="${rate}"></div>
+                        
+                    <div class="in_line"><b>Occupant:</b>${occupant_form}</div>
+                    <div class="in_line"><b>Date Assigned:</b><br> ${date_assigned}</div>
+                    <div class="in_line"><b>Status:</b><br> <input disabled  class="edit_plot"  type="text" id="edit_plot_payment_${plot_id}" value="${payment}"></div>
+                    <br>
                     <div class="in_line" id="edit_plot_buttons1_${plot_id}">
                         <input type='button' onclick='open_edit_plot("${plot['plotId']['S']}","${plot['plot_type']['S'] }")' value='Edit'>
                         <input type='button' onclick='remove_plot("${plot['plotId']['S']}")' value='Delete' style='background-color:tomato'>
@@ -505,6 +511,7 @@ function get_waiting_list()
                     <div style="min-width:50px" class="in_line"><b>Position:</b><h3># ${item['place']['N']}</h3></div>
                     <div class="in_line"><b>Email:</b><br><span id="assign_plot_email_${waiting_list_id}">${item['email']['S']}</span> ${has_plots }</div>
                     <div class="in_line"><b>Desired plot:</b><br> ${item['plot_number']['S']}</div>
+                    <div class="in_line"><b>Trade:</b><br> ${item['trade_option']['S']}</div>
                     <div class="in_line"><b>Date joined:</b><br> ${new Date(item['date_added']['S']).toLocaleDateString("en-US", date_options)} </div>
                     
                     <br>
@@ -547,12 +554,8 @@ function close_assign_plot(waiting_list_id){
 
 function assign_plot(waiting_list_id){
     email=document.getElementById('assign_plot_email_'+waiting_list_id).innerHTML;
-    console.log("email: " + email)
     plot_number=document.getElementById('assign_plot_list_'+waiting_list_id).value;
-    console.log( JSON.stringify({ 
-        "email": email,
-        "plot_number":plot_number
-    }))
+    
     fetch('https://q1hk67hzpe.execute-api.us-east-1.amazonaws.com/prod/', {
     method: 'POST',
     headers: {
@@ -566,7 +569,7 @@ function assign_plot(waiting_list_id){
     })
     .then(response => response.json())
     .then(response => { 
-        console.log(JSON.stringify(response));
+        console.log(response);
         delete_from_waiting_list(email);
         close_assign_plot(waiting_list_id)});
                
