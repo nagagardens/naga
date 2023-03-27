@@ -262,6 +262,10 @@ function get_plots()
                 if(plot['rate']['S']) {rate=plot['rate']['S'];} else {rate=""};
                 if(plot['date_assigned']) {date_assigned=plot['date_assigned']['S'];} else {date_assigned=""};
                 if(plot['payment']) {payment=plot['payment']['S'];} else {payment=""};
+                if(payment=="Awaiting payment") { awaiting_selected="selected"; overdue_selected=""; paid_selected=""}
+                else if(payment=="Payment overdue") { awaiting_selected=""; overdue_selected="selected";paid_selected="selected"}
+                else if(payment=="Paid") { awaiting_selected=""; overdue_selected="";paid_selected="selected"}
+                else { awaiting_selected=""; overdue_selected="";paid_selected="";}
 
                 occupant_form = (`
                 <div id='edit_plot_top_${plot_id}'>${occupant}</div>
@@ -283,7 +287,14 @@ function get_plots()
                         
                     <div class="in_line"><b>Occupant:</b>${occupant_form}</div>
                     <div class="in_line"><b>Date Assigned:</b><br> ${date_assigned}</div>
-                    <div class="in_line"><b>Status:</b><br> <input disabled  class="edit_plot"  type="text" id="edit_plot_payment_${plot_id}" value="${payment}"></div>
+                    <div class="in_line"><b>Status:</b><br>
+                        <select id="edit_plot_status_${plot_id}" disabled>
+                            <option></option>
+                            <option value="Awaiting payment" ${awaiting_selected}>Awaiting payment</option>
+                            <option value="Payment overdue" ${overdue_selected}>Payment overdue</option>
+                            <option value="Paid" ${paid_selected}>Paid</option>
+                        </select>
+                    </div>
                     <br>
                     <div class="in_line" id="edit_plot_buttons1_${plot_id}">
                         <input type='button' onclick='open_edit_plot("${plot['plotId']['S']}","${plot['plot_type']['S'] }")' value='Edit'>
@@ -315,6 +326,7 @@ function edit_plot(plot_id, email){
     height=document.getElementById("edit_plot_height_"+plot_id).value;
     width=document.getElementById("edit_plot_width_"+plot_id).value;
     rate=document.getElementById("edit_plot_rate_"+plot_id).value;
+    payment=document.getElementById("edit_plot_status_"+plot_id).value;
     
     fetch('https://cwjjxnn2dd.execute-api.us-east-1.amazonaws.com/prod/', {
     method: 'POST',
@@ -327,7 +339,8 @@ function edit_plot(plot_id, email){
         "occupant":email,
         "height":height,
         "width":width,
-        "rate":rate
+        "rate":rate,
+        "payment":payment
 
     })
     })
@@ -432,6 +445,7 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
     document.getElementById("edit_plot_width_"+plot_id).disabled=false;
     document.getElementById("edit_plot_height_"+plot_id).disabled=false;
     document.getElementById("edit_plot_rate_"+plot_id).disabled=false;
+    document.getElementById("edit_plot_status_"+plot_id).disabled=false;
     document.getElementById("edit_plot_top_" + plot_id).style.display="none";
     document.getElementById("edit_plot_bottom_" + plot_id).style.display="block";
     document.getElementById("edit_plot_buttons1_" + plot_id).style.display="none";
@@ -590,8 +604,6 @@ function get_empty_plots(plot_type,waiting_list_id){
     .then(response => { 
       
       response.forEach(element => {
-        console.log(element)
-        
         var el = document.createElement("option");
         el.textContent = element['plotId']['S'];
         el.value = element['plotId']['S'];

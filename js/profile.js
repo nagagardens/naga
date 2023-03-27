@@ -153,6 +153,7 @@ function get_my_plots(email){
          date_deadline.setDate(date_deadline.getDate() + 30);
          today=new Date()
          var days = Math.ceil((date_deadline.getTime() - today.getTime()) / (1000 * 3600 * 24));
+         date_deadline=new Date(date_deadline).toLocaleDateString("en-US", date_options);
       } else {date_assigned="";date_deadline=""; days="";}
       if(element['plot_type']) { plot_type=JSON.stringify(element['plot_type']['S']).replace(/["']/g, "") } else {plot_type="";}
       if(element['height']) { height=JSON.stringify(element['height']['S']).replace(/["']/g, "") } else {height="";}
@@ -160,9 +161,15 @@ function get_my_plots(email){
       if(element['rate']) { rate="$"+JSON.stringify(element['rate']['S']).replace(/["']/g, "") } else {rate="";}
       if(element['occupant']) { occupant=JSON.stringify(element['occupant']['S']).replace(/["']/g, "") } else {occupant="";}
       if(element['payment']) { payment=JSON.stringify(element['payment']['S']).replace(/["']/g, "") } else {payment="";}
-      if(payment=="Unpaid") { payment = `<font color=red>Payment pending.</font>
-      <br><br>You have until <b> ${date_deadline}</b> to make a payment. If a payment is not received in the next <b>${days}</b> days the plot will be assigned to someone else.
+      if(payment=="Awaiting payment") { payment = `<font color=red>Awaiting payment.</font>
+      <br><br>You have until <b> ${date_deadline}</b> to make a payment
+      <br> If a payment is not received in the next <b>${days}</b> days the plot will be assigned to someone else.
       <br><br><input type="button" value ="Make a payment" onclick="window.open('https://square.link/u/UyZb9hJo','_blank') "style="width:200px">`;}
+      if(payment=="Payment overdue") { payment = `<font color=red>Your payment is overdue</font>
+      <br><br>You've had this plot assigned to you for over 30 days, and we have not received payment. 
+      <br> This plot can be assigned to someone else in our waiting list, at any time and without notice. Please make a payment today to secure your plot for the season.
+      <br><br><input type="button" value ="Make a payment" onclick="window.open('https://square.link/u/UyZb9hJo','_blank') "style="width:200px">`;}
+      if(payment=="Paid") { payment = `Paid for the season`;}
       
       
 
