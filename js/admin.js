@@ -267,43 +267,99 @@ function get_plots()
                 else if(payment=="Paid") { awaiting_selected=""; overdue_selected="";paid_selected="selected"}
                 else { awaiting_selected=""; overdue_selected="";paid_selected="";}
 
-                occupant_form = (`
-                <div id='edit_plot_top_${plot_id}'>${occupant}</div>
-                <div id='edit_plot_bottom_${plot_id}' style='display:none'>
-                    <div class='autocomplete'><input id='occupant_${plot_id}' type='text' placeholder="Email address" name='occupant_${plot_id}' value='${occupant}' style="width:200px"></div>
-                    <br><br> or select from waiting list: 
-                    <br> <select style="width:200px;" onchange='select_from_waiting_list("${plot_id}")' id='select_from_waiting_list_${plot_id}'><option></option></select>
-                </div>
-                   
-                `)
-
                 document.getElementById("plots_row_"+row).insertAdjacentHTML('afterend', `
                 <tr>
                 <td valign=top>
-                    <div class="in_line"><b>Plot number:</b><br><h3><span id="edit_plot_number_${plot_id}">${plot_id}</span></h3></div>
-                    <div class="in_line"><b>Size:</b><br><input disabled  class="edit_plot" style="width:40px; text-align:center;" type="text" id="edit_plot_height_${plot_id}" value="${height}">
-                        x<input disabled  class="edit_plot" style="width:40px; text-align:center;" type="text" id="edit_plot_width_${plot_id}" value="${width}"></div>
-                        <div class="in_line"><b>Rate:</b><br> $<input disabled  class="edit_plot"  style=" width:50px" type="text" id="edit_plot_rate_${plot_id}" value="${rate}"></div>
+                    <div id="show_plot_info_${plot_id}">
+
+                        <div class="in_line">
+                            <b>Plot number:</b>
+                            <br><h3>${plot_id}</h3>
+                        </div>
+
+                        <div class="in_line">
+                            <b>Size:</b>
+                            <br>${height} x ${width}
+                        </div>
+
+                        <div class="in_line">
+                            <b>Rate:</b>
+                            <br> ${rate} (per year)
+                        </div>
                         
-                    <div class="in_line"><b>Occupant:</b>${occupant_form}</div>
-                    <div class="in_line"><b>Date Assigned:</b><br> ${date_assigned}</div>
-                    <div class="in_line"><b>Status:</b><br>
-                        <select id="edit_plot_status_${plot_id}" disabled>
-                            <option></option>
-                            <option value="Awaiting payment" ${awaiting_selected}>Awaiting payment</option>
-                            <option value="Payment overdue" ${overdue_selected}>Payment overdue</option>
-                            <option value="Paid" ${paid_selected}>Paid</option>
-                        </select>
-                    </div>
-                    <br>
-                    <div class="in_line" id="edit_plot_buttons1_${plot_id}">
+                        <div class="in_line">
+                            <b>Occupant:</b>
+                            <br>${occupant}
+                        </div>
+
+                        <div class="in_line">
+                            <b>Date Assigned:</b>
+                            <br> ${date_assigned}
+                        </div>
+
+                        <div class="in_line">
+                            <b>Status:</b>
+                            <br>${payment}
+                        </div>
+
+                        <br>
                         <input type='button' onclick='open_edit_plot("${plot['plotId']['S']}","${plot['plot_type']['S'] }")' value='Edit'>
                         <input type='button' onclick='remove_plot("${plot['plotId']['S']}")' value='Delete' style='background-color:tomato'>
+                    
                     </div>
-                    <div class="in_line" id="edit_plot_buttons2_${plot_id}" style="display:none">
+
+                    <div id="edit_plot_info_${plot_id}" style="display:none">
+
+                        <div class="in_line">
+                            <b>Plot number:</b>
+                            <br><h3><span id="edit_plot_number_${plot_id}">${plot_id}</span></h3>
+                        </div>
+
+                        <div class="in_line">
+                            <b>Size:</b>
+                            <br><input  style="width:40px; text-align:center;" type="text" id="edit_plot_height_${plot_id}" value="${height}">
+                            x <input style="width:40px; text-align:center;" type="text" id="edit_plot_width_${plot_id}" value="${width}">
+                        </div>
+
+                        <div class="in_line">
+                            <b>Rate:</b>
+                            <br> $<input style=" width:50px" type="text" id="edit_plot_rate_${plot_id}" value="${rate}">
+                        </div>
+                        
+                        <div class="in_line">
+                            <b>Occupant:</b>
+                            <div class='autocomplete'><input id='occupant_${plot_id}' onchange='chage_assigned_date("${plot_id}")' type='text' placeholder="Email address" name='occupant_${plot_id}' value='${occupant}' style="width:200px"></div>
+                            <br><br> or select from waiting list: 
+                            <br> <select style="width:200px;" onchange='select_from_waiting_list("${plot_id}")' id='select_from_waiting_list_${plot_id}'><option></option></select>
+                        </div>
+
+                        <div class="in_line">
+                            <b>Date Assigned:</b>
+                            <br> <input type="text" id="edit_plot_date_assigned_${plot_id}" value="${date_assigned}">
+                        </div>
+
+                        <div class="in_line">
+                            <b>Status:</b><br>
+                            <select id="edit_plot_status_${plot_id}">
+                                <option></option>
+                                <option value="Awaiting payment" ${awaiting_selected}>Awaiting payment</option>
+                                <option value="Payment overdue" ${overdue_selected}>Payment overdue</option>
+                                <option value="Paid" ${paid_selected}>Paid</option>
+                            </select>
+                        </div>
+
+                        <br>
                         <input type='button'  onclick='edit_plot("${plot_id}",document.getElementById("occupant_${plot_id}").value);' value='Submit'>  
-                        <input type='button'  onclick='close_edit_plot("${plot_id}")' value='Cancel 'style='background-color:tomato'><br><br>
+                        <input type='button'  onclick='close_edit_plot("${plot_id}")' value='Cancel 'style='background-color:tomato'>
+
                     </div>
+
+
+                        <div class="in_line" id="edit_plot_buttons1_${plot_id}">
+                        </div>
+                        <div class="in_line" id="edit_plot_buttons2_${plot_id}" style="display:none">
+                           
+                        </div>
                 </td>
                 </tr>`);
 
@@ -326,6 +382,7 @@ function edit_plot(plot_id, email){
     height=document.getElementById("edit_plot_height_"+plot_id).value;
     width=document.getElementById("edit_plot_width_"+plot_id).value;
     rate=document.getElementById("edit_plot_rate_"+plot_id).value;
+    date_assigned=document.getElementById("edit_plot_date_assigned_"+plot_id).value;
     payment=document.getElementById("edit_plot_status_"+plot_id).value;
     
     fetch('https://cwjjxnn2dd.execute-api.us-east-1.amazonaws.com/prod/', {
@@ -340,7 +397,8 @@ function edit_plot(plot_id, email){
         "height":height,
         "width":width,
         "rate":rate,
-        "payment":payment
+        "payment":payment,
+        "date_assigned":date_assigned
 
     })
     })
@@ -442,14 +500,8 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
 
     });
 
-    document.getElementById("edit_plot_width_"+plot_id).disabled=false;
-    document.getElementById("edit_plot_height_"+plot_id).disabled=false;
-    document.getElementById("edit_plot_rate_"+plot_id).disabled=false;
-    document.getElementById("edit_plot_status_"+plot_id).disabled=false;
-    document.getElementById("edit_plot_top_" + plot_id).style.display="none";
-    document.getElementById("edit_plot_bottom_" + plot_id).style.display="block";
-    document.getElementById("edit_plot_buttons1_" + plot_id).style.display="none";
-    document.getElementById("edit_plot_buttons2_" + plot_id).style.display="block";
+    document.getElementById("show_plot_info_"+plot_id).style.display="none";
+    document.getElementById("edit_plot_info_"+plot_id).style.display="block";
 
     
     })
@@ -463,13 +515,9 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
 
 
 function close_edit_plot(plot_id){
-    document.getElementById("edit_plot_width_"+plot_id).disabled=true;
-    document.getElementById("edit_plot_height_"+plot_id).disabled=true;
-    document.getElementById("edit_plot_rate_"+plot_id).disabled=true;
-    document.getElementById("edit_plot_top_" + plot_id).style.display="block";
-    document.getElementById("edit_plot_bottom_" + plot_id).style.display="none";
-    document.getElementById("edit_plot_buttons1_" + plot_id).style.display="block";
-    document.getElementById("edit_plot_buttons2_" + plot_id).style.display="none";
+    
+    document.getElementById("show_plot_info_"+plot_id).style.display="block";
+    document.getElementById("edit_plot_info_"+plot_id).style.display="none";
     
   }
 
@@ -477,7 +525,14 @@ function close_edit_plot(plot_id){
 function select_from_waiting_list(plot_id){
     value=document.getElementById("select_from_waiting_list_"+plot_id).value;
     document.getElementById("occupant_"+plot_id).value=value;
+    chage_assigned_date(plot_id);
   
+}
+
+
+function chage_assigned_date(plot_id){
+    
+    document.getElementById("edit_plot_date_assigned_"+plot_id).value= new Date().toLocaleDateString("en-US", date_options);
 }
 
 
@@ -626,5 +681,3 @@ function close_add_waiting_list(){
     document.getElementById('add_waiting_list_form').style.display="none";
     document.getElementById('admin_controls_waiting_list').style.display="block";
 }
-
-  
