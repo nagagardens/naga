@@ -26,7 +26,7 @@
     <div class="header_buttons">
       <span onclick="window.location.href='./index.html'">Home</span>
       <span >About</span>
-      <span >Contact</span>
+      <span >Shop</span>
       <span onclick="window.location.href='https://www.facebook.com/groups/261282425387342'"><img src="img/facebook.png" width="20"></span>
     </div>
   </div>
@@ -150,8 +150,8 @@
 
 
     <div class="admin_tab">
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()"  id="defaultTab">Waiting List</button>
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();">Members</button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_naga_members();"  id="defaultTab">Members</button>
+      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()">Waiting List</button>
       <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'plots_container');get_plots();">Plots</button>
     </div>
 
@@ -206,14 +206,6 @@
 
     <div id="plots_container"  class="admin_tab_content">
       <div class="admin_controls" id="admin_controls_plots">
-        <!-- Filters 
-        <div class="in_line">
-          <b>Plot type:</b><br><select><option>All types</option><option>Raised beds</option><option>Annuals</option><option>Perennials</option><option>Lockers</option></select>
-        </div>
-        <div class="in_line">
-          <b>Occupancy:</b><br><select><option>All plots</option><option>Occupied</option><option>Available</option></select>
-        </div>
-        -->
         <div class="in_line" style="vertical-align: bottom;">
           <input type="button" value="Add new plot" style="width:150px" onclick="open_add_plot()">
         </div>
@@ -254,14 +246,6 @@
     <div id="waiting_list_container" class="admin_tab_content">
 
       <div class="admin_controls" id="admin_controls_waiting_list">
-        <!-- Filters 
-        <div class="in_line">
-          <b>Plot type:</b><br><select><option>All types</option><option>Raised beds</option><option>Annuals</option><option>Perennials</option><option>Lockers</option></select>
-        </div>
-        <div class="in_line">
-          <b>Member status:</b><br><select><option>All members</option><option>New members</option><option>Active members</option></select>
-        </div>
-        -->
         <div class="in_line" style="vertical-align: bottom;">
           <input type="button" value="Add to waiting list" style="width:150px" onclick="open_add_waiting_list()">
         </div>
@@ -270,13 +254,16 @@
       <div id="add_waiting_list_form" class="admin_controls" style="display:none">
       
       <div class="in_line">
-        <br><b>Email:</b><br><input type="text" id="admin_input_waiting_list_email"  placeholder="Email address" required>
+        <br><b>Email:</b>
+        <br>
+        <div class='autocomplete'><input type="text" id="add_waiting_list_email"  placeholder="Email address" required></div>
+        
       </div>
       <div class="in_line">
-        <br><b>Plot number:</b><br><input type="text" id="admin_input_waiting_list_email"  placeholder="Email address" required>
+        <br><b>Plot number:</b><br><input type="text" id="add_waiting_list_plot_number"  placeholder="Email address" required>
       </div>
       <div class="in_line">
-        <br><b>Trade:</b><br><input type="text" id="admin_input_waiting_list_email"  placeholder="Email address" required>
+        <br><b>Trade:</b><br><input type="text" id="add_waiting_list_trade"  placeholder="Email address" required>
       </div>
       <br>
       

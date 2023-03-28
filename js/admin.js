@@ -538,7 +538,7 @@ function chage_assigned_date(plot_id){
 
 
 
-/// WAITING LIST OPTIONS
+/// WAITING LIST FUNCTIONS
   
 function get_waiting_list()
 {
@@ -601,7 +601,7 @@ function get_waiting_list()
             });
 
         });
-
+        autocomplete(document.getElementById("add_waiting_list_email"), members_email);
         console.log('All waiting lists loaded')
     
     });
