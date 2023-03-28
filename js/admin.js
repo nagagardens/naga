@@ -535,7 +535,7 @@ function get_waiting_list()
                             <input type='button' onclick='delete_from_waiting_list(\"${item['email']['S']}\")' style="background-color:tomato" value='Delete'>
                         </div>
                         <div id="assign_plots_bottom_${waiting_list_id}" style="display:none">
-                        <b> Select from available plots:</b>
+                        <b> Select plot:</b>
                         <br> <select style="width:200px;" id='assign_plot_list_${waiting_list_id}'></select>
                         <br><br> <input type='button' onclick='assign_plot(\"${waiting_list_id}\")' value='Submit'>
                             <input type='button' onclick='close_assign_plot(\"${waiting_list_id}\")' style="background-color:tomato" value='Cancel'>
@@ -593,6 +593,7 @@ function get_empty_plots(plot_type,waiting_list_id){
     var select = document.getElementById("assign_plot_list_"+waiting_list_id);
     select.innerHTML="";
     const api_url = 'https://jawb81aeuf.execute-api.us-east-1.amazonaws.com/prod/get_empty_plots?plot_type=' + encodeURIComponent(plot_type);
+    
     fetch(api_url, {
         method: 'GET',
         headers: {
