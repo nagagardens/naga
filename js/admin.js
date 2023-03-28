@@ -284,7 +284,7 @@ function get_plots()
 
                         <div class="in_line">
                             <b>Rate:</b>
-                            <br> ${rate} (per year)
+                            <br>$${rate} (per year)
                         </div>
                         
                         <div class="in_line">
