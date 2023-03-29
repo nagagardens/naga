@@ -1,13 +1,15 @@
-var members_email =[];
+
 var date_options = { year: 'numeric', month: 'long', day: 'numeric' };
 
 // MEMBER FUNCTIONS 
 
 function get_naga_members(){
 
+
     members_table=document.getElementById('all_members').innerHTML;
     members_table=`<table class="list">`;
     row=0;
+    members_email =[];
 
     const api_url = 'https://g1t81zygbh.execute-api.us-east-1.amazonaws.com/prod/get_naga_members';
     fetch(api_url, {
@@ -42,7 +44,7 @@ function get_naga_members(){
                 <td valign=top>
                     <div id="display_member_info_${row}">
                         <div class="in_line">
-                            <b>Email:</b><br>${email}
+                            <b>Email:</b><br><span>${email}</span>
                             <br><br>${admin_message}
                         </div>
                         <div class="in_line"><b>Name:</b><br>${full_name}</div>
@@ -274,7 +276,7 @@ function get_plots()
 
                         <div class="in_line">
                             <b>Plot number:</b>
-                            <br><h3>${plot_id}</h3>
+                            <br><h3><span>${plot_id}</span></h3>
                         </div>
 
                         <div class="in_line">
@@ -680,4 +682,22 @@ function open_add_waiting_list(){
 function close_add_waiting_list(){
     document.getElementById('add_waiting_list_form').style.display="none";
     document.getElementById('admin_controls_waiting_list').style.display="block";
+}
+
+
+function search(tab) {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("search_"+tab);
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("all_"+tab);
+    li = ul.getElementsByTagName("td");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("span")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
 }

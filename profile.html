@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -168,6 +169,8 @@
         </div>
         -->
         <div class="in_line" style="vertical-align: bottom;">
+          <input type="text" id="search_members" onkeyup="search('members')" placeholder="Search by email">
+
           <input type="button" value="Add new member" style="width:150px" onclick="open_add_member()">
         </div>
       </div>
@@ -200,13 +203,20 @@
         <input type="button" onclick="close_add_member();" style="background-color: tomato" value="Cancel">
 
       </div>
-      <div id="all_members"></div>
+
+      <div id="all_members">
+        
+      </div>
+      
+
+      
     </div>
 
 
     <div id="plots_container"  class="admin_tab_content">
       <div class="admin_controls" id="admin_controls_plots">
         <div class="in_line" style="vertical-align: bottom;">
+          <input type="text" id="search_plots" onkeyup="search('plots')" placeholder="Search by plot number">
           <input type="button" value="Add new plot" style="width:150px" onclick="open_add_plot()">
         </div>
       </div>
@@ -247,6 +257,7 @@
 
       <div class="admin_controls" id="admin_controls_waiting_list">
         <div class="in_line" style="vertical-align: bottom;">
+          <input type="text" id="search_waiting_lists" onkeyup="search('waiting_lists')" placeholder="Search by email">
           <input type="button" value="Add to waiting list" style="width:150px" onclick="open_add_waiting_list()">
         </div>
       </div>
