@@ -286,7 +286,7 @@ function get_plots()
 
                         <div class="in_line">
                             <b>Rate:</b>
-                            <br>$${rate} (per year)
+                            <br>$${rate}
                         </div>
                         
                         <div class="in_line">
@@ -365,7 +365,7 @@ function get_plots()
                 </td>
                 </tr>`);
 
-                autocomplete(document.getElementById("occupant_"+ plot_id), members_email);
+                
                 
 
             });
@@ -473,6 +473,7 @@ function remove_plot(plot_id){if(confirm("Are you sure you want to remove this p
 
 
   function open_edit_plot(plot_id,plot_type){
+    autocomplete(document.getElementById("occupant_"+ plot_id), members_email);
 
     const api_url = 'https://omwtz3crjb.execute-api.us-east-1.amazonaws.com/prod';
     fetch(api_url, {
@@ -700,4 +701,88 @@ function search(tab) {
             li[i].style.display = "none";
         }
     }
+}
+
+function add_many_members()
+{
+    
+    
+    members=[];
+    members.push({"email": "Hazelgabe@protonmail.com","first_name":"Hazel","last_name":"Gabe","street_address":"8-600 Laurier Ave W", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6133234908", "date_added":"6/13/2022","admin":false, "verified": false });
+members.push({"email": "virginiamfresende@gmail.com","first_name":"Virginia","last_name":"Resende","street_address":"119 Central Park r.", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6136187334", "date_added":"6/17/2022","admin":false, "verified": false });
+members.push({"email": "lailawertwyn@hotmail.com","first_name":"Fatima","last_name":"Badi","street_address":"216-111 Viewmount Dr.", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"613 526-9526", "date_added":"6/25/2022","admin":false, "verified": false });
+members.push({"email": "tyerswilson@rogers.com","first_name":"Betty","last_name":"Wilson","street_address":"7 Northview Road", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"613-228-0526", "date_added":"7/1/2022","admin":false, "verified": false });
+members.push({"email": "gillmanlynn@gmail.com","first_name":"Lynn","last_name":"Gillman","street_address":"8 Queensline Drive", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"613-820-8343", "date_added":"7/10/2022","admin":false, "verified": false });
+members.push({"email": "ca.gallant@outlook.com","first_name":"Christopher","last_name":"Gallant","street_address":"12 Singer Place", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6138678086", "date_added":"7/12/2022","admin":false, "verified": false });
+members.push({"email": "myzkate@yahoo.ca","first_name":"Katie","last_name":"Cadieux","street_address":"20 Amherst Crescent", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6138842340", "date_added":"7/16/2022","admin":false, "verified": false });
+members.push({"email": "cecillegagne27@gmail.com","first_name":"Cecille","last_name":"Gagne","street_address":"118 woodridge crescent unit 11", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6136019647", "date_added":"7/22/2022","admin":false, "verified": false });
+members.push({"email": "shoreysong@gmail.com","first_name":"Xiaoyu","last_name":"Song","street_address":"1206-1801 Frobisher Ln", "city":"Ottawa","province":"ON","postal_code":"K1G0E7", "phone_number":"3434633965", "date_added":"8/1/2022","admin":false, "verified": false });
+members.push({"email": "slwmartin@gmail.com","first_name":"Sara","last_name":"Martin","street_address":"111 Covington Place", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6137981994", "date_added":"8/10/2022","admin":false, "verified": false });
+members.push({"email": "jess_oey20@hotmail.com","first_name":"Francesco","last_name":"Petrocco","street_address":"", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6134072375", "date_added":"8/15/2022","admin":false, "verified": false });
+members.push({"email": "lisaandkevin@yahoo.ca","first_name":"Lisa","last_name":"Bolduc","street_address":"31 georgian pvt", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6137979234", "date_added":"8/18/2022","admin":false, "verified": false });
+members.push({"email": "liu.viktor@gmail.com","first_name":"liu","last_name":"Nanhui","street_address":"191 Calaveras Ave.", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6134400566", "date_added":"8/26/2022","admin":false, "verified": false });
+members.push({"email": "yiang.wang2010@gmail.com","first_name":"Yifang","last_name":"Wang","street_address":"31 Crystal Park Cres", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6136007752", "date_added":"9/5/2022","admin":false, "verified": false });
+members.push({"email": "Njihiajane@gmail.com","first_name":"Jane","last_name":"Njihia","street_address":"72 Dragon Park Drive", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"613 8847412", "date_added":"9/7/2022","admin":false, "verified": false });
+members.push({"email": "michael.coulter@sympatico.ca","first_name":" Michael","last_name":"Coulter","street_address":"26 Kerry Crescent", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"613-274-0536", "date_added":"9/13/2022","admin":false, "verified": false });
+members.push({"email": "blask.chaud@rogers.com","first_name":"ema","last_name":"chaudhuri","street_address":"17 Northgate st", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"613-226-1064", "date_added":"9/18/2022","admin":false, "verified": false });
+members.push({"email": "613mah@gmail.com","first_name":"Mohmoud","last_name":"Dawod Alsaghir","street_address":"19 hogan st.", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6137002381", "date_added":"9/21/2022","admin":false, "verified": false });
+members.push({"email": "jianzhn@gmail.com","first_name":"Jian","last_name":"zhen","street_address":"1262 heron road", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6137905885", "date_added":"9/22/2022","admin":false, "verified": false });
+members.push({"email": "Stephen.Young@MyCambrian.Ca","first_name":"Stephen","last_name":"young","street_address":"2147 Prince of Whales Drive", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"7808381533", "date_added":"10/11/2022","admin":false, "verified": false });
+members.push({"email": "karentrines@gmail.com","first_name":"Karen","last_name":"Trines","street_address":"4 Willwood Cr", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"613-899-3789", "date_added":"10/17/2022","admin":false, "verified": false });
+members.push({"email": "jenniferdeng73@gmail.com","first_name":"li","last_name":"deng","street_address":"25 Clonfadda Terr", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6132767166", "date_added":"10/29/2022","admin":false, "verified": false });
+members.push({"email": "lyewchuk57@gmail.com","first_name":"Laura","last_name":"Yewchuk","street_address":"200 Tivoli Private", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"3432044972", "date_added":"11/2/2022","admin":false, "verified": false });
+members.push({"email": "juanyuan26@gmail.com","first_name":"Zhujing","last_name":"Yuan","street_address":"619 New Liskeard Cres", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6138405819", "date_added":"11/8/2022","admin":false, "verified": false });
+members.push({"email": "mhaiqian@gmail.com","first_name":"Haiqian","last_name":"Ma","street_address":"933 Atrium Ridge", "city":"Ottawa","province":"ON","postal_code":"K4M 0N9", "phone_number":"6137969795", "date_added":"11/10/2022","admin":false, "verified": false });
+members.push({"email": "cybulski.mary@gmail.com","first_name":"Mary","last_name":"Cybulski","street_address":"2692 Don St", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6134024720", "date_added":"12/17/2022","admin":false, "verified": false });
+members.push({"email": "s.skyeoldham@gmail.com","first_name":"Skye","last_name":"Marshall","street_address":"191 Claridge drive", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6138787593", "date_added":"1/4/2023","admin":false, "verified": false });
+members.push({"email": "taylor.c.davidson@gmail.com","first_name":"Taylor","last_name":"Davidson","street_address":"44 Jenscott Private", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6132195499", "date_added":"1/6/2023","admin":false, "verified": false });
+members.push({"email": "sharonchapman24@icloud.com","first_name":"Sharon","last_name":"Chapman","street_address":"72 Shadetree Crescent", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"613-229-9385", "date_added":"1/6/2023","admin":false, "verified": false });
+members.push({"email": "TerryLacroix22@gmail.com","first_name":"Terry","last_name":"Lacroix","street_address":"320 Croydon Avenue Apr. 610", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6136203134", "date_added":"1/6/2023","admin":false, "verified": false });
+members.push({"email": "ronagunther2@hotmail.com","first_name":"Rona","last_name":"Gunther","street_address":"", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"5798809494", "date_added":"1/10/2023","admin":false, "verified": false });
+members.push({"email": "cbryce5721@gmail.com","first_name":"Ceres","last_name":"Bryce","street_address":"10 Charkay St", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"9055197935", "date_added":"1/19/2023","admin":false, "verified": false });
+members.push({"email": "razz.routly@gmail.com","first_name":"Routly","last_name":"Razz","street_address":"10 Charkay St", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"5195461125", "date_added":"1/23/2023","admin":false, "verified": false });
+members.push({"email": "tomblack04@hotmail.com","first_name":"Sandra","last_name":"Black","street_address":"130 Queen Elizabeth Drive.", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"3435731306", "date_added":"1/24/2023","admin":false, "verified": false });
+members.push({"email": "dimo.k.dimitrov@gmail.com","first_name":"Dimo","last_name":"Dimitrov","street_address":"190 Clearview Avenue", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"613 2906181", "date_added":"2/5/2023","admin":false, "verified": false });
+members.push({"email": "cosaaor@gmail.com","first_name":"Savka","last_name":"Orozovic","street_address":"3804 Crowsnest Ave", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"613-292-7064", "date_added":"2/7/2023","admin":false, "verified": false });
+members.push({"email": "janezhang26@gmail.com","first_name":"Jane","last_name":"Zhang","street_address":"917 Guinness crescent", "city":"Ottawa","province":"ON","postal_code":"K2C 3H2", "phone_number":"6134402899", "date_added":"2/25/2023","admin":false, "verified": false });
+members.push({"email": "a.elbakaw@gmail.com","first_name":"Abdel","last_name":"El Bakaw","street_address":"469 viewmount drive", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6137100108", "date_added":"2/27/2023","admin":false, "verified": false });
+members.push({"email": "anoopkapoor.canada@gmail.com","first_name":"Anoop","last_name":"Kapoor","street_address":"55 Fairlop Way", "city":"Ottawa","province":"ON","postal_code":"K2Jb8", "phone_number":"8197757725", "date_added":"3/4/2023","admin":false, "verified": false });
+members.push({"email": "no email - Cornwell","first_name":"Don","last_name":"Cornwell","street_address":"39 F Woodfield Dr", "city":"Ottawa","province":"ON","postal_code":"", "phone_number":"6132406322", "date_added":"3/7/2023","admin":false, "verified": false });
+
+
+    for (var i = 0; i < members.length; i++) {
+        
+        fetch('https://baf4kiept7.execute-api.us-east-1.amazonaws.com/prod', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            "email": members[i]['email'],
+            "first_name":members[i]['first_name'],
+            "last_name":members[i]['last_name'],
+            "street_address":members[i]['street_address'],
+            "city":members[i]['city'],
+            "province":members[i]['province'],
+            "postal_code":members[i]['postal_code'],
+            "phone_number":members[i]['phone_number'],
+            "admin":members[i]['admin'],
+            "verified":members[i]['verified']
+        })
+        })
+        .then(response => response.json())
+        .then(response => {  console.log(response);})
+        
+    }
+
+
+
+    
+}
+
+function delay(milliseconds){
+    return new Promise(resolve => {
+        setTimeout(resolve, milliseconds);
+    });
 }

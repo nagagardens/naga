@@ -200,7 +200,7 @@ function get_my_plots(email){
         <br><br><b>Lease: </b>
         <br>Date assigned:  ${date_assigned}
         <br>Period: May 1st, 2024 - October 31st, 2024
-        <br>Rate: ${rate}
+        <br>Rate: ${rate}  (per year)
         <br>Status: ${payment}
         <br><br>`;
         document.getElementById('my_plots_content').appendChild(tab_content);
