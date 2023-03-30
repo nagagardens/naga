@@ -3,7 +3,7 @@ var date_options = { year: 'numeric', month: 'long', day: 'numeric' };
 
 // MEMBER FUNCTIONS 
 
-function get_naga_members(){
+function get_members(){
 
 
     members_table=document.getElementById('all_members').innerHTML;
@@ -22,7 +22,7 @@ function get_naga_members(){
     .then(response => response.json())
     .then(response => {
         
-        response['body']['Items'].forEach(element => {
+        response['Items'].forEach(element => {
             row++;
             
             email=JSON.stringify(element['email']['S']).replace(/["']/g, "");
@@ -35,7 +35,8 @@ function get_naga_members(){
             postal_code=JSON.stringify(element['postal_code']['S']).replace(/["']/g, "");
             phone_number=JSON.stringify(element['phone_number']['S']).replace(/["']/g, "");
             last_logged_in="";
-            if(element['admin']['BOOL']== true) {  admin_checkbox="checked"; admin_message="<img src=img/checkmark.png width=15> Admin"; } else { admin_checkbox=""; admin_message=""; } 
+            if(element['admin']['BOOL']== true) {  admin_checkbox="checked"; admin_message="<br><br><img src=img/checkmark.png width=15> Admin"; } else { admin_checkbox=""; admin_message=""; } 
+            if(element['has_plots']== true) {  has_plots="<br><br><img src=img/checkmark.png width=15> Has plots"; } else { has_plots="";  } 
             full_name=first_name + " " + last_name;
             full_address=street_address + "<br>" + city + ", " + province + "<br>" + postal_code;
             
@@ -45,7 +46,9 @@ function get_naga_members(){
                     <div id="display_member_info_${row}">
                         <div class="in_line">
                             <b>Email:</b><br><span>${email}</span>
-                            <br><br>${admin_message}
+                            <p>${has_plots}</p>
+                            ${admin_message} 
+                            
                         </div>
                         <div class="in_line"><b>Name:</b><br>${full_name}</div>
                         <div class="in_line"><b>Address:</b><br>${full_address}</div>
@@ -94,6 +97,9 @@ function get_naga_members(){
         });
         
         document.getElementById('all_members').innerHTML=members_table+"</table>";
+       if(document.getElementById("search_members").value )  { search('members'); }
+        filter('members');
+        console.log('All plots loaded')
         
     });
 
@@ -132,7 +138,7 @@ function edit_member (row){
     })
     })
     .then(response => response.json())
-    .then(response => { console.log(response); get_naga_members();})
+    .then(response => { console.log(response); get_members();})
       
   }
 
@@ -168,7 +174,7 @@ function add_member(){
     })
     })
     .then(response => response.json())
-    .then(response => { console.log(response);close_add_member();get_naga_members();})
+    .then(response => { console.log(response);close_add_member();get_members();})
     
     
 }
@@ -198,7 +204,7 @@ function remove_member(email){if(confirm("Are you sure you want to remove this u
     .then(response => {
         console.log(JSON.stringify(response)); 
         delete_from_waiting_list(email);
-        get_naga_members();
+        get_members();
     })
   
     
@@ -371,9 +377,12 @@ function get_plots()
 
             });
 
+            search('plots');
+            console.log('All plots loaded')
+
         });
 
-        console.log('All plots loaded')
+        
 
         
     });
@@ -606,6 +615,7 @@ function get_waiting_list()
 
         });
         autocomplete(document.getElementById("add_waiting_list_email"), members_email);
+        search('waiting_lists');
         console.log('All waiting lists loaded')
     
     });
@@ -688,6 +698,8 @@ function close_add_waiting_list(){
 
 
 function search(tab) {
+    document.getElementById("filter_"+tab).value="all_"+tab
+
     var input, filter, ul, li, a, i, txtValue;
     input = document.getElementById("search_"+tab);
     filter = input.value.toUpperCase();
@@ -701,6 +713,38 @@ function search(tab) {
         } else {
             li[i].style.display = "none";
         }
+    }
+
+    console.log('Search performed: ' + input.value);
+    
+}
+
+function filter(tab) {
+    var input, item, i, value;
+    input = document.getElementById("filter_"+tab).value;
+    item = document.getElementById("all_"+tab).getElementsByTagName("td");
+
+    if(input=="all_"+tab)
+    {
+        for (i = 0; i < item.length; i++) {
+            item[i].style.display = "";
+        }
+
+        console.log('Filter applied: All');
+    }
+
+    if(input=="current_renters")
+    {
+        for (i = 0; i < item.length; i++) {
+            value = item[i].getElementsByTagName("p")[0].innerHTML
+            if (value) {
+                item[i].style.display = "";
+            } else {
+                item[i].style.display = "none";
+            }
+        }
+
+        console.log('Filter applied: Current renters');
     }
 }
 
