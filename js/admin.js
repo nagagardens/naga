@@ -105,7 +105,9 @@ function get_members(){
         document.getElementById('all_members').innerHTML=members_table+"</table>";
        if(document.getElementById("search_members").value )  { search('members'); }
        console.log('All plots loaded') 
+       
        filter('members');
+       
         
         
     });

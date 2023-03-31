@@ -279,6 +279,7 @@ function add_to_waiting_list(admin){
     email=document.getElementById('add_waiting_list_email').value;
     plot_type=document.getElementById('add_waiting_list_plot_type').value;
     plot_number=document.getElementById('add_waiting_list_plot_number').value;
+    if(!plot_number) { plot_number = "First available"; }
     trade_option=document.getElementById('add_waiting_list_trade_option').value;
   }
   
