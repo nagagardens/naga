@@ -17,22 +17,6 @@
 
 }
 
-.hero {
-  vertical-align: top;
-}
-.hero div{
-  padding:10px;
-  display:inline-block;
-  
-}
-.hero img{
-  display:inline-block; 
-}
-
-.banner img{
-  width:100%;
-}
-
 
 
 .icon_plots {
@@ -62,12 +46,6 @@
   padding:0;
   
 }
-
-
-
-
-
-
 
  .tab {
   overflow: hidden;
@@ -267,12 +245,12 @@ body {
   padding:5%;
   padding-top:0px;
   padding-bottom:0px;
-]
 
 }
+
 h1 {
   font-family: 'heavitas';
-  color: 07814E;
+  color: #07814E;
   font-size: 24pt;
   margin:2px;
 
@@ -327,7 +305,7 @@ h6 {
 }
 
 .header_logo {
-  width:50%;
+  width:40%;
   margin:10px;
   margin-left:20px;
   margin-top:20px;
@@ -336,6 +314,65 @@ h6 {
 .header_buttons {
   display:none;
 }
+
+
+.header_buttons2 {
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom:10px;
+  
+}
+
+
+.header_buttons2 span {
+  text-align: center;
+  flex-basis: 25%;
+  
+}
+.hamburger {
+  width:30%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #94C727;
+  margin: 6px;
+  margin-left: auto; 
+  margin-right: 15px;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  transform: translate(0, 11px) rotate(-45deg);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  transform: translate(0, -11px) rotate(45deg);
+}
+
+
+.hero {
+  vertical-align: top;
+}
+.hero div{
+  padding:10px;
+  display:inline-block;
+  
+}
+.hero img{
+  display:inline-block; 
+}
+
+.banner img{
+  width:100%;
+}
+
 
 .banner{
    width:100%;
@@ -369,8 +406,9 @@ h6 {
 }
 
 
- /* For large mobile: */
- @media only screen and (min-width: 415px) {
+
+ /* For medium mobile: */
+ @media only screen and (min-width: 350px) {
   .banner2 {
     width:60px;
     display: inline-block;
@@ -380,6 +418,9 @@ h6 {
   }
  }
  
+ .header_logo {
+  width:50%;
+ }
 
 .gallery {
   column-count: 2;
@@ -473,10 +514,26 @@ h6 {
 
 
 
+ /* For large mobile: */
+ @media only screen and (min-width: 500px) {
+
+ .header_logo {
+  width:60%;
+ }
+
+ }
+ 
+
 /* For tablets: */
 @media only screen and (min-width: 820px) {
   
-  
+  .hamburger {
+    display: none;
+  }
+
+  .header_logo {
+    width:40%;
+  }
 
   .header_buttons {
     text-align: right;
