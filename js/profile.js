@@ -418,6 +418,10 @@ fetch('https://06inolvp65.execute-api.us-east-1.amazonaws.com/add_photo', {
 
 
 
+}
+
+
+
 function uploadPhoto(file) {
   var xhr = new XMLHttpRequest();
   xhr.open('POST', 'https://7wsd3f656d.execute-api.us-east-1.amazonaws.com/prod/');
@@ -431,3 +435,4 @@ function uploadPhoto(file) {
   };
   xhr.send(file);
 }
+
