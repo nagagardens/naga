@@ -417,4 +417,17 @@ fetch('https://06inolvp65.execute-api.us-east-1.amazonaws.com/add_photo', {
 })
 
 
+
+function uploadPhoto(file) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://7wsd3f656d.execute-api.us-east-1.amazonaws.com/prod/');
+  xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      console.log('Photo uploaded successfully!');
+    } else {
+      console.error('Error uploading photo.');
+    }
+  };
+  xhr.send(file);
 }
