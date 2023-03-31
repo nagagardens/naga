@@ -241,6 +241,7 @@ input:disabled {
 .list td, .list th {
   
   padding: 8px;
+  border-top:1px solid white;
 }
 
 .list tr:nth-child(even){background-color: #f2f2f2;}

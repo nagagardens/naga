@@ -217,9 +217,17 @@
     <div id="plots_container"  class="admin_tab_content">
       <div class="admin_controls" id="admin_controls_plots">
         <div class="in_line" style="vertical-align: bottom;">
-          <input type="text" id="search_plots" onkeyup="search('plots')" placeholder="Search by plot number">
           <input type="button" value="Add new plot" style="width:150px" onclick="open_add_plot()">
+          
         </div>
+
+        <div class="in_line">
+          <b>Filter:</b><br><select id="filter_plots" onchange="filter('plots')"><option value="all_plots">All plots</option></select>
+        </div>
+        <div class="in_line">
+          <b>Search:</b><br>
+        <input type="text" id="search_plots" onkeyup="search('plots')" placeholder="Search by plot number">
+      </div>
       </div>
 
       <div id="add_plot_form" class="admin_controls" style="display:none">
@@ -257,10 +265,20 @@
     <div id="waiting_list_container" class="admin_tab_content">
 
       <div class="admin_controls" id="admin_controls_waiting_list">
+
         <div class="in_line" style="vertical-align: bottom;">
-          <input type="text" id="search_waiting_lists" onkeyup="search('waiting_lists')" placeholder="Search by email">
           <input type="button" value="Add to waiting list" style="width:150px" onclick="open_add_waiting_list()">
         </div>
+        
+        <div class="in_line">
+          <b>Filter:</b><br><select id="filter_waiting_lists" onchange="filter('waiting_lists')"><option value="all_waiting_lists">All waiting lists</option></select>
+        </div>
+        <div class="in_line">
+          <b>Search:</b><br>
+          <input type="text" id="search_waiting_lists" onkeyup="search('waiting_lists')" placeholder="Search by email">
+        </div>
+
+       
       </div>
 
       <div id="add_waiting_list_form" class="admin_controls" style="display:none">
@@ -272,14 +290,23 @@
         
       </div>
       <div class="in_line">
-        <br><b>Plot number:</b><br><input type="text" id="add_waiting_list_plot_number"  placeholder="Email address" required>
+        <br><b>Plot type:</b>
+        <br><select id="add_waiting_list_plot_type">
+        <option value="Raised beds">Raised bed</option>
+        <option value="Annuals">Annual</option>
+        <option value="Perennials"  id="perennial_option" >Perennial</option>
+        <option value="Lockers">Locker</option>
+       </select> 
+     </div>
+      <div class="in_line">
+        <br><b>Desired plot:</b><br><input type="text" id="add_waiting_list_plot_number"  placeholder="" >
       </div>
       <div class="in_line">
-        <br><b>Trade:</b><br><input type="text" id="add_waiting_list_trade"  placeholder="Email address" required>
+        <br><b>Plot to trade:</b><br><input type="text" id="add_waiting_list_trade_option"  placeholder="" >
       </div>
       <br>
       
-      <input type="button" onclick="add_plot();" style="width:150px" value="Add to waiting list">
+      <input type="button" onclick="add_to_waiting_list(true);" style="width:150px" value="Add to waiting list">
       <input type="button" onclick="close_add_waiting_list();" style="background-color: tomato" value="Cancel">
       </div>
       <br><div id="all_waiting_lists"></div>

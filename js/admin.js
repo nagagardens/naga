@@ -24,7 +24,6 @@ function get_members(){
         
         response['Items'].forEach(element => {
             row++;
-            
             email=JSON.stringify(element['email']['S']).replace(/["']/g, "");
             members_email.unshift(email);
             first_name=JSON.stringify(element['first_name']['S']).replace(/["']/g, "");
@@ -35,8 +34,15 @@ function get_members(){
             postal_code=JSON.stringify(element['postal_code']['S']).replace(/["']/g, "");
             phone_number=JSON.stringify(element['phone_number']['S']).replace(/["']/g, "");
             last_logged_in="";
+            member_plots=""
+
+            element['member_plots'].forEach(member_plot => {
+                member_plots=member_plots+ " " + member_plot;
+            
+            })
+            
             if(element['admin']['BOOL']== true) {  admin_checkbox="checked"; admin_message="<br><br><img src=img/checkmark.png width=15> Admin"; } else { admin_checkbox=""; admin_message=""; } 
-            if(element['has_plots']== true) {  has_plots="<br><br><img src=img/checkmark.png width=15> Has plots"; } else { has_plots="";  } 
+            if(element['has_plots']== true) {  has_plots=member_plots; } else { has_plots="";  } 
             full_name=first_name + " " + last_name;
             full_address=street_address + "<br>" + city + ", " + province + "<br>" + postal_code;
             
@@ -46,13 +52,12 @@ function get_members(){
                     <div id="display_member_info_${row}">
                         <div class="in_line">
                             <b>Email:</b><br><span>${email}</span>
-                            <p>${has_plots}</p>
                             ${admin_message} 
-                            
                         </div>
                         <div class="in_line"><b>Name:</b><br>${full_name}</div>
                         <div class="in_line"><b>Address:</b><br>${full_address}</div>
                         <div class="in_line"><b>Phone number:</b><br>${phone_number}</div>
+                        <div class="in_line"><b>Plots:</b><p>${has_plots}</p></div>
                         <div class="in_line"><b>Last logged in:</b><br>${last_logged_in}</div>
                         <br><div class="in_line">
                         <input type=button onclick='open_edit_member(${row})' value='Edit' >
@@ -82,6 +87,7 @@ function get_members(){
                             <b>Phone Number:</b>
                             <br><input id="edit_member_phone_number_${row}" type="text" Placeholder="000-000-0000" value="${phone_number}">
                         </div>
+                        <div class="in_line"><b>Plots:</b><p>${has_plots}</p></div>
                         <div class="in_line">
                             <b>Last logged in:</b>
                             <br>${last_logged_in}
@@ -98,8 +104,9 @@ function get_members(){
         
         document.getElementById('all_members').innerHTML=members_table+"</table>";
        if(document.getElementById("search_members").value )  { search('members'); }
-        filter('members');
-        console.log('All plots loaded')
+       console.log('All plots loaded') 
+       filter('members');
+        
         
     });
 

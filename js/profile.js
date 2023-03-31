@@ -268,14 +268,19 @@ function get_my_waiting_list(email){
 }
 
 
-function add_to_waiting_list(){
+function add_to_waiting_list(admin){
     
   email = document.getElementById('member_email').innerHTML;
   plot_type = document.getElementById('request_plot_type').value;
   if (document.getElementById('trade_option')) { trade_option = document.getElementById('trade_option').value; } else { trade_option="No";}
   plot_number = document.getElementById('request_plot_number').value;
   if(!plot_number){plot_number="First available"}
-
+  if(admin){
+    email=document.getElementById('add_waiting_list_email').value;
+    plot_type=document.getElementById('add_waiting_list_plot_type').value;
+    plot_number=document.getElementById('add_waiting_list_plot_number').value;
+    trade_option=document.getElementById('add_waiting_list_trade_option').value;
+  }
   
   fetch('https://ln7qb82w92.execute-api.us-east-1.amazonaws.com/prod', {
   method: 'POST',
@@ -334,7 +339,6 @@ function signOut() {
 
 
 function openCity(evt, cityName) {
-  console.log(cityName)
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tab_content");
   for (i = 0; i < tabcontent.length; i++) {
