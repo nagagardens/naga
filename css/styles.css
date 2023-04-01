@@ -311,12 +311,9 @@ h6 {
   margin-top:20px;
   display: inline-block;
 }
+
+
 .header_buttons {
-  display:none;
-}
-
-
-.header_buttons2 {
   width:100%;
   display: flex;
   justify-content: space-between;
@@ -324,36 +321,10 @@ h6 {
   
 }
 
-
-.header_buttons2 span {
+.header_buttons span {
   text-align: center;
   flex-basis: 25%;
   
-}
-.hamburger {
-  width:30%;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.bar1, .bar2, .bar3 {
-  width: 35px;
-  height: 5px;
-  background-color: #94C727;
-  margin: 6px;
-  margin-left: auto; 
-  margin-right: 15px;
-  transition: 0.4s;
-}
-
-.change .bar1 {
-  transform: translate(0, 11px) rotate(-45deg);
-}
-
-.change .bar2 {opacity: 0;}
-
-.change .bar3 {
-  transform: translate(0, -11px) rotate(45deg);
 }
 
 
@@ -377,9 +348,11 @@ h6 {
 .banner{
    width:100%;
    display:inline-block; 
-   
   }
 
+.spacer {
+  height:120px;
+}
 .sign_in{
   width:200;
   display:inline-block;
@@ -553,6 +526,9 @@ h6 {
   .banner {
     width:60%;
   }
+  .spacer {
+    height:100px;
+  }
   
   .sign_in{
     width:250px;
@@ -680,6 +656,8 @@ h6 {
     margin-left:20px;
   }
 
+
+
 }
 
 
@@ -690,6 +668,11 @@ h6 {
 
   .banner2 {
     width:80px;
+  }
+
+
+  .gallery {
+    column-count: 4;
   }
 
 
