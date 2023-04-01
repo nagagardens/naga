@@ -43,9 +43,10 @@
     <div class="profile_photo">
       <h3>Profile</h3><br><img src="img/icon_profile.png" width="100">
       <input type="hidden" onchange="uploadPhoto(this.files[0])">
-
-      <br><h5>Email:</h5><span class="edit_profile" id="member_email"></span>
-      <br><input class="edit_profile"  id="input_email" type="text" style="display:none"></span>
+      <input type="hidden" id="member_admin">
+      <br><h5>Email:</h5><span class="edit_profile" id="member_email">
+      <br><input class="edit_profile"  id="input_email" type="text" style="display:none">
+      
     </div>
     
     <div class="profile_info" id="profile_info">

@@ -46,11 +46,11 @@ async function showUserInfo(email) {
   const api_url = 'https://thv3sn3j63.execute-api.us-east-1.amazonaws.com/prod/get_naga_user_by_email?user_email=' + encodeURIComponent(email);
   const api_response = await fetch(api_url);
   const api_data = await(api_response).json();
-  
+  console.log(api_data)
   document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
   document.getElementById('sign-out').style.display = "inline-block";
   document.getElementById('loader').style.display = "none";
-  
+  if(JSON.parse(api_data['body'])['admin']) { document.getElementById('member_admin').value  =  JSON.parse(api_data['body'])['admin'];}
   if(JSON.parse(api_data['body'])['first_name']) { 
     document.getElementById('input_first_name').value  =  JSON.parse(api_data['body'])['first_name'];
     document.getElementById('profile_name').innerHTML  =  "<br><h5>Name:</h5>" + JSON.parse(api_data['body'])['first_name'];}
@@ -92,6 +92,7 @@ async function showUserInfo(email) {
 function update_profile(){
     
   email = document.getElementById('member_email').innerHTML;
+  admin = document.getElementById('member_admin').value;
   first_name = document.getElementById('input_first_name').value;
   last_name = document.getElementById('input_last_name').value;
   street_address = document.getElementById('input_street_address').value;
@@ -115,7 +116,8 @@ function update_profile(){
       "city":city,
       "province":province,
       "postal_code":postal_code,
-      "phone_number":phone_number
+      "phone_number":phone_number,
+      "admin":admin
   })
   })
   .then(response => response.json())
