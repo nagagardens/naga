@@ -1,6 +1,3 @@
-
-var date_options = { year: 'numeric', month: 'long', day: 'numeric' };
-
 // MEMBER FUNCTIONS 
 
 function get_members(){
@@ -43,6 +40,7 @@ function get_members(){
             
             if(element['admin']['BOOL']== true) {  admin_checkbox="checked"; admin_message="<br><br><img src=img/checkmark.png width=15> Admin"; } else { admin_checkbox=""; admin_message=""; } 
             if(element['has_plots']== true) {  has_plots=member_plots; } else { has_plots="";  } 
+            if(element['last_logged_in']) {  last_logged_in=new Date(element['last_logged_in']['S']).toLocaleDateString("en-US", date_options); } else { last_logged_in="";  } 
             full_name=first_name + " " + last_name;
             full_address=street_address + "<br>" + city + ", " + province + "<br>" + postal_code;
             

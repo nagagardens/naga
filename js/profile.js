@@ -1,4 +1,5 @@
-var date_options = { year: 'numeric', month: 'long', day: 'numeric' };
+var date_options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric',
+minute: 'numeric' };
 
 function getUserAttributes() {
 
