@@ -16,7 +16,7 @@ function getUserAttributes() {
         alert(err);
         return;
       }
-    console.log('session validity: ' + session.isValid());
+    console.log('session vtestalidity: ' + session.isValid());
       
       cognitoUser.getUserAttributes(function(err, result) {
         if (err) {
