@@ -256,16 +256,26 @@ function get_plots()
     .then(response => { 
 
         plot_types=JSON.parse(response); row=0;
+        
+
         plot_types.forEach(plot_type => {
             console.log("Plot type: " + plot_type['Title']);
             row++
-            document.getElementById('all_plots_start').insertAdjacentHTML('beforebegin', `
-             <h3 style="padding-left:15px">${plot_type['Title']}</h3><br>
+            if(document.getElementById('filter_plots').length <5 ) {
+                var option = document.createElement("option");
+                option.text =plot_type['Title'];
+                option.value="plot_type_" +plot_type['Title'].toLowerCase().replace(/ /g,'_');
+                document.getElementById('filter_plots').add(option);
+            }
 
-            <table class="list">
-                <tr id="plots_row_${row}">
-                </tr>
-            </table><br><br>
+            document.getElementById('all_plots_start').insertAdjacentHTML('beforebegin', `
+             
+
+            <table class="list"  id="plots_${plot_type['Title'].toLowerCase().replace(/ /g,'_')}">
+                <tr><td><span></span><h3 style="padding-left:15px">${plot_type['Title']}</h3></td></tr>
+                <tr id="plots_row_${row}"></tr>
+                <tr><td><br><br><span></span></td></tr>
+            </table>
             `);
             
             plot_type['Body'].forEach(plot => {
@@ -579,14 +589,22 @@ function get_waiting_list()
         plot_types.forEach(plot_type => {
             row++
             
-            document.getElementById('waiting_list').insertAdjacentHTML('beforebegin', `
-            <h3 style="padding-left:15px">${plot_type['Title']}</h3><br>
+            if(document.getElementById('filter_waiting_lists').length <5 ) {
+                var option = document.createElement("option");
+                option.text =plot_type['Title'];
+                option.value="plot_type_" +plot_type['Title'].toLowerCase().replace(/ /g,'_');
+                document.getElementById('filter_waiting_lists').add(option);
+            }
 
-            <table class="list">
+            document.getElementById('waiting_list').insertAdjacentHTML('beforebegin', `
+            <table class="list"  id="waiting_lists_${plot_type['Title'].toLowerCase().replace(/ /g,'_')}">
+                <tr><td><h3 style="padding-left:15px">${plot_type['Title']}</h3><span></span></td></tr>
                 <tr id="waiting_list_row_${row}">
                 </tr>
-            </table><br><br>
+                <tr><td><span><br><br></span></td></tr>
+            </table>
             `);
+            
             
             
             plot_type['Body'].forEach(item => {
@@ -752,6 +770,30 @@ function filter(tab) {
         }
 
         console.log('Filter applied: Current renters');
+    }
+
+    if(input.includes("plot_type_"))
+    {
+       console.log(input)
+       document.getElementById(tab+'_raised_beds').style.display="none";
+       document.getElementById(tab+'_annuals').style.display="none";
+       document.getElementById(tab+'_perennials').style.display="none";
+       document.getElementById(tab+'_lockers').style.display="none";
+       document.getElementById(tab+"_"+input.replace("plot_type_","")).style.display="";
+       
+        console.log('Filter applied');
+    }
+
+
+    if(input=="all_"+tab)
+    {
+       
+       document.getElementById('waiting_list_raised_beds').style.display="";
+       document.getElementById('waiting_list_annuals').style.display="";
+       document.getElementById('waiting_list_perennials').style.display="";
+       document.getElementById('waiting_list_lockers').style.display="";
+       
+        console.log('Filter applied: all');
     }
 }
 

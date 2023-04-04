@@ -195,17 +195,19 @@ function get_my_plots(email){
       tab_content.setAttribute('id',"plot_tab_" + plotId);
       tab_content.classList="tab_content";
       tab_content.innerHTML = `
-        <br><b>Plot details:</b>
-        <br>Plot Id: ${plotId}
-        <br>Plot Type: ${plot_type}
-        <br>Size: ${width}x ${height} feet
-        <br>
-        <br><br><b>Lease: </b>
-        <br>Date assigned:  ${date_assigned}
-        <br>Period: May 1st, 2024 - October 31st, 2024
-        <br>Rate: ${rate}  (per year)
-        <br>Status: ${payment}
-        <br><br>`;
+          <br><b>Plot details:</b>
+          <br>Plot Id: ${plotId}
+          <br>Plot Type: ${plot_type}
+          <br>Size: ${width}x ${height} feet
+          <br>
+        
+          <br><br><b>Lease: </b>
+          <br>Date assigned:  ${date_assigned}
+          <br>Period: May 1st, 2024 - October 31st, 2024
+          <br>Rate: ${rate}  (per year)
+          <br>Status: ${payment}
+          <br><br>
+       `;
         document.getElementById('my_plots_content').appendChild(tab_content);
       if(item_number == 1) {tab_buttons.click();}
 
