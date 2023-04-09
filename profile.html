@@ -17,21 +17,20 @@
   </script>  
   
 </head>
+  
+    <!--Header -->
+    <div class="header">
+      <div class="header_logo"><a href="index.html"><img src="img/logo.png" style="width:150px; border:0"></a></div>
 
-<body>
-  
-  <!--Header -->
-  <div class="header">
-    <div class="header_logo" onclick="window.location.href='./index.html'"><img src="img/logo.png" width="150"></div>
-    <div id="header_buttons" class="header_buttons">
-      <span onclick="window.location.href='./index.html'">Home</span>
-      <span onclick="window.location.href='./about.html'">About</span>
-      <span >Shop</span>
-      <span onclick="window.location.href='https://www.facebook.com/groups/261282425387342'"><img src="img/facebook.png" width="20"></span>
+      <div id="header_buttons" class="header_buttons">
+        <span onclick="window.location.href='./profile.html'">Account</span>
+        <span onclick="window.location.href='./shop.html'">Shop</span>
+        <span onclick="window.location.href='./about.html'">About</span>
+        
+        <span onclick="window.location.href='facebook.com/groups/261282425387342'"><img src="img/facebook.png" width="20"></span>
+      </div>
     </div>
-  </div>
-  
-  <div class="spacer"></div>
+    <div class="spacer"></div>
 
   <div class="left_bar">
   <!-- My Profile -->
@@ -48,7 +47,7 @@
     </div>
 
     
-    <div class="profile_info" id="profile_info">
+    <div id="profile_info">
       <div id="profile_name"></div>
         <div id="profile_mailing_address"></div>
         <div id="profile_phone_number"></div>
@@ -77,10 +76,6 @@
       <br><br>
     </div>
 
-    <div class="profile_info" id="admin_access" style="display:none">
-       <h5>You are a board member</h5>
-      <input type="button" value="Admin console" onclick="window.location.href='admin.html'">
-    </Div>
     
   </div>
 
@@ -94,6 +89,11 @@
       <li><a target="_blank"  href="https://www.dropbox.com/home/NAGA%20Dropbox/Membership/Forms?preview=Terms+and+Conditions+of+License+2022.pdf"><img src="img/icon_new_window.png"> Terms and Conditions</a> </li>
     </ul>
     
+    <div  id="admin_access" style="display:none">
+      <br>
+      <h5>You are a board member</h5>
+     <input type="button" style="width:95%" value="Admin console" onclick="window.location.href='admin.html'">
+   </Div>
   </div>
 </div>
 
