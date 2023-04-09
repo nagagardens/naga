@@ -456,7 +456,7 @@ h6 {
 }
 
 .my_plots{
-  display:inline-block; 
+  display:none; 
   width:100%;
 }
 

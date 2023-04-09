@@ -1,3 +1,22 @@
+var date_options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric',
+minute: 'numeric' };
+
+function open_admin_tab(evt, tabName) {
+    console.log("Loaded admin tab: " + tabName)
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("admin_tab_content");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("admin_tab_buttons");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+  
+
 // MEMBER FUNCTIONS 
 
 function get_members(){
@@ -18,8 +37,8 @@ function get_members(){
     })
     .then(response => response.json())
     .then(response => {
-        
-        response['Items'].forEach(element => {
+        console.log(response)
+        response.forEach(element => {
             row++;
             email=JSON.stringify(element['email']['S']).replace(/["']/g, "");
             members_email.unshift(email);
@@ -102,7 +121,7 @@ function get_members(){
         
         document.getElementById('all_members').innerHTML=members_table+"</table>";
        if(document.getElementById("search_members").value )  { search('members'); }
-       console.log('All plots loaded') 
+       console.log('All members loaded') 
        
        filter('members');
        
@@ -279,7 +298,6 @@ function get_plots()
             `);
             
             plot_type['Body'].forEach(plot => {
-                console.log("Plot ID: " + plot['plotId']['S']);
                 plot_id=plot['plotId']['S'];
                 
                 if(plot['occupant']['S']) {occupant=plot['occupant']['S'];} else {occupant=""; };
@@ -445,6 +463,25 @@ function edit_plot(plot_id, email){
 
     
 }
+
+function delete_from_waiting_list(email,ask_confirm){
+  
+    if(ask_confirm)
+    {if(!confirm('Are you sure you want to cancel this request? You will loose your place in line')){ return;}}
+  
+    const api_url = 'https://naqr1xdbd7.execute-api.us-east-1.amazonaws.com/prod/delete_from_waiting_list?email='+encodeURIComponent(email);
+    
+    fetch(api_url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log('Item deleted from waiting list');})
+  }
 
 function add_plot()
   {
@@ -758,19 +795,7 @@ function filter(tab) {
         console.log('Filter applied: All');
     }
 
-    if(input=="current_renters")
-    {
-        for (i = 0; i < item.length; i++) {
-            value = item[i].getElementsByTagName("p")[0].innerHTML
-            if (value) {
-                item[i].style.display = "";
-            } else {
-                item[i].style.display = "none";
-            }
-        }
-
-        console.log('Filter applied: Current renters');
-    }
+   
 
     if(input.includes("plot_type_"))
     {
@@ -785,15 +810,15 @@ function filter(tab) {
     }
 
 
-    if(input=="all_"+tab)
+    if(input=="all_"+tab && tab != "members")
     {
        
-       document.getElementById('waiting_list_raised_beds').style.display="";
-       document.getElementById('waiting_list_annuals').style.display="";
-       document.getElementById('waiting_list_perennials').style.display="";
-       document.getElementById('waiting_list_lockers').style.display="";
+       document.getElementById(tab+'_raised_beds').style.display="";
+       document.getElementById(tab+'_annuals').style.display="";
+       document.getElementById(tab+'_perennials').style.display="";
+       document.getElementById(tab+'_lockers').style.display="";
        
-        console.log('Filter applied: all');
+        console.log('Filter applied: all waiting lists');
     }
 }
 

@@ -51,7 +51,13 @@ async function showUserInfo(email) {
   document.getElementById('member_email').innerHTML =  JSON.parse(api_data['body'])['email'];
   document.getElementById('sign-out').style.display = "inline-block";
   document.getElementById('loader').style.display = "none";
-  if(JSON.parse(api_data['body'])['admin']) { document.getElementById('member_admin').value  =  JSON.parse(api_data['body'])['admin'];}
+  if(JSON.parse(api_data['body'])['admin']) { member_admin=JSON.parse(api_data['body'])['admin']; document.getElementById('member_admin').value  =  member_admin;
+  
+  if(member_admin){
+    console.log(document.getElementById('admin_access').style);  
+      document.getElementById('admin_access').style.display="";
+    }
+  }
   if(JSON.parse(api_data['body'])['first_name']) { 
     document.getElementById('input_first_name').value  =  JSON.parse(api_data['body'])['first_name'];
     document.getElementById('profile_name').innerHTML  =  "<br><h5>Name:</h5>" + JSON.parse(api_data['body'])['first_name'];}
@@ -178,6 +184,7 @@ function get_my_plots(email){
 
       no_plots=false; 
       document.getElementById('exchange_plot_form').style.display="block";
+      document.getElementById('my_plots_container').style.display="inline-block";
       var option = document.createElement("option");
       option.text = "Yes - " + plotId ;
       option.value=plotId;
@@ -213,7 +220,7 @@ function get_my_plots(email){
 
     });
 
-    if(no_plots) { document.getElementById("my_plots_content").innerHTML="You have no plots assigned to you at the moment."; document.getElementById('perennial_option').disabled=true;}
+    if(no_plots) { document.getElementById("my_plots_container").style.display="none"; document.getElementById('perennial_option').disabled=true;}
     
 
     console.log ('My plots loaded')
@@ -355,21 +362,6 @@ function openCity(evt, cityName) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
-}
-
-function open_admin_tab(evt, tabName) {
-  console.log(tabName)
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("admin_tab_content");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("admin_tab_buttons");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
 }
 

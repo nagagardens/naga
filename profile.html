@@ -13,7 +13,6 @@
   <script>
     window.onload = function(){
       getUserAttributes();
-      document.getElementById("defaultTab").click();
     }
   </script>  
   
@@ -46,8 +45,8 @@
       <input type="hidden" id="member_admin">
       <br><h5>Email:</h5><span class="edit_profile" id="member_email">
       <br><input class="edit_profile"  id="input_email" type="text" style="display:none">
-      
     </div>
+
     
     <div class="profile_info" id="profile_info">
       <div id="profile_name"></div>
@@ -77,6 +76,11 @@
       <br><input type="button" onclick="close_edit_profile();" value="Cancel" style="background-color:tomato">
       <br><br>
     </div>
+
+    <div class="profile_info" id="admin_access" style="display:none">
+       <h5>You are a board member</h5>
+      <input type="button" value="Admin console" onclick="window.location.href='admin.html'">
+    </Div>
     
   </div>
 
@@ -88,7 +92,6 @@
       <li><a target="_blank" href="img/NAGA_2023_spring_newsletter.pdf"><img src="img/icon_new_window.png"> Newsletter</a> </li>
       <li><a target="_blank"  href="img/map_plots.png"><img src="img/icon_new_window.png"> Garden map</a> </li>
       <li><a target="_blank"  href="https://www.dropbox.com/home/NAGA%20Dropbox/Membership/Forms?preview=Terms+and+Conditions+of+License+2022.pdf"><img src="img/icon_new_window.png"> Terms and Conditions</a> </li>
-
     </ul>
     
   </div>
@@ -97,14 +100,16 @@
 <div class="right_bar">
 
   <!--My Plots -->
-  <div class="my_plots">
+  <div class="my_plots" id="my_plots_container">
     <br><h3>My plots</h3>
     <br>
     <div class="tab" id="my_plots_tabs"></div>
     <div id="my_plots_content"></div>
+
+    <br><br>
   </div>
 
-  <br><br>
+  
 
   <!--Request new plot -->
   <div class="request_plot" id="request_plot_container" style="display:none">
@@ -144,181 +149,6 @@
 
 <br><br><div style="width:100%; text-align: right;"><img src="img/Wheelbarrel.png" style="width:200px; margin-right:50px; margin-bottom:0;"></div>
 
-
-  <div style="min-height: 1000px; width:100%;">
-    <br><br><br>
-    <h5>Admin Console</h5>
-    Only user with administrative access will be able to see this section
-    <br><br>
-
-
-    <div class="admin_tab">
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_members();"  id="defaultTab">Members</button>
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()">Waiting List</button>
-      <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'plots_container');get_plots();">Plots</button>
-    </div>
-
-
-    <div id='members_container' class="admin_tab_content">
-      
-      <div class="admin_controls" id="admin_controls_members">
-        
-        
-        <div class="in_line">
-          <br><input type="button" value="Add new member" style="width:150px" onclick="open_add_member()">
-        </div>
-        <div class="in_line">
-          <b>Filter:</b><br><select id="filter_members" onchange="filter('members')"><option value="all_members">All members</option><option value="current_renters" selected>Current occupants</option></select>
-        </div>
-
-        <div class="in_line">
-          <b>Search:</b><br>
-          <input type="text" id="search_members" onkeyup="search('members')" placeholder="Search by email">
-        </div>
-        
-      </div>
-      <div id="add_member_form" class="admin_controls" style="display:none">
-        
-        <div class="in_line">
-          <b>Email:</b>
-          <br><input id="admin_input_email" type="text" placeholder="Email address">
-          <br><br><input id="admin_input_admin_checkbox" type="checkbox"> Admin
-        </div>
-        <div class="in_line">
-          <b>Name:</b>
-          <br><input id="admin_input_first_name" type="text" Placeholder="First Name">
-          <br><input id="admin_input_last_name" type="text"  Placeholder="Last Name">  
-        </div>
-        <div class="in_line">
-          <b>Address:</b>
-          <br><input id="admin_input_street_address" type="text" Placeholder="Street Address" style="width:200px" >
-          <br><input id="admin_input_city" type="text" placeholder="City" value="Ottawa" style="width:80px" >
-          <select id="admin_input_province" style="width:80px"> <option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON" selected>ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="NT">NT</option><option value="NU">NU</option><option value="YT">YT</option></select>	
-          <br><input id="admin_input_postal_code" type="text" Placeholder="Postal Code" style="width:100px" >
-        </div>
-        <div class="in_line">    
-          <b>Phone number:</b>
-          <br><input  id="admin_input_phone_number" type="text" Placeholder="Phone number" >
-          
-        </div>
-        <br>
-        <input type="button" onclick="add_member();" value="Add member">
-        <input type="button" onclick="close_add_member();" style="background-color: tomato" value="Cancel">
-
-      </div>
-
-      <div id="all_members">
-        
-      </div>
-      
-
-      
-    </div>
-
-
-    <div id="plots_container"  class="admin_tab_content">
-      <div class="admin_controls" id="admin_controls_plots">
-        <div class="in_line" style="vertical-align: bottom;">
-          <input type="button" value="Add new plot" style="width:150px" onclick="open_add_plot()">
-          
-        </div>
-
-        <div class="in_line">
-          <b>Filter:</b><br><select id="filter_plots" onchange="filter('plots')"><option value="all_plots">All plots</option></select>
-        </div>
-        <div class="in_line">
-          <b>Search:</b><br>
-        <input type="text" id="search_plots" onkeyup="search('plots')" placeholder="Search by plot number">
-      </div>
-      </div>
-
-      <div id="add_plot_form" class="admin_controls" style="display:none">
-        
-        <br>
-        <div class="in_line">
-        <b>Plot number:</b><br><input type="text" id="input_plotId" style="width:100px" placeholder="Number" required>
-      </div>
-      <div class="in_line">
-        <b>Type:</b><br>
-        <select id="input_plot_type">
-          <option>Type</option>
-          <option>Raised beds</option>
-          <option>Annuals</option>
-          <option>Perennials</option>
-          <option>Lockers</option>
-        </select>
-      </div>
-      <div class="in_line">
-        <b>Size:</b><br>
-        <input type="text" id="input_plot_width"  placeholder="Width (feet)" style="width:100px" required>
-        <input type="text" id="input_plot_height"  placeholder="Height (feet)" style="width:100px" required>
-      </div>
-      <div class="in_line">
-        <b>Rate:</b><br>
-        <input type="text" id="input_plot_rate"  placeholder="Rate ($)" style="width:100px" required>
-      </div>
-        <br><input type="button" onclick="add_plot();" value="Add plot">
-        <input type="button" onclick="close_add_plot();" style="background-color: tomato" value="Cancel">
-        
-      </div>
-      <br><div id="all_plots"></div>
-    </div>
-
-    <div id="waiting_list_container" class="admin_tab_content">
-
-      <div class="admin_controls" id="admin_controls_waiting_list">
-
-        <div class="in_line" style="vertical-align: bottom;">
-          <input type="button" value="Add to waiting list" style="width:150px" onclick="open_add_waiting_list()">
-        </div>
-        
-        <div class="in_line">
-          <b>Filter:</b><br><select id="filter_waiting_lists" onchange="filter('waiting_lists')"><option value="all_waiting_lists">All waiting lists</option></option></select>
-        </div>
-        <div class="in_line">
-          <b>Search:</b><br>
-          <input type="text" id="search_waiting_lists" onkeyup="search('waiting_lists')" placeholder="Search by email">
-        </div>
-
-       
-      </div>
-
-      <div id="add_waiting_list_form" class="admin_controls" style="display:none">
-      
-      <div class="in_line">
-        <br><b>Email:</b>
-        <br>
-        <div class='autocomplete'><input type="text" id="add_waiting_list_email"  placeholder="Email address" required></div>
-        
-      </div>
-      <div class="in_line">
-        <br><b>Plot type:</b>
-        <br><select id="add_waiting_list_plot_type">
-        <option value="Raised beds">Raised bed</option>
-        <option value="Annuals">Annual</option>
-        <option value="Perennials"  id="perennial_option" >Perennial</option>
-        <option value="Lockers">Locker</option>
-       </select> 
-     </div>
-      <div class="in_line">
-        <br><b>Desired plot:</b><br><input type="text" id="add_waiting_list_plot_number"  placeholder="" >
-      </div>
-      <div class="in_line">
-        <br><b>Plot to trade:</b><br><input type="text" id="add_waiting_list_trade_option"  placeholder="" >
-      </div>
-      <br>
-      
-      <input type="button" onclick="add_to_waiting_list(true);" style="width:150px" value="Add to waiting list">
-      <input type="button" onclick="close_add_waiting_list();" style="background-color: tomato" value="Cancel">
-      </div>
-      <br><div id="all_waiting_lists"></div>
-
-
-
-    </div>
-
-   
-  </div>
 
   <!-- Planting Calendar
   <div style="width:90%; margin-left:auto; margin-right:auto">
@@ -1157,5 +987,5 @@
 
 </body>
 
-<script type="text/javascript" src="js/admin.js"></script>
+
 </html>

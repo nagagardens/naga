@@ -1,6 +1,7 @@
 
 function autocomplete(inp, arr) {
-    console.log("auto complete! " + inp)
+    console.log("Auto complete activated for input " +inp.id)
+
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
