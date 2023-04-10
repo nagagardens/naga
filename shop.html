@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="js/amazon-cognito-identity.min.js"></script>
+  <script src="js/config.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="js/autocomplete.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+  
+
+  <script>
+    window.onload = function(){
+      getUserAttributes();
+    }
+
+    
+    
+    const apiKey = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzN2Q0YmQzMDM1ZmUxMWU5YTgwM2FiN2VlYjNjY2M5NyIsImp0aSI6IjU1M2E0ZTgwMWRhM2FmZjczNmQyYjFiMzY2NDY5YTFmZTBkZTVjZWYwMzE5Njc1MDliZWMxOGZiZjgyZGI4MjUzNWZhMTg1YzdkZjVhNjBlIiwiaWF0IjoxNjgxMTYwMDY0LjExNjg1MiwibmJmIjoxNjgxMTYwMDY0LjExNjg1NywiZXhwIjoxNzEyNzgyNDY0LjExMjczLCJzdWIiOiIxMjY2ODU2MyIsInNjb3BlcyI6WyJzaG9wcy5tYW5hZ2UiLCJzaG9wcy5yZWFkIiwiY2F0YWxvZy5yZWFkIiwib3JkZXJzLnJlYWQiLCJvcmRlcnMud3JpdGUiLCJwcm9kdWN0cy5yZWFkIiwicHJvZHVjdHMud3JpdGUiLCJ3ZWJob29rcy5yZWFkIiwid2ViaG9va3Mud3JpdGUiLCJ1cGxvYWRzLnJlYWQiLCJ1cGxvYWRzLndyaXRlIiwicHJpbnRfcHJvdmlkZXJzLnJlYWQiXX0.ARGdkVVBfEA5xMYqkJqflGNlLr7lZYPHLe8nj8OCXxK7gI_PazJBOaQ7xzJkxm24bgR1FSqa4k7lRD3mMrc';
+const apiUrl = 'https://api.printify.com/v1/products';
+
+fetch(apiUrl, {
+  headers: {
+    'Authorization': `Bearer ${apiKey}`
+  }
+})
+.then(response => {
+  return response.json();
+})
+.then(data => {
+  console.log(data);
+})
+.catch(error => {
+  console.error(error);
+});
+
+
+
+  </script>  
+  
+</head>
+
+<body>
+  
+    <!--Header -->
+    <div class="header">
+      <div class="header_logo"><a href="index.html"><img src="img/logo.png" style="width:150px; border:0"></a></div>
+
+      <div id="header_buttons" class="header_buttons">
+        <span onclick="window.location.href='./profile.html'">Account</span>
+        <span onclick="window.location.href='./shop.html'">Shop</span>
+        <span onclick="window.location.href='./about.html'">About</span>
+        
+        <span onclick="window.location.href='facebook.com/groups/261282425387342'"><img src="img/facebook.png" width="20"></span>
+      </div>
+    </div>
+    <div class="spacer"></div
+</body>
