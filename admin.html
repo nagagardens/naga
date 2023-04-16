@@ -48,7 +48,7 @@
       <br><br>
 
       <div class="admin_tab">
-        <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_members();"  id="defaultTab">Members</button>
+        <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'members_container');get_members();"  id="defaultTab">Users</button>
         <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'waiting_list_container');get_waiting_list()">Waiting List</button>
         <button class="admin_tab_buttons" onclick="open_admin_tab(event, 'plots_container');get_plots();">Plots</button>
       </div>
@@ -57,11 +57,11 @@
         <div class="admin_controls" id="admin_controls_members">
 
           <div class="in_line">
-            <br><input type="button" value="Add new member" style="width:150px" onclick="open_add_member()">
+            <br><input type="button" value="Add new user" style="width:150px" onclick="open_add_member()">
           </div>
 
           <div class="in_line">
-            <b>Filter:</b><br><select id="filter_members" onchange="filter('members')"><option value="all_members">All members</option></select>
+            <b>Filter:</b><br><select id="filter_members" onchange="filter('members')"><option value="all_members">All users</option><option value="current_renters" selected>Members only</option></select>
           </div>
 
           <div class="in_line">

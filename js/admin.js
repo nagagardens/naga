@@ -37,8 +37,7 @@ function get_members(){
     })
     .then(response => response.json())
     .then(response => {
-        console.log(response)
-        response.forEach(element => {
+        response['Items'].forEach(element => {
             row++;
             email=JSON.stringify(element['email']['S']).replace(/["']/g, "");
             members_email.unshift(email);
@@ -793,6 +792,20 @@ function filter(tab) {
         }
 
         console.log('Filter applied: All');
+    }
+
+    if(input=="current_renters")
+    {
+        for (i = 0; i < item.length; i++) {
+            value = item[i].getElementsByTagName("p")[0].innerHTML
+            if (value) {
+                item[i].style.display = "";
+            } else {
+                item[i].style.display = "none";
+            }
+        }
+
+        console.log('Filter applied: Members only');
     }
 
    
