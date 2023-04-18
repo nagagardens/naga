@@ -47,7 +47,8 @@ function get_members(){
             city=JSON.stringify(element['city']['S']).replace(/["']/g, "");
             province=JSON.stringify(element['province']['S']).replace(/["']/g, "");
             postal_code=JSON.stringify(element['postal_code']['S']).replace(/["']/g, "");
-            phone_number=JSON.stringify(element['phone_number']['S']).replace(/["']/g, "");
+            if(element['phone_number']) { phone_number=JSON.stringify(element['phone_number']['S']).replace(/["']/g, ""); } else { phone_number='';}
+            
             last_logged_in="";
             member_plots=""
 
@@ -56,7 +57,7 @@ function get_members(){
             
             })
             
-            if(element['admin']['BOOL']== true) {  admin_checkbox="checked"; admin_message="<br><br><img src=img/checkmark.png width=15> Admin"; } else { admin_checkbox=""; admin_message=""; } 
+            if(element['admin']) { if(element['admin']['BOOL']== true) {  admin_checkbox="checked"; admin_message="<br><br><img src=img/checkmark.png width=15> Admin"; } else { admin_checkbox=""; admin_message=""; }  } else { admin_checkbox=""; admin_message=""; } 
             if(element['has_plots']== true) {  has_plots=member_plots; } else { has_plots="";  } 
             if(element['last_logged_in']) {  last_logged_in=new Date(element['last_logged_in']['S']).toLocaleDateString("en-US", date_options); } else { last_logged_in="";  } 
             full_name=first_name + " " + last_name;
