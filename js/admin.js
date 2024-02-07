@@ -518,7 +518,7 @@ function close_add_plot(){
 }
 
 function remove_plot(plot_id){if(confirm("Are you sure you want to remove this plot? This cannot be undone.")==true){
-    email = document.getElementById('member_email').innerHTML;
+    // email = document.getElementById('member_email').innerHTML;
     const api_url = ' https://un7umkeqkc.execute-api.us-east-1.amazonaws.com/prod/remove_plot?plotId='+plot_id;
     
   

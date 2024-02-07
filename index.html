@@ -8,7 +8,6 @@
       <script src="js/config.js"></script>
       <script type="text/javascript" src="js/auth.js"></script>
       <link rel="stylesheet" href="css/styles.css">
-      
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
       
   </head>
@@ -18,60 +17,55 @@
       
     <!--Header -->
     <div class="header">
-      <div class="header_logo"><a href="index.html"><img src="img/logo.png" style="width:150px; border:0"></a></div>
-
-      <div id="header_buttons" class="header_buttons">
-        <span onclick="window.location.href='./profile.html'">Account</span>
-        <span onclick="window.location.href='shop.html'">Shop</span>
-        <span onclick="window.location.href='./about.html'">About</span>
-        
-        <span onclick="window.location.href='https://www.facebook.com/groups/261282425387342'"><img src="img/facebook.png" width="20"></span>
+      <div class="header_logo"><a href="index.html"><img src="img/logo.png"></a></div>
+      <div class="header_title">Nepean Allotment<br> Garden Association</div>
+      <div class="header_social">
+        <a href="https://www.facebook.com/groups/261282425387342"><img src="img/facebook.png" width="20" border="0"></a>
+        <a href="https://www.instagram.com/nepean_allotment_gardens/"><img src="img/Instagram.png" width="20" border="0"></a>
       </div>
     </div>
-    <div class="spacer"></div>
 
+
+    <!--Sign in / Sign out -->
+    <div id="loading" style="display:none; width:100%; text-align:center; padding-top:80px"><img src="img/loader.gif" width="50"></div>
+   
+    <div class="hero_container" style="display:block">
+
+      <div id="hero_box" class="hero_signed_out"> <img src="img/hero.jpg"></div>
       
-        
-        <img class="banner" src="img/hero.png">
-        
+      <div class="sign_in">
 
-        <!--Sign in / Sign out -->
-        <div id='loader'> <img src="img/loader.gif" width="20"></div>
-
-        <div class="sign_in">
-
-          <div  id="sign-out" style="display:none;">
-            <h3>You are logged in</h3>
-            <br><br>
-            <img src="img/icon_profile.png" onclick="window.location.href='./profile.html'" width="100">
-            <br><br><b><span id="member_name"></span></b>
-            <br><i><span id="member_email"></span></i>
-            <br>
-            <br><input type="button" onclick="window.location.href='./profile.html'" value ="Go to profile" style="width:100px">  <input type=button onclick="signOut();"  style="width: 100px; background-color:tomato" value="Sign out">
-          </div>
-          
-          <div id='sign-in' style="display:none;">
-            <form>
-            <h1>Sign in</h1>
-            <input type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
-            <br><input  type="password" id="inputPassword"  placeholder="Password" name="password" required>
-            <input type="button" onclick="signInButton();" value="Sign in">
-            <div class="forgot_password" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password</div>
-            </form><br>
-            <h4>Don't have an account?</h4>
-            <input type="button" style="width:150px; margin:0;" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'" value ="Become a member"> 
-          </div>
-          
+        <div  id="sign-out" style="display:none;">
+          <h3>You are logged in</h3>
+          <br><b><span id="member_name"></span></b>
+          <br><i><span id="member_email"></span></i>
+          <br>
+          <br><input type="button" onclick="window.location.href='./profile.html'" value ="My account" style="width:100px">  <input type=button onclick="signOut();"  style="width: 100px; background-color:tomato" value="Sign out">
         </div>
         
-        <img class="banner2" src="img/Rake.png">
+        <div id='sign-in' style="display:none;">
+          <form>
+          <h1>Member sign in</h1>
+          <input type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
+          <br><input  type="password" id="inputPassword"  placeholder="Password" name="password" required>
+          <input type="button" onclick="signInButton();" value="Sign in">
+          <div class="forgot_password" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password</div>
+          </form><br>
+          <h4>Don't have an account?</h4>
+          <br><input type="button" style="width:150px; margin:0;" onclick="window.location.href='https://naga.auth.us-east-1.amazoncognito.com/signup?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'" value ="Become a member"> 
+        </div>
+      </div>
+
+    </div>
+      
         
 
         
     
-      <div class="welcome">
+    <div class="welcome">
         <h2>Welcome</h2>
-        <span>The Nepean Community Gardens were created in 1991. We are one of the largest community gardening sites in Ottawa, with around 250 plots and 200 gardeners. We have three types of plots available from May through October every year:
+        <span>The Nepean Community Gardens were created in 1991. We are one of the largest community gardening sites in Ottawa, Ontario, with around 250 plots and more than 200 active gardeners. 
+          <br><br>We have three types of plots available for lease from May through October each year:
         </span>
 
         <div class="icon_plots">
@@ -106,7 +100,7 @@
              </ul>
           
            We offer free compost to our gardneres, provided by the City of Ottawa. Annual plots are rototilled every spring. Perennials are only available to active NAGA members and they are entirely maintained by the gardener renting them. Seniors (65+) get $5 off on all plots. Rates are per plot per year. 
-          <br><br> 
+          
         </span>
 
 
@@ -127,39 +121,64 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d123.03353575977962!2d-75.71780464337962!3d45.34649274719418!2m3!1f90!2f39.48080688745259!3f0!3m2!1i1024!2i768!4f35!5e1!3m2!1sen!2sca!4v1678311721263!5m2!1sen!2sca" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         
       </div>
-    
-      <h6>Member photos</h6>
-      <div class="gallery">
-        <img src="img/photo_01.jpg">
-        <img src="img/photo_02.jpg">
-        <img src="img/photo_03.jpg">
-        <img src="img/photo_04.jpg">
-        <img src="img/photo_05.jpg">
-        <img src="img/photo_06.jpg">
-        <img src="img/photo_07.jpg">
-        <img src="img/photo_08.jpg">
-        <img src="img/photo_09.jpg">
-        <img src="img/photo_10.jpg">
-        <img src="img/photo_11.jpg">
-        <img src="img/photo_12.jpg">
-        <img src="img/photo_13.jpg">
-        <img src="img/photo_14.jpg">
-        <img src="img/photo_15.jpg">
-        <img src="img/photo_16.jpg">
-        <img src="img/photo_17.jpg">
-        <img src="img/photo_18.jpg">
-        <img src="img/photo_19.jpg">
-        <img src="img/photo_20.jpg">
-        <img src="img/photo_21.jpg">
-        <img src="img/photo_22.jpg">
-        <img src="img/photo_23.jpg">
-        <img src="img/photo_24.jpg">
-        <img src="img/photo_25.jpg">
-        <img src="img/photo_26.jpg">
-        <img src="img/photo_27.jpg">
-      </div>
 
+      <div class="welcome">
+        <h2>Latest photos</h2>
+      </div>
+        <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+        <div class="elfsight-app-fbf71b51-3366-4f15-b668-83d9d8a5651f" data-elfsight-app-lazy></div>
+      
+    
+      
+      <br>
        
+        <h3>Our partners</h3>
+
+        <div class="welcome">
+        <br><img src="img/just_food.jpeg" style="width: 200px; border:1px solid silver">
+         <br><br>NAGA is a proud member of the <a href="https://justfood.ca/">Just Food</a> program. Just Food is a local, non-profit, community-based organization that works on both rural and urban food and farming issues in Ottawa and the surrounding region.
+        </div>
+
+        <div class="welcome">
+          <br><img src="img/debra_dynes.png" style="width: 200px; border:1px solid silver">
+          <br><br>The <a href="https://www.debradynesfamilyhouse.com/" target="_blank">Debra Dynes Family House</a> has been helping families and individuals in Ottawa since 1995. NAGA gardeners have been contributing to their emergency food bank for several years.
+           We have a plot completely dedicated to growing food for the food bank, and we have a collection box every weekend for members to donate produce. 
+          </div>
+           <br><br> 
+
+
+           <div class="welcome">
+            <h3>Board of Directors</h3>
+            <br><b>Chair</b>
+            <br>L. Fernando González
+            <br><br><b>Vice Chair</b>
+            <br>Amanda Lancaster
+            <br><br><b>Registrar</b>
+            <br>Dinesh Katuru
+            <br><br><b>Treasurer</b>
+            <br>Ma'suma Rustam-zade
+            <br><br><b>Secretary</b>
+            <br>Mimi Kho
+            <br><br><b>Water Director</b>
+            <br>Sonja Vanek
+          </div>
+    
+          <div class="welcome">
+          <h3>Contact us</h3>
+          <br><b>Mailing address</b>
+          <br>Nepean Allotment Garden Association (NAGA) 
+          <br>P.O. Box 65073 - Merivale P.O.
+          <br>Ottawa, ON  
+          <br>K2G 5Y3
+          <br>
+          <br><b>Email</b>
+          <br><a href="mailto:nagagardens@gmail.com">nagagardens@gmail.com</a>
+          <br><br><br><div style="width:100%; text-align: right;"><img src="img/Wheelbarrel.png" style="width:200px; margin:0;"></div>
+          
+        </div>
+        
+        
+        
 <script>
   window.onload = function(){
     const temp_var = getUserAttributes();

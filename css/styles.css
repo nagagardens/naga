@@ -1,5 +1,6 @@
 * { box-sizing: border-box; }
 
+
 @font-face {
   font-family: 'heavitas';
   src: url('heavitas-webfont.woff2') format('woff2'),
@@ -17,7 +18,14 @@
 
 }
 
+a:link {
+  text-decoration: none;
 
+}
+
+a:hover {
+  color: green;
+}
 
 .icon_plots {
   width:100%;
@@ -46,6 +54,8 @@
   padding:0;
   
 }
+
+
 
  .tab {
   overflow: hidden;
@@ -236,7 +246,7 @@ input:disabled {
 
 
 
-
+/* For all screens / small mobile */
 
 
 body {
@@ -260,6 +270,7 @@ h2 {
   font-family: 'heavitas';
   font-size: 24pt;
   color: #94C727;
+  margin-top:5;
 }
 
 h3 {
@@ -293,66 +304,111 @@ h6 {
 
 
 
-/* For small mobiles: */
+.welcome {
+  display:inline-block;
+  width:100%;
+  vertical-align: top;
+  padding:25px;
+  text-align: justify;
+}
+
+.welcome h2 { 
+  text-align: left;
+}
+
+
+
+
+.menu_spacer {
+  height:120px;
+}
+
 
 .header {
-  width: 95%;
-  position: fixed;
+  width: 100%;
+  top:0;
   color:#94C727;
   font-family: 'heavitas';
   font-size:12pt;
   background-color: white;
+  vertical-align: bottom;
+  text-align: center;
+  margin-bottom:20px;
+  
 }
 
 .header_logo {
-  width:40%;
-  margin:10px;
-  margin-left:20px;
   margin-top:20px;
+  display: block;
+  text-align: center;
+}
+
+
+.header_logo img {
+  width: 250px;
+  border:0;
+  margin:0;
+  padding:0;
+}
+
+
+.header_title {
+  width:230px;
+  text-align: left;
   display: inline-block;
 }
 
 
-.header_buttons {
-  width:100%;
-  display: flex;
-  justify-content: space-between;
-  padding-bottom:10px;
-  
-}
-
-.header_buttons span {
-  text-align: center;
-  flex-basis: 25%;
-  
+.header_social {
+  text-align: right;
+  display: inline-block;
 }
 
 
-.hero {
-  vertical-align: top;
-}
-.hero div{
-  padding:10px;
+
+
+
+.welcome {
   display:inline-block;
-  
+  width:100%;
+  vertical-align: top;
+  padding:15px;
+  text-align: justify;
 }
-.hero img{
+
+.hero_container {
+  width:100%;
+}
+
+.hero_signed_in {
+  width:100%;
   display:inline-block; 
 }
 
-.banner img{
-  width:100%;
-}
 
-
-.banner{
+.hero_signed_in img {
    width:100%;
-   display:inline-block; 
+   height:200px;
+   object-fit: cover;
+   object-position: right bottom;
+   border-radius: 10px;
   }
 
-.spacer {
-  height:120px;
-}
+  .hero_signed_out {
+    
+    display:inline-block; 
+  }
+  
+  
+  .hero_signed_out img {
+     width:100%;
+     height:200px;
+     object-fit: cover;
+     object-position: right bottom;
+     border-radius: 10px;
+    }
+
+
 .sign_in{
   width:200;
   display:inline-block;
@@ -374,190 +430,182 @@ h6 {
   cursor: pointer;
 }
 
-.banner2 {
-  display:none;
-}
 
-
-
- /* For medium mobile: */
- @media only screen and (min-width: 415px) {
-  .banner2 {
-    width:60px;
-    display: inline-block;
-    margin-left:20px;
-    margin-top:20px;
-    vertical-align: middle;
-  }
- }
- 
- .header_logo {
-  width:50%;
- }
-
-.gallery {
-  column-count: 2;
-  column-gap: 3px;
- }
-
-
- .gallery img{
-  width:100%;
-  padding:3px;
- }
-
-
-.my_profile {
-  width:100%; 
-  display:inline-block;
-  border-radius: 20px;
-  background-color: #f1f1f1;
-  padding:20px;
-}
-
-
-.my_profile div {
-  display: inline-block;
-  width:100%;
-}
-.my_profile input {
-  width:95%;
-}
-
-
-.links ul {
-  list-style: none;
-  padding:0px;
-  
-}
-
-.links li {
-  margin:20px;
-  margin-left:5px;
-}
-
-.links li a {
-  text-decoration: none;
-  color: black;
-  font-size:18px;
-  padding:10px;
-  
-}
-
-.links li img {
-  width:15px;
-  margin-right:5px;
-}
-
-
-.links img {
-  width:80%;
-  max-width: 250px;
-}
 
 .my_plots{
   display:none; 
   width:100%;
 }
 
-.request_plot{
-  width:100%;
-  background-color: #f1f1f1; 
-  padding:20px; 
-  border-radius: 20px;
-
+.admin_console{
+  display:none; 
 }
 
+
+
+.left_bar {
+  width:100%;
+  display:inline-block;
+  vertical-align: top;
+  margin-right:0;
+  padding:0;
+}
+
+
+.left_bar span {
+  margin:5px;
+  margin-right:0;
+  padding:10px;
+  border: 1px solid green;
+  display:block;
+  
+}
+
+
+.left_bar span:hover {
+  background-color: green;
+  color:white;
+  cursor: pointer;
+}
+
+.right_bar {
+  width:100%;
+  display:inline-block;
+  vertical-align: top;
+  padding:20px;
+  padding-top:0;
+}
+
+
+
+  
 .in_line {
   display:inline-block;
-  margin:5px;
-  vertical-align: top;
-  min-width:220px;
-}
-
-.in_line input  {
-  margin: 2px;
-}
-
-.admin_controls {
   width:100%;
-  background-color: #f1f1f1;
-  padding:10px;
+  vertical-align: top;
+  margin:10px;
 }
 
+
+ /* For medium mobile: */
+ @media only screen and (min-width: 415px) {
+
+ 
+
+  .gallery {
+    column-count: 2;
+    column-gap: 3px;
+  }
+
+
+  .gallery img{
+    width:100%;
+    padding:3px;
+  }
+
+
+
+
+  .my_profile div {
+    display: inline-block;
+    width:100%;
+  }
+  .my_profile input {
+    width:130px;
+  }
+
+
+  .links ul {
+    list-style: none;
+    padding:0px;
+    
+  }
+
+  .links li {
+    margin:20px;
+    margin-left:5px;
+  }
+
+  .links li a {
+    text-decoration: none;
+    color: black;
+    font-size:18px;
+    padding:10px;
+    
+  }
+
+  .links li img {
+    width:15px;
+    margin-right:5px;
+  }
+
+
+  .links img {
+    width:80%;
+    max-width: 200px;
+  }
+
+
+  .admin_controls {
+    width:100%;
+    background-color: #f1f1f1;
+    padding:10px;
+  }
+
+}
 
 
  /* For large mobile: */
  @media only screen and (min-width: 500px) {
 
- .header_logo {
-  width:60%;
- }
-
  }
  
 
 /* For tablets: */
-@media only screen and (min-width: 820px) {
+@media only screen and (min-width: 768px) {
   
   .hamburger {
     display: none;
   }
 
-  .header_logo {
-    width:40%;
-  }
 
-  .header_buttons {
-    text-align: right;
-    width:40%;
-    margin:10px;
-    display:inline-block;
-    cursor: pointer;
-  }
 
-  .header_buttons span{
-    margin-right:20px;
+  .header_buttons_container{
+    margin:20px;
+    width:50%;
   }
 
   h5 {
     font-size:12pt;
   }
-  .banner {
+  
+  .hero_signed_in {
     width:60%;
+    display:inline-block; 
   }
-  .spacer {
-    height:100px;
-  }
+
+  .hero_signed_out  {
+    width:60%;
+    
+   }
+  
+  .hero_signed_out img {
+    height:300px;
+   }
+
   
   .sign_in{
-    width:250px;
+  
     vertical-align: top;
     margin-left:10px;
     margin-top:10px;
     
   }
 
-  .banner2 {
-    display:none;
-  }
-
   h1 {
     font-size:18pt;
   }
 
-
-  .welcome {
-    display:inline-block;
-    width:100%;
-    vertical-align: top;
-    padding:40px;
-    text-align: justify;
-  }
-
-  .welcome h2 { 
-    text-align: left;
-  }
 
 
   .gallery {
@@ -569,7 +617,19 @@ h6 {
     padding:10px;
   }
 
+  .left_bar {
+    width:200px;
+  }
 
+  .right_bar {
+    width:400px;
+  }
+
+
+  .hero img {
+    
+    
+  }
   
 }
 
@@ -579,9 +639,9 @@ h6 {
 
 
 
-@media only screen and (min-width: 1020px) {
+@media only screen and (min-width: 1024px) {
   
-  /* For desktop: */
+  /* For laptop/ desktop: */
 
 
   h1 {
@@ -595,70 +655,54 @@ h6 {
     margin-top:20px;
   }
 
+.header_logo img {
+  width: 300px;
+  border:0;
+}
 
-  .header_buttons {
-    margin-right:50px;
-  }
+.header_buttons_container{
+  width:30%;
+  margin-left:150px;
+}
 
-  
-  .banner {
-    width:60%
-  }
+
+.hero_signed_out img {
+  height:400px;
+ }
+
+
+.header_title {
+  width:250px;
+}
   
   .sign_in{
-    width:250px;
     vertical-align: bottom;
     margin-left:20px;
     margin-top:10px;
     
   }
 
-  .banner2 {
-    width:65px;
-    vertical-align: bottom;
-    margin-top:30px;
-    display:inline-block;
-  }
-
-
   .welcome {
     width:45%;
   }
 
 
-  .my_profile {
-    width:100%; 
-    
-  }
 
-
-  .my_plots{
-    width:100%;
-    vertical-align: top;
-    
-  }
 
   .waiting_list {
     display:inline-block;
   }
 
-  .left_bar {
-    width:20%;
-    display:inline-block;
-    vertical-align: top;
-    min-width: 250px;
-  }
+
 
   .right_bar {
-    width:60%;
-    display:inline-block;
-    vertical-align: top;
-    margin-left:20px;
+    width:650px;
   }
 
 
 
-}
+  }
+
 
 
 
@@ -666,15 +710,36 @@ h6 {
   
   /* For big desktop: */
 
-  .banner2 {
-    width:80px;
-  }
-
 
   .gallery {
     column-count: 4;
   }
 
+  .header_logo img {
+    width: 350px;
+    border:0;
+  }
 
+  .hero {
+    width: 50%;
+  }
+
+
+  .right_bar{
+    width:1000px;
+  }
+
+
+  .hero_signed_out img {
+    height:400px;
+   }
+
+
+  .hero_signed_in img {
+    height:300px;
+   }
+
+
+  
 }
 

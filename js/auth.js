@@ -53,7 +53,6 @@ function signInButton() {
 
 function signOut() {
 
-  document.getElementById('loader').style.display = "block";
   document.getElementById('sign-out').style.display = "none"
   
   const data = { 
@@ -112,14 +111,17 @@ function getUserAttributes() {
         console.log(email);
         document.getElementById('member_email').innerHTML =  email;
         showUserInfo(email);
+        document.getElementById('hero_box').className="hero_signed_in";
 
       });
 
     });
   } else {
-    console.log("User is signed-out");
-    document.getElementById('loader').style.display = "none";
-  document.getElementById('sign-in').style.display = "block"
+
+  
+  console.log("User is signed-out");
+  document.getElementById('hero_box').className="hero_signed_out";
+  document.getElementById('sign-in').style.display = "block";
     
   }
 }
@@ -139,7 +141,7 @@ async function showUserInfo(email) {
   
   
   document.getElementById('sign-out').style.display = "inline-block";
-  document.getElementById('loader').style.display = "none";
+  
   
 
   }
