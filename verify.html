@@ -11,34 +11,24 @@
     </head>
 
     <body>
+  <!--Header -->
+  <div class="header">
+    <div class="header_logo"><a href="index.html"><img src="img/logo.png"></a></div>
+    <div class="header_title">Nepean Allotment<br> Garden Association</div>
+    <div class="header_social">
+      <a href="http://www.facebook.com/groups/261282425387342" target="_blank"><img src="img/facebook.png" width="20" border="0"></a>
+      <a href="http://www.instagram.com/nepean_allotment_gardens/" target="_blank"><img src="img/Instagram.png" width="20" border="0"></a>
+    </div>
+  </div>
 
-        <!--Header -->
-        <div class="header">
-            <div class="header_logo"><a href="index.html"><img src="img/logo.png" style="width:150px; border:0"></a></div>
 
-            <div id="header_buttons" class="header_buttons">
-            <span onclick="window.location.href='./profile.html'">Account</span>
-            <span onclick="window.location.href='shop.html'">Shop</span>
-            <span onclick="window.location.href='./about.html'">About</span>
-            <span onclick="window.location.href='https://www.facebook.com/groups/261282425387342'"><img src="img/facebook.png" width="20"></span>
-            <span onclick="window.location.href='https://www.instagram.com/nepean_allotment_gardens/'"><img src="img/Instagram.png" width="20"></span>
-        </div>
-        </div>
-        <div class="spacer"></div>
-        <center><div id="registration1" style="width:500px;  text-align:left">
-            <h3>Thank you for verifying your email</h3>
-            <br><br><form>
-            You can now sign in to your account:
-            <br><br>Email
-            <br><input type="text" id="inputUsername"  name="username" required autofocus>
-            <br>
-            <br>Password
-            <br><input type="password" id="inputPassword"  name="password" required>
-            <br><a style="font-size: small" href='https://naga.auth.us-east-1.amazoncognito.com/forgotPassword?client_id=6mkmj7cfc7vd5g04cgm6lrm6ql&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmain.d1yypu660eufge.amplifyapp.com%2Fverify.html'">Forgot password?</a>
-            <br><p> <input type="button" onclick="signInButton();" value="Sign in"></p>
-        </form>
-        </div>
-        </center>
+    <div id="registration1" style="width:100%;  text-align:center">
+        <br><br>
+        <h3>Thank you for verifying your email</h3>
+        <br><br>
+        You can sign in our <a href="index.html">home page. </a>
+    </div>
+        
           
     </body>
 </html>
