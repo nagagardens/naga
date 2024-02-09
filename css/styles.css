@@ -473,7 +473,6 @@ h6 {
   display:inline-block;
   vertical-align: top;
   padding:20px;
-  padding-top:0;
 }
 
 
@@ -623,6 +622,7 @@ h6 {
 
   .right_bar {
     width:400px;
+    padding-top:0;
   }
 
 
