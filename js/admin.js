@@ -57,7 +57,7 @@ function get_members(){
             
             })
             
-            if(element['admin']) { if(element['admin']['BOOL']== true) {  admin_checkbox="checked"; admin_message="<br><br><img src=img/checkmark.png width=15> Admin"; } else { admin_checkbox=""; admin_message=""; }  } else { admin_checkbox=""; admin_message=""; } 
+            if(element['admin']) { if(element['admin']['BOOL']== true) {  admin_checkbox="checked"; admin_message="<img src=img/icon-star.png width=15> Administrator"; } else { admin_checkbox=""; admin_message=""; }  } else { admin_checkbox=""; admin_message=""; } 
             if(element['has_plots']== true) {  has_plots=member_plots; } else { has_plots="";  } 
             if(element['last_logged_in']) {  last_logged_in=new Date(element['last_logged_in']['S']).toLocaleDateString("en-US", date_options); } else { last_logged_in="";  } 
             full_name=first_name + " " + last_name;
@@ -66,20 +66,24 @@ function get_members(){
             members_table=members_table+ `
                 <tr>
                 <td valign=top>
-                    <div id="display_member_info_${row}">
-                        <div class="in_line">
-                            <b>Email:</b><br><span>${email}</span>
-                            ${admin_message} 
-                        </div>
-                        <div class="in_line"><b>Name:</b><br>${full_name}</div>
-                        <div class="in_line"><b>Address:</b><br>${full_address}</div>
-                        <div class="in_line"><b>Phone number:</b><br>${phone_number}</div>
-                        <div class="in_line"><b>Plots:</b><p>${has_plots}</p></div>
-                        <div class="in_line"><b>Last logged in:</b><br>${last_logged_in}</div>
-                        <br><div class="in_line">
-                        <input type=button onclick='open_edit_member(${row})' value='Edit' >
-                        <input type=button onclick='remove_member("${email}")' value='Delete' style="background-color:tomato">
-                        </div>
+                    <div id="collapsed_member_info_${row}" onclick="expand_member_info(${row},true)" style="padding:5px;cursor:pointer; display:block">
+                        <span style="width:90%; display:inline-block;">${email}</span><span style="display:inline-block"><img src="img/icon-down.png" width="20"></span>
+                    </div>
+                
+                    <div id="display_member_info_${row}" style="padding:5px;display:none">
+                    <div onclick='expand_member_info(${row})'  style="width:100%; cursor:pointer;"><span  style="width:90%; display:inline-block;">${email}</span><span style="display:inline-block"><img src="img/icon-up.png" width="20"></span></div>
+                    <br>
+                    <div class="in_line"><b>Name:</b><br>${full_name}</div>
+                    <div class="in_line"><b>Address:</b><br>${full_address}</div>
+                    <div class="in_line"><b>Phone number:</b><br>${phone_number}</div>
+                    <div class="in_line"><b>Plots:</b><p>${has_plots}</p></div>
+                    <div class="in_line"><b>Last logged in:</b><br>${last_logged_in}</div>
+                    <div class="in_line">
+                    ${admin_message} 
+                    <br><br>
+                    <input type=button onclick='open_edit_member(${row})' value='Edit' >
+                    
+                    </div>
 
                     </div>
                     <div id="edit_member_info_${row}" style="display:none">
@@ -111,6 +115,7 @@ function get_members(){
                         </div>
                         <br><br><input type="button" onclick="edit_member(${row})" value="Save"> 
                         <input type="button" onclick="close_edit_member(${row})" value="Cancel" style="background-color:tomato">
+                        <br><br><input type=button onclick='remove_member("${email}")' value='Delete Account' style="background-color:tomato">
                         <br><br>
                     </div>
                 </td>
@@ -129,6 +134,45 @@ function get_members(){
         
     });
 
+
+}
+
+function expand_member_info (row,open){
+    
+    if(open)
+    {
+        document.getElementById('collapsed_member_info_'+row).style.display='none';
+        document.getElementById('display_member_info_'+row).style.display='block';
+    } else {
+        document.getElementById('collapsed_member_info_'+row).style.display='block';
+        document.getElementById('display_member_info_'+row).style.display='none';
+    }
+
+}
+
+function expand_plot_info (row,open){
+    console.log('hey')
+    if(open)
+    {
+        document.getElementById('collapsed_plot_info_'+row).style.display='none';
+        document.getElementById('show_plot_info_'+row).style.display='block';
+    } else {
+        document.getElementById('collapsed_plot_info_'+row).style.display='block';
+        document.getElementById('show_plot_info_'+row).style.display='none';
+    }
+
+}
+
+function expand_waiting_list (row,open){
+    console.log('hey')
+    if(open)
+    {
+        document.getElementById('collapsed_waiting_list_'+row).style.display='none';
+        document.getElementById('expanded_waiting_list_'+row).style.display='block';
+    } else {
+        document.getElementById('collapsed_waiting_list_'+row).style.display='block';
+        document.getElementById('expanded_waiting_list_'+row).style.display='none';
+    }
 
 }
 
@@ -258,6 +302,8 @@ function close_edit_member (row) {
 
 
 
+
+
 // PLOT FUNCTIONS
 
 function get_plots()
@@ -314,8 +360,14 @@ function get_plots()
                 document.getElementById("plots_row_"+row).insertAdjacentHTML('afterend', `
                 <tr>
                 <td valign=top>
-                    <div id="show_plot_info_${plot_id}">
 
+                <div id="collapsed_plot_info_${plot_id}" onclick="expand_plot_info('${plot_id}',true)" style="cursor:pointer; display:block">
+                <span style="width:90%; display:inline-block;">${plot_id}</span><span style="display:inline-block"><img src="img/icon-down.png" width="20"></span>
+                </div>
+                    <div id="show_plot_info_${plot_id}" style="display:none">
+                    <div onclick="expand_plot_info('${plot_id}')" style="padding:5px;cursor:pointer; display:block">
+                         <span style="width:90%; display:inline-block;">${plot_id}</span><span style="display:inline-block"><img src="img/icon-up.png" width="20"></span>
+                    </div>
                         <div class="in_line">
                             <b>Plot number:</b>
                             <br><h3><span>${plot_id}</span></h3>
@@ -652,23 +704,31 @@ function get_waiting_list()
                 document.getElementById("waiting_list_row_"+row).insertAdjacentHTML('afterend', `<tr>
                 
                 <td valign=top>
-                    <div style="min-width:50px" class="in_line"><b>Position:</b><h3># ${item['place']['N']}</h3></div>
-                    <div class="in_line"><b>Email:</b><br><span id="assign_plot_email_${waiting_list_id}">${item['email']['S']}</span> ${has_plots }</div>
-                    <div class="in_line"><b>Desired plot:</b><br> ${item['plot_number']['S']}</div>
-                    <div class="in_line"><b>Trade:</b><br> ${item['trade_option']['S']}</div>
-                    <div class="in_line"><b>Date joined:</b><br> ${new Date(item['date_added']['S']).toLocaleDateString("en-US", date_options)} </div>
-                    
-                    <br>
-                    <div class="in_line">
-                        <div id="assign_plots_top_${waiting_list_id}">
-                            <input type='button' onclick='open_assign_plot(\"${waiting_list_id}\",\"${plot_type['Title']}\")' value='Assign'>
-                            <input type='button' onclick='delete_from_waiting_list(\"${item['email']['S']}\")' style="background-color:tomato" value='Delete'>
+                    <div id="collapsed_waiting_list_${waiting_list_id}" onclick="expand_waiting_list('${waiting_list_id}',true)" style="cursor:pointer; display:block">
+                    <span style="width:90%; display:inline-block;">${item['place']['N']}) ${item['email']['S']}</span><span style="display:inline-block"><img src="img/icon-down.png" width="20"></span>
+                    </div>
+                    <div id="expanded_waiting_list_${waiting_list_id}" style="display:none">
+                        <div onclick="expand_waiting_list('${waiting_list_id}')" style="padding:5px;cursor:pointer; display:block">
+                            <span style="width:90%; display:inline-block;">${item['place']['N']}) ${item['email']['S']}</span><span style="display:inline-block"><img src="img/icon-up.png" width="20"></span>
                         </div>
-                        <div id="assign_plots_bottom_${waiting_list_id}" style="display:none">
-                        <b> Select plot:</b>
-                        <br> <select style="width:200px;" id='assign_plot_list_${waiting_list_id}'></select>
-                        <br><br> <input type='button' onclick='assign_plot(\"${waiting_list_id}\")' value='Submit'>
-                            <input type='button' onclick='close_assign_plot(\"${waiting_list_id}\")' style="background-color:tomato" value='Cancel'>
+                        <div style="min-width:50px" class="in_line"><b>Position:</b><h3># ${item['place']['N']}</h3></div>
+                        <div class="in_line"><b>Email:</b><br><span id="assign_plot_email_${waiting_list_id}">${item['email']['S']}</span> ${has_plots }</div>
+                        <div class="in_line"><b>Desired plot:</b><br> ${item['plot_number']['S']}</div>
+                        <div class="in_line"><b>Trade:</b><br> ${item['trade_option']['S']}</div>
+                        <div class="in_line"><b>Date joined:</b><br> ${new Date(item['date_added']['S']).toLocaleDateString("en-US", date_options)} </div>
+                        
+                        <br>
+                        <div class="in_line">
+                            <div id="assign_plots_top_${waiting_list_id}">
+                                <input type='button' onclick='open_assign_plot(\"${waiting_list_id}\",\"${plot_type['Title']}\")' value='Assign'>
+                                <input type='button' onclick='delete_from_waiting_list(\"${item['email']['S']}\")' style="background-color:tomato" value='Delete'>
+                            </div>
+                            <div id="assign_plots_bottom_${waiting_list_id}" style="display:none">
+                            <b> Select plot:</b>
+                            <br> <select style="width:200px;" id='assign_plot_list_${waiting_list_id}'></select>
+                            <br><br> <input type='button' onclick='assign_plot(\"${waiting_list_id}\")' value='Submit'>
+                                <input type='button' onclick='close_assign_plot(\"${waiting_list_id}\")' style="background-color:tomato" value='Cancel'>
+                            </div>
                         </div>
                     </div>
                 </td>
