@@ -67,11 +67,11 @@ function get_members(){
                 <tr>
                 <td valign=top>
                     <div id="collapsed_member_info_${row}" onclick="expand_member_info(${row},true)" style="padding:5px;cursor:pointer; display:block">
-                        <span style="width:90%; display:inline-block;">${email}</span><span style="display:inline-block"><img src="img/icon-down.png" width="20"></span>
+                        <span style="width:70%; display:inline-block;">${email}</span><span style="width:30%; text-align:right;  display:inline-block"><img style="vertical-align:bottom" src="img/icon-down.png" width="20"></span>
                     </div>
                 
                     <div id="display_member_info_${row}" style="padding:5px;display:none">
-                    <div onclick='expand_member_info(${row})'  style="width:100%; cursor:pointer;"><span  style="width:90%; display:inline-block;">${email}</span><span style="display:inline-block"><img src="img/icon-up.png" width="20"></span></div>
+                    <div onclick='expand_member_info(${row})'  style="width:100%; cursor:pointer;"><span  style="width:70%; display:inline-block;">${email}</span><span style="width:30%; text-align:right; display:inline-block"><img style="vertical-align:bottom" src="img/icon-up.png" width="20"></span></div>
                     <br>
                     <div class="in_line"><b>Name:</b><br>${full_name}</div>
                     <div class="in_line"><b>Address:</b><br>${full_address}</div>
@@ -361,12 +361,12 @@ function get_plots()
                 <tr>
                 <td valign=top>
 
-                <div id="collapsed_plot_info_${plot_id}" onclick="expand_plot_info('${plot_id}',true)" style="cursor:pointer; display:block">
-                <span style="width:90%; display:inline-block;">${plot_id}</span><span style="display:inline-block"><img src="img/icon-down.png" width="20"></span>
+                <div id="collapsed_plot_info_${plot_id}" onclick="expand_plot_info('${plot_id}',true)" style="padding:5px;cursor:pointer; display:block">
+                <span style="width:70%; display:inline-block;">${plot_id}</span><span style="width:30%; text-align:right; display:inline-block"><img  style="vertical-align:bottom" src="img/icon-down.png" width="20"></span>
                 </div>
                     <div id="show_plot_info_${plot_id}" style="display:none">
                     <div onclick="expand_plot_info('${plot_id}')" style="padding:5px;cursor:pointer; display:block">
-                         <span style="width:90%; display:inline-block;">${plot_id}</span><span style="display:inline-block"><img src="img/icon-up.png" width="20"></span>
+                         <span style="width:70%; display:inline-block;">${plot_id}</span><span style="width:30%; text-align:right; display:inline-block"><img  style="vertical-align:bottom" src="img/icon-up.png" width="20"></span>
                     </div>
                         <div class="in_line">
                             <b>Plot number:</b>
@@ -448,12 +448,14 @@ function get_plots()
                         <input type='button'  onclick='edit_plot("${plot_id}",document.getElementById("occupant_${plot_id}").value);' value='Submit'>  
                         <input type='button'  onclick='close_edit_plot("${plot_id}")' value='Cancel 'style='background-color:tomato'>
 
-                    </div>
-
 
                         <div class="in_line" id="edit_plot_buttons1_${plot_id}">
                         </div>
                         <div class="in_line" id="edit_plot_buttons2_${plot_id}" style="display:none">
+
+                    </div>
+a
+
                            
                         </div>
                 </td>
@@ -705,11 +707,11 @@ function get_waiting_list()
                 
                 <td valign=top>
                     <div id="collapsed_waiting_list_${waiting_list_id}" onclick="expand_waiting_list('${waiting_list_id}',true)" style="cursor:pointer; display:block">
-                    <span style="width:90%; display:inline-block;">${item['place']['N']}) ${item['email']['S']}</span><span style="display:inline-block"><img src="img/icon-down.png" width="20"></span>
+                    <span style="width:70%; display:inline-block;">${item['place']['N']}) ${item['email']['S']}</span><span style="width:30%; text-align:right; display:inline-block"><img style="vertical-align:bottom"  src="img/icon-down.png" width="20"></span>
                     </div>
                     <div id="expanded_waiting_list_${waiting_list_id}" style="display:none">
                         <div onclick="expand_waiting_list('${waiting_list_id}')" style="padding:5px;cursor:pointer; display:block">
-                            <span style="width:90%; display:inline-block;">${item['place']['N']}) ${item['email']['S']}</span><span style="display:inline-block"><img src="img/icon-up.png" width="20"></span>
+                            <span style="width:70%; display:inline-block;">${item['place']['N']}) ${item['email']['S']}</span><span style="width:30%; text-align:right; display:inline-block"><img style="vertical-align:bottom"  src="img/icon-up.png" width="20"></span>
                         </div>
                         <div style="min-width:50px" class="in_line"><b>Position:</b><h3># ${item['place']['N']}</h3></div>
                         <div class="in_line"><b>Email:</b><br><span id="assign_plot_email_${waiting_list_id}">${item['email']['S']}</span> ${has_plots }</div>
