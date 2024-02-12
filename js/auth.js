@@ -84,6 +84,7 @@ function signOut() {
 
 
 function getUserAttributes() {
+  document.getElementById('loading_account').style.display="block";
   
   var data = {
     UserPoolId : _config.cognito.userPoolId,
@@ -112,6 +113,7 @@ function getUserAttributes() {
         document.getElementById('member_email').innerHTML =  email;
         showUserInfo(email);
         document.getElementById('hero_box').className="hero_signed_in";
+        
 
       });
 
@@ -122,6 +124,7 @@ function getUserAttributes() {
   console.log("User is signed-out");
   document.getElementById('hero_box').className="hero_signed_out";
   document.getElementById('sign-in').style.display = "block";
+  document.getElementById('loading_account').style.display="none";
     
   }
 }
@@ -141,7 +144,7 @@ async function showUserInfo(email) {
   
   
   document.getElementById('sign-out').style.display = "inline-block";
-  
+  document.getElementById('loading_account').style.display="none";
   
 
   }
