@@ -291,7 +291,7 @@ function get_my_waiting_list(){
         <br><b>Plot number:</b> ${plot_number}.
         <br><b>Trade:</b> ${trade_option}.
         <br><b>Date joined:</b> ${ new Date(response['Item']['date_added']).toLocaleDateString("en-US", date_options)  }
-        <br><br>You are currently #${place} in line. 
+        <!-- <br><br>You are currently #${place} in line. -->
       <br><br><input type=button value='Cancel request' style='background-color:tomato; width:200px' onclick='delete_from_waiting_list(\"${email}\", true)'>
       </div>
       `;
